@@ -16,7 +16,7 @@ export default function Footer(){
                         <Link to="#" className="footerlink" >Contact Us</Link>
                     </li>
                 </ul>
-                <span style={{ float: "right", display: "inline"}}>Copyright 2020. Radiant Developers</span>
+                <span style={{ float: "right", display: "inline"}}>Copyright 2020. Radiant Developers </span>
             </div>
 
         </>
