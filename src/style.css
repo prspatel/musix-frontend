@@ -3,7 +3,6 @@
 /* reset */
 
 * {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -52,41 +51,34 @@ body {
 
 .container {
     margin: 0 auto;
-    max-width: 900px;
+}
+/*slogan*/
+.slogan {
+    padding: 10% 0 0 5%;
+    color: #696969
 }
 
-/* header */
-
-#header {
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e02525;
+/* footer */
+.footer {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #D3D3D3;
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
-    #header .title {
-        margin: 0;
-        padding: 0 1rem;
-        color: #ffffff;
-    }
+.footer ul li {
+    display: inline;
+    margin: 10px;
+    padding: 10px;
+}
 
-    #header .auth-options {
-        height: 100%;
-        display: flex;
-    }
-
-        #header .auth-options button {
-            padding: 0 1rem;
-            background-color: #b91b1b;
-            color: #ffffff;
-            font-size: 1.1rem;
-        }
-
-            #header .auth-options button:hover {
-                background-color: #be3a3a;
-            }
-
+.footerlink {
+    text-decoration: none;
+    color: black;
+}
 /* form */
 
 .form label,
@@ -127,16 +119,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* todo list */
-
-.todo-list ul {
-    list-style: disc;
-    cursor: pointer;
-}
-
-.todo-list li:hover {
-    text-decoration: line-through;
-}
 
 /* error notice */
 
@@ -171,4 +153,3 @@ body {
         font-size: 0.9rem;
     }
 }
-l
