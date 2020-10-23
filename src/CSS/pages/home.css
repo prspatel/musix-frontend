@@ -1,0 +1,27 @@
+/*slogan*/
+.slogan {
+    padding: 10% 0 0 5%;
+    color: #696969;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: 600;
+}
+
+
+#dummy-albums {
+    padding: 0 15% 0 15%;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/*cover images styling*/
+.cover-images {
+    margin-top: 2.5%;
+    padding: 10px;
+    border-radius: 20px;
+    height: 250px;
+    width: 250px;
+    display: inline;
+}

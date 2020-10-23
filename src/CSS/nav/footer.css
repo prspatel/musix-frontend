@@ -1,0 +1,23 @@
+/* footer */
+.footer {
+	margin-top: 1rem;
+	padding: 1rem;
+	background-color: #D3D3D3;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+	.footer ul li {
+		display: inline;
+		margin: 10px;
+		padding: 10px;
+	}
+
+.footerlink {
+	text-decoration: none;
+	color: black;
+	font-family: 'Roboto', sans-serif;
+	font-style: italic;
+}
