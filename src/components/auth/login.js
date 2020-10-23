@@ -3,6 +3,11 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../misc/userContext";
 import Axios from "axios";
 import ErrorNotice from "../misc/error";
+import logo from '../../images/logo2.png';
+
+
+import "../../CSS/auth/login.css"
+ 
 
 export default function Login() {
     const [email, setEmail] = useState();
@@ -33,28 +38,33 @@ export default function Login() {
         }
     };
     return (
-        <div className="page">
-            <h2>Log in</h2>
-            {error && (
-                <ErrorNotice message={error} clearError={() => setError(undefined)} />
-            )}
-            <form className="form" onSubmit={submit}>
-                <label htmlFor="login-email">Email</label>
+        <section id = "section">
+            <form className="box" onSubmit={submit}>
+                <img className="logo" src={logo} alt="logo" /> 
+                <hr class="solid"/>
+                <h2>Login</h2>
+                {error && (
+                    <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                )}
+            
                 <input
                     id="login-email"
                     type="email"
+                    placeholder="email address"
                     onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <label htmlFor="login-password">Password</label>
                 <input
                     id="login-password"
                     type="password"
+                    placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <input type="submit" value="Log in" />
+                <hr class="solid" />
+                <a href="/register">Create an account? </a>
             </form>
-        </div>
+        </section>
     );
 }
