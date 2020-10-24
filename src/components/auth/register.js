@@ -5,9 +5,6 @@ import Axios from "axios";
 import ErrorNotice from "../misc/error";
 import logo from '../../images/logo2.png';
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 import "../../CSS/auth/register.css"
 
 export default function Register() {
@@ -44,14 +41,14 @@ export default function Register() {
     const changeType = (e) =>{
         let dob=document.getElementById("register-dob")
         console.log(dob.type)
-        if (dob.type=="date")
+        if (dob.type==="date")
             dob.type="name"
         else
             dob.type="date"
     }
 
     return (
-        <section id = "section">
+        <section id = "section-register">
         <form className="box" onSubmit={submit}>
             <img className="logo" src={logo} alt="logo" /> 
             <hr class="solid"/>

@@ -36,7 +36,7 @@ export default function Login() {
         }
     };
     return (
-        <section id = "section">
+        <section id = "section-login">
             <form className="box" onSubmit={submit}>
                 <img className="logo" src={logo} alt="logo" /> 
                 <hr class="solid"/>
