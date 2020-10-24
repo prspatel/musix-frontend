@@ -8,7 +8,7 @@ import logo from '../../images/logo2.png';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import "../../CSS/auth/login.css"
+import "../../CSS/auth/register.css"
 
 export default function Register() {
     const [email, setEmail] = useState();
@@ -40,7 +40,7 @@ export default function Register() {
             err.response.data.msg && setError(err.response.data.msg);
         }
     };
-    
+
     const changeType = (e) =>{
         let dob=document.getElementById("register-dob")
         console.log(dob.type)
