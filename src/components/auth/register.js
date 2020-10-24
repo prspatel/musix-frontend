@@ -5,6 +5,9 @@ import Axios from "axios";
 import ErrorNotice from "../misc/error";
 import logo from '../../images/logo2.png';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import "../../CSS/auth/login.css"
 
 export default function Register() {
@@ -12,16 +15,17 @@ export default function Register() {
     const [password, setPassword] = useState();
     const [firstname, setFirstName] = useState();
     const [lastname, setLastName] = useState();
+    const [dob, setDOB] = useState();
     const [error, setError] = useState();
-
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
+
     const submit = async (e) => {
         e.preventDefault();
         try {
             console.log(email);
             console.log(password);
-            const loginUser = { email, password, firstname, lastname};
+            const loginUser = { email, password, firstname, lastname, dob};
             const loginRes = await Axios.post(
                 "http://localhost:5000/users/login",
                 loginUser
@@ -31,11 +35,21 @@ export default function Register() {
                 user: loginRes.data.user,
             });
             localStorage.setItem("auth-token", loginRes.data.token);
-            history.push("/");
+            history.push("/login");
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
     };
+    
+    const changeType = (e) =>{
+        let dob=document.getElementById("register-dob")
+        console.log(dob.type)
+        if (dob.type=="date")
+            dob.type="name"
+        else
+            dob.type="date"
+    }
+
     return (
         <section id = "section">
         <form className="box" onSubmit={submit}>
@@ -58,9 +72,17 @@ export default function Register() {
                 type= "name"
                 placeholder="last name"
                 onChange={(e) => setLastName(e.target.value)}
-            /> 
-            
-        
+            />
+
+            <input 
+                id="register-dob"
+                type="name" 
+                placeholder="date of birth"
+                onFocus={changeType}
+                onBlur={changeType}
+                onChange={(e) => setDOB(e.target.value)}
+            />
+
             <input
                 id="register-email"
                 type="email"
