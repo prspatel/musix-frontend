@@ -5,9 +5,7 @@ import Axios from "axios";
 import ErrorNotice from "../misc/error";
 import logo from '../../images/logo2.png';
 
-
 import "../../CSS/auth/login.css"
- 
 
 export default function Login() {
     const [email, setEmail] = useState();
