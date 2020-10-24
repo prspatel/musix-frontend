@@ -4,8 +4,6 @@ import UserContext from "../misc/userContext";
 import Axios from "axios";
 import ErrorNotice from "../misc/error";
 import logo from '../../images/logo2.png';
-
-
 import "../../CSS/auth/register.css"
 
 export default function Register() {
@@ -50,7 +48,7 @@ export default function Register() {
     }
 
     return (
-        <section id = "section">
+        <section id = "section-register">
         <form className="box" onSubmit={submit}>
             <img className="logo" src={logo} alt="logo" /> 
             <hr class="solid"/>

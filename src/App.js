@@ -41,16 +41,16 @@ export default function App() {
 
         checkLoggedIn();
     }, []);
+/* Need to figure out the protected path*/
     return (
         <>
-
             <BrowserRouter>
                 <UserContext.Provider value={{ userData, setUserData }}>
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
-                        <Route path="/collexDash" component={collexDash}/>
+                        <Route path="/collexDash" component={collexDash}  />
                     </Switch>
                 </UserContext.Provider>
             </BrowserRouter>

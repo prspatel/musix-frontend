@@ -1,4 +1,4 @@
-#section {
+#section-register {
     background-image: url("../../images/registerbg.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -35,7 +35,7 @@
     margin: 20px auto;
     text-align: center;
     border: 2px solid #69b1ec;
-    padding: 14px 10px;
+    padding: 6px 10px;
     outline: none;
     border-radius: 24px;
     transition: 0.25s;
