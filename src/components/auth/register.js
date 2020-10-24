@@ -5,16 +5,15 @@ import Axios from "axios";
 import ErrorNotice from "../misc/error";
 import logo from '../../images/logo2.png';
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 import "../../CSS/auth/register.css"
 
 export default function Register() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [firstname, setFirstName] = useState();
-    const [lastname, setLastName] = useState();
+    const [passwordCheck, setPasswordCheck] = useState();
+    const [fname, setFirstName] = useState();
+    const [lname, setLastName] = useState();
     const [dob, setDOB] = useState();
     const [error, setError] = useState();
     const { setUserData } = useContext(UserContext);
@@ -25,9 +24,9 @@ export default function Register() {
         try {
             console.log(email);
             console.log(password);
-            const loginUser = { email, password, firstname, lastname, dob};
+            const loginUser = { fname, lname, email, dob,  password, passwordCheck};
             const loginRes = await Axios.post(
-                "http://localhost:5000/users/login",
+                "http://localhost:5000/users/register",
                 loginUser
             );
             setUserData({
@@ -35,7 +34,7 @@ export default function Register() {
                 user: loginRes.data.user,
             });
             localStorage.setItem("auth-token", loginRes.data.token);
-            history.push("/login");
+            history.push("/");
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
@@ -44,7 +43,7 @@ export default function Register() {
     const changeType = (e) =>{
         let dob=document.getElementById("register-dob")
         console.log(dob.type)
-        if (dob.type=="date")
+        if (dob.type==="date")
             dob.type="name"
         else
             dob.type="date"
@@ -64,7 +63,8 @@ export default function Register() {
                 id="register-firstname"
                 type= "name"
                 placeholder="first name"
-                onChange={(e) => setFirstName(e.target.value)}
+                required
+                onChange={(e) => setFirstName(e.target.value) }
             />
 
             <input
@@ -101,7 +101,7 @@ export default function Register() {
                 id="register-password"
                 type="password"
                 placeholder="confirm password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPasswordCheck(e.target.value)}
             />
 
             <input type="submit" value="Register" />

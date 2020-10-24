@@ -5,8 +5,8 @@ import Home from './components/pages/home';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
 import UserContext from "./components/misc/userContext";
-
 import "./style.css";
+import collexDash from "./components/collex/collexDash";
 
 
 export default function App() {
@@ -50,6 +50,7 @@ export default function App() {
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
+                        <Route path="/collexDash" component={collexDash}/>
                     </Switch>
                 </UserContext.Provider>
             </BrowserRouter>

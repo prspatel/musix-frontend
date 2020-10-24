@@ -30,7 +30,7 @@ export default function Login() {
                 user: loginRes.data.user,
             });
             localStorage.setItem("auth-token", loginRes.data.token);
-            history.push("/");
+            history.push("/collexDash");
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
