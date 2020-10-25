@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link} from 'react-router-dom'
 import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
 import Nav from '../nav/nav2';
 
 import "../../CSS/collex/collexDash.css"
@@ -69,8 +69,8 @@ export default function CollexDash() {
 
         fetchData();
     }, []);
- 
 
+    
         return (
             <>
                 <Nav />
@@ -95,7 +95,7 @@ export default function CollexDash() {
                                 <Card.Text>
                                     {item.description}
                                     </Card.Text>
-                                <Button variant="primary">View this collex</Button>
+                                <Link to={`collexDash/${item._id}`}>View this collex</Link>
                             </Card.Body>
                         </Card>
                     )) : <h1>No data</h1>}

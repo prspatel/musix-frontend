@@ -15,7 +15,7 @@
 
 hr.solid {
     border-color: darkgrey;
-    width: 65%;
+    width: 70%;
 }
 .search-bar input {
     border: 0;
@@ -38,8 +38,8 @@ hr.solid {
 .collex-cards {
     padding: 0 15% 0 15%;
     display: flex;
-    justify-content: normal;
+    justify-content: space-between;
     flex-wrap: wrap;
-    grid-gap: 12px;
+    grid-gap: 25px;
 }
 
