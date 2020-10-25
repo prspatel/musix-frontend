@@ -59,7 +59,7 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <input type="submit" value="Log in" />
+                <input type="submit" value="Log In" />
                 <hr class="solid" />
                 <a href="/register">Create an account? </a>
             </form>

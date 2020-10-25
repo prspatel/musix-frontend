@@ -1,0 +1,439 @@
+$greyDark: #f1eeee;
+$greyLight: #faf5f5;
+$greyLighter: #f5eded;
+$greyText: #faf2f2;
+$greyNav: #dfc5c5;
+$blueMain: #699bec;
+
+@font-face {
+  font-family: circular-book;
+  src: url(../fonts/CircularStd-Book.otf);
+}
+
+@font-face {
+  font-family: circular-bold;
+  src: url(../fonts/CircularStd-Bold.otf);
+}
+
+@font-face {
+  font-family: circular-black;
+  src: url(../fonts/CircularStd-Black.otf);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.smallText {
+  font-size: 0.75rem;
+  letter-spacing: 0.8px;
+  &.bold {
+    font-weight: 600;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: circular-book;
+}
+
+.subText {
+  font-size: 0.9rem;
+  color: $greyText;
+}
+
+.App {
+  height: calc(100vh - 90px);
+  background: $greyLight;
+  display: flex;
+}
+
+.navBar {
+  width: 260px;
+  height: 100%;
+  background: $greyDark;
+  padding: 10px 10px 0;
+  display: flex;
+  flex-direction: column;
+  .logo {
+    padding: 1rem 0.8rem;
+    svg {
+      max-width: 130px;
+      p {
+        fill: white;
+      }
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:visited {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+    li {
+      color: $greyText;
+      list-style-type: none;
+      border-radius: 5px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      font-family: circular-bold;
+      display: flex;
+      align-items: center;
+
+      svg {
+        fill: currentColor;
+        margin-right: 15px;
+      }
+      &.active {
+        background: $greyLighter;
+        color: white;
+        svg {
+          fill: white;
+        }
+      }
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  .cookies {
+    font-size: 0.6rem;
+    color: $greyText;
+    text-align: center;
+    margin-top: auto;
+    padding: 1rem;
+    span {
+      display: block;
+    }
+  }
+}
+
+.outerWrap {
+  background:grey;
+  height: 100vh;
+  min-height: 100%;
+}
+
+.musicControls {
+  background: $greyLighter;
+  text-align: center;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 2;
+  position: relative;
+  border-top: 1px solid $greyDark;
+}
+
+.upperNav {
+  background: rgba(9, 9, 9, 0.78);
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 0.5rem 2rem;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+
+.main {
+  width: 100%;
+  overflow-y: scroll;
+  position: relative;
+  padding-top: 3.4rem;
+  .mainContent {
+    color: white;
+
+    .mainInner {
+      padding: 0.5rem 2rem;
+    }
+    h1,
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.cardsWrap {
+  padding-bottom: 0.8rem;
+  h2 {
+    margin-bottom: 0;
+  }
+  .cardsWrapInner {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(164px, 1fr));
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+  .subText {
+    margin-top: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .card {
+    background: $greyLighter;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 1.2rem;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    &:hover {
+      .playIcon {
+        opacity: 1;
+      }
+    }
+    .cardImage {
+      height: 160px;
+      box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3),
+        0 1px 2px 0 rgba(0, 0, 0, 0.2);
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .cardContent {
+      padding: 0.4rem 0;
+      h3 {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        letter-spacing: 0.6px;
+      }
+      span {
+        font-size: 0.8rem;
+        color: $greyText;
+      }
+    }
+  }
+}
+
+.playIcon { //The play button for the playlist
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  background: #5ab9ea;
+  margin-left: auto;
+  opacity: 0;
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  svg {
+    margin: auto;
+    fill:white;
+  }
+  &:hover{
+    background:#5680e9;
+    svg{
+      color:white;
+    }
+  }
+}
+
+.playlistPage {
+  background-color: rgb(199, 204, 230);
+  .mainInner {
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(rgba(33, 40, 139, 0.603)),
+      color-stop(40%, #376dd1)
+    );
+    background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .playlistPageInfo {
+    // width: 300px;
+    text-align: center;
+    padding: 1.5rem 0;
+    display: flex;
+    .playlistPageImage {
+      width: 250px;
+      height: 250px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        -webkit-box-shadow: 0 4px 60px #5680e9;
+        box-shadow: 0 4px 60px #5680e9;
+      }
+    }
+  }
+  .playlistPageSongs {
+    height: 100%;
+    .playlistButtons {
+      display: flex;
+      align-items: center;
+    }
+    .playIcon {
+      @extend .playIcon;
+      opacity: 1;
+      position: relative;
+      margin-left: 0;
+      height: 56px;
+      width: 56px;
+      right: 0;
+      bottom: 0;
+      svg {
+        height: 26px;
+        width: 26px;
+      }
+    }
+    .icons {
+      .icon {
+        margin-left: 1.5rem;
+        float:left;
+      }
+      .iconsHeart { //The heart icon for the playlist
+        width: 28px;
+        height: 28px;
+        svg {
+          fill: black;
+        }
+        &:hover{
+          svg{
+            fill:white;
+          }
+        }
+      }
+      .iconsEdit { //The edit icon for the playlist
+        width: 28px;
+        height: 28px;
+        svg {
+          fill: black;
+        }
+        &:hover{
+          svg{
+            fill:white;
+          }
+        }
+      }
+    }
+  }
+  .playlistPageContent {
+    text-align: left;
+    padding: 1.5rem 2rem;
+    h1 {
+      font-size: 7rem;
+      margin: 0;
+      line-height: 1;
+      font-family: circular-black;
+      word-spacing: -18px;
+      letter-spacing: -6px;
+    }
+    .tagline {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .playlistPageDesc {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      p {
+        margin: 0;
+      }
+      span {
+        opacity: 0.7;
+        position: relative;
+        padding-left: 20px;
+        &:before {
+          content: '';
+          width: 4px;
+          height: 4px;
+          background: white;
+          overflow: hidden;
+          border-radius: 50%;
+          position: absolute;
+          margin-left: -10px;
+          top: 9px;
+        }
+      }
+    }
+  }
+}
+
+ul.songList {
+  padding: 0;
+  li {
+    list-style-type: none;
+    width: 100%;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s ease-in-out;
+    &:hover {
+      background: #5ab9ea;
+      .songDetails {
+        h3 {
+          color:white;
+        }
+        span {
+          color:white;
+        }
+      }
+      .songIcon {
+        .noteI {
+          display: none;
+          color:white;
+        }
+        .playI {
+          display: block;
+          color:white;
+        }
+      }
+      .songTime {
+        color:white;
+      }
+    }
+    .songDetails {
+      h3 {
+        color:black;
+        margin: 0;
+        font-weight: 300;
+        font-size: 1rem;
+      }
+      span {
+        color: black;
+        font-size: 0.9rem;
+      }
+    }
+    .songTime {
+      margin-left: auto;
+    }
+    .songIcon {
+      padding-right: 1rem;
+      .playI {
+        display: none;
+      }
+      svg {
+        fill: black;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}

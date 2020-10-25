@@ -4,6 +4,7 @@ import Axios from "axios";
 import Home from './components/pages/home';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
+import Playlist from './components/pages/playlist';
 import UserContext from "./components/misc/userContext";
 
 import "./style.css";
@@ -50,6 +51,7 @@ export default function App() {
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
+                        <Route path="/playlist" component={Playlist}/>
                     </Switch>
                 </UserContext.Provider>
             </BrowserRouter>
