@@ -32,7 +32,7 @@ export default function Register() {
                 user: loginRes.data.user,
             });
             localStorage.setItem("auth-token", loginRes.data.token);
-            history.push("/");
+            history.push("/login");
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
@@ -51,7 +51,7 @@ export default function Register() {
         <section id = "section-register">
         <form className="box" onSubmit={submit}>
             <img className="logo" src={logo} alt="logo" /> 
-            <hr class="solid"/>
+            <hr className="solid"/>
             <h2>Register</h2>
             {error && (
                 <ErrorNotice message={error} clearError={() => setError(undefined)} />
@@ -96,14 +96,14 @@ export default function Register() {
             />
 
             <input
-                id="register-password"
+                id="register-passwordCheck"
                 type="password"
                 placeholder="confirm password"
                 onChange={(e) => setPasswordCheck(e.target.value)}
             />
 
             <input type="submit" value="Register" />
-            <hr class="solid" />
+            <hr className="solid" />
             <a href="/login">Already have an account? </a> 
         </form>
     </section>

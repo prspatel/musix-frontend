@@ -23,6 +23,7 @@ export default function Nav1() {
 
     return (
         <>
+
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#home" style={{ marginLeft: "1.5%" }}>
                     <img
@@ -30,7 +31,6 @@ export default function Nav1() {
                         height="40"
                         className="d-inline-block align-top"
                         alt="Musix logo"
-
                     />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

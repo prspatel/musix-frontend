@@ -19,7 +19,7 @@ export default function App() {
     useEffect(() => {
         const checkLoggedIn = async () => {
             let token = localStorage.getItem("auth-token");
-            if (token === null) {
+            if (token.value === null) {
                 localStorage.setItem("auth-token", "");
                 token = "";
             }

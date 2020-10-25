@@ -35,3 +35,11 @@ hr.solid {
 .search-bar input:focus{
     border-color:lightgreen;
 }
+.collex-cards {
+    padding: 0 15% 0 15%;
+    display: flex;
+    justify-content: normal;
+    flex-wrap: wrap;
+    grid-gap: 12px;
+}
+
