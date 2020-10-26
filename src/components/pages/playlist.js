@@ -1,5 +1,5 @@
 import React from "react";
-import Nav2 from "../nav/nav2";
+import Nav from "../nav/nav2";
 import Footer from "../nav/footer";
 
 import { ReactComponent as PlayIcon } from '../../images/play.svg'
@@ -12,7 +12,7 @@ import "../../CSS/pages/playlist.scss"
 export default function Playlist() {
     return (
         <>
-        <Nav2 />
+        <Nav />
         <div className="playlistPage">
         <div className="mainInner">
         <div className="playlistPageInfo">
