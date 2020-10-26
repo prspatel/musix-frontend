@@ -5,9 +5,7 @@ import Axios from "axios";
 import ErrorNotice from "../misc/error";
 import logo from '../../images/logo2.png';
 
-
 import "../../CSS/auth/login.css"
- 
 
 export default function Login() {
     const [email, setEmail] = useState();
@@ -20,8 +18,7 @@ export default function Login() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            console.log(email);
-            console.log(password);
+            
             const loginUser = { email, password };
             const loginRes = await Axios.post(
                 "http://localhost:5000/users/login",
@@ -32,16 +29,16 @@ export default function Login() {
                 user: loginRes.data.user,
             });
             localStorage.setItem("auth-token", loginRes.data.token);
-            history.push("/");
+            history.push("/collexDash");
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
     };
     return (
-        <section id = "section">
+        <section id = "section-login">
             <form className="box" onSubmit={submit}>
                 <img className="logo" src={logo} alt="logo" /> 
-                <hr class="solid"/>
+                <hr className="solid"/>
                 <h2>Login</h2>
                 {error && (
                     <ErrorNotice message={error} clearError={() => setError(undefined)} />
@@ -50,6 +47,7 @@ export default function Login() {
                 <input
                     id="login-email"
                     type="email"
+                    required
                     placeholder="email address"
                     onChange={(e) => setEmail(e.target.value)}
                 />
@@ -57,12 +55,13 @@ export default function Login() {
                 <input
                     id="login-password"
                     type="password"
+                    required
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <input type="submit" value="Log in" />
-                <hr class="solid" />
+                <hr className="solid" />
                 <a href="/register">Create an account? </a>
             </form>
         </section>
