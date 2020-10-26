@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500;700&display=swap');
+
+.collex-heading {
+    text-align: center;
+    color: #696969;
+    font-family: 'Turret Road', cursive;
+    margin-top: 8%;
+    font-weight: 500;
+    font-size: 56px;
+}
+
+.search-bar {
+    text-align: center;
+}
+
+hr.solid {
+    border-color: darkgrey;
+    width: 70%;
+}
+.search-bar input {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 40px auto;
+    text-align: center;
+    border: 2px solid #69b1ec;
+    padding: 14px 10px;
+    outline: none;
+    border-radius: 24px;
+    transition: 0.25s;
+    color: black;
+    width: 50%;
+}
+
+.search-bar input:focus{
+    border-color:lightgreen;
+}
+.collex-cards {
+    padding: 0 15% 0 15%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    grid-gap: 25px;
+}
+

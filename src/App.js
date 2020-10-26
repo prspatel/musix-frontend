@@ -5,9 +5,12 @@ import Home from './components/pages/home';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
 import Playlist from './components/pages/playlist';
+import User from './components/pages/user';
 import UserContext from "./components/misc/userContext";
-
 import "./style.css";
+import collexDash from "./components/collex/collexDash";
+import collexPage from "./components/collex/collexPage";
+
 
 
 export default function App() {
@@ -20,7 +23,7 @@ export default function App() {
     useEffect(() => {
         const checkLoggedIn = async () => {
             let token = localStorage.getItem("auth-token");
-            if (token === null) {
+            if (token.value === null) {
                 localStorage.setItem("auth-token", "");
                 token = "";
             }
@@ -42,9 +45,9 @@ export default function App() {
 
         checkLoggedIn();
     }, []);
+/* Need to figure out the protected path*/
     return (
         <>
-
             <BrowserRouter>
                 <UserContext.Provider value={{ userData, setUserData }}>
                     <Switch>
@@ -52,6 +55,9 @@ export default function App() {
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
                         <Route path="/playlist" component={Playlist}/>
+                        <Route path="/user" component={User}/>
+                        <Route exact path="/collexDash" component={collexDash} />
+                        <Route path="/collexDash/:collexId" component={collexPage} />
                     </Switch>
                 </UserContext.Provider>
             </BrowserRouter>

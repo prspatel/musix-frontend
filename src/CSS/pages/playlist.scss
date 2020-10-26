@@ -1,7 +1,7 @@
 $greyDark: #f1eeee;
 $greyLight: #faf5f5;
 $greyLighter: #f5eded;
-$greyText: #faf2f2;
+$greyText: #5c5151;
 $greyNav: #dfc5c5;
 $blueMain: #699bec;
 
@@ -251,7 +251,8 @@ body {
 }
 
 .playlistPage {
-  background-color: rgb(199, 204, 230);
+  background-color: #84ceeb;
+  height:100vh;
   .mainInner {
     background-image: -webkit-gradient(
       linear,
