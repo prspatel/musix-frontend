@@ -62,6 +62,7 @@ export default function Login() {
 
                 <input type="submit" value="Log in" />
                 <hr className="solid" />
+
                 <a href="/register">Create an account? </a>
             </form>
         </section>

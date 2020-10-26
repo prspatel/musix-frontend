@@ -8,12 +8,11 @@
 }
 
 .header {
-    margin: 3% 15% 0 15%;
+    margin: 3% 10% 0 10%;
 }
 .playlist-cards {
-    padding: 0 15% 0 15%;
+    padding: 0 10% 0 10%;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     grid-gap: 60px;
     height: 40vh;
@@ -21,5 +20,5 @@
 }
 
 .comment-section {
-    margin: 0 15% 5% 15%;
+    margin: 1% 10% 5% 10%;
 }
