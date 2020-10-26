@@ -2,7 +2,24 @@
     text-align: left;
     color: #696969;
     font-family: 'Turret Road', cursive;
-    margin: 5% 0 0 15%;
     font-weight: 500;
     font-size: 56px;
+    display:inline;
+}
+
+.header {
+    margin: 3% 15% 0 15%;
+}
+.playlist-cards {
+    padding: 0 15% 0 15%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    grid-gap: 60px;
+    height: 40vh;
+    overflow-y: auto;
+}
+
+.comment-section {
+    margin: 0 15% 5% 15%;
 }

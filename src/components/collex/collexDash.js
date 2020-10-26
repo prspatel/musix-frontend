@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link} from 'react-router-dom'
-import Card from "react-bootstrap/Card"
+import { Link } from 'react-router-dom';
+import Card from "react-bootstrap/Card";
 import Nav from '../nav/nav2';
+import Footer from "../nav/footer";
 
 import "../../CSS/collex/collexDash.css"
 
@@ -100,6 +101,7 @@ export default function CollexDash() {
                         </Card>
                     )) : <h1>No data</h1>}
                 </div>
+                <Footer/>
             </>
            
      );
