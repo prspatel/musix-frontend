@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { GrAddCircle } from "react-icons/gr";
+import { BsFillMusicPlayerFill } from "react-icons/bs";
 
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
@@ -35,7 +37,7 @@ export default function UsrDash() {
     return (
         <>
             <Nav2 />
-            <div className="usrdash-title"> Your Playlists </div>
+            <div className="usrdash-title"> Your Playlists <GrAddCircle size="20px"/></div>
             <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                 <Card style={{ width: '10rem' }}>
                   <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
@@ -68,7 +70,7 @@ export default function UsrDash() {
                   </Card.Body>
                 </Card>
             </Carousel>
-            <div className="usrdash-title"> Liked Playlists </div>
+            <div className="usrdash-title"> Liked Playlists <GrAddCircle size="20px"/></div>
             <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                 <Card style={{ width: '10rem' }}>
                   <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
@@ -101,7 +103,7 @@ export default function UsrDash() {
                   </Card.Body>
                 </Card>
             </Carousel>
-            <div className="usrdash-title"> Liked Collections </div>
+            <div className="usrdash-title"> Liked Collections <GrAddCircle size="20px"/><BsFillMusicPlayerFill size="20px"/></div>
             <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                 <Card style={{ width: '10rem' }}>
                   <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
