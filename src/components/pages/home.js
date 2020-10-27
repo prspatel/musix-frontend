@@ -28,7 +28,7 @@ export default function Home() {
             <Nav1 />
             <section style={backgroundStyle }>
                 <h1 className="slogan"> Play the moment. </h1> 
-                <Button className="rounded-pill" onClick={register} variant="info" style={{ margin: "0 0 0 5%", padding: "7px 30px 5px 30px" }}> <h5>Create a free account</h5> </Button>
+                <Button className="rounded-pill" onClick={register} variant="info" style={{ background: "#5ab9ea", margin: "0 0 0 5%", padding: "7px 30px 5px 30px" }}> <h5>Create a free account</h5> </Button>
                 <p style={{ margin: "0 0 0 6%", color: "#696969", fontStyle: "italic" }}>Click above and register with us!  </p>
             </section >
             <div id="dummy-albums">

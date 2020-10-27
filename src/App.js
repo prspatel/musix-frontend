@@ -4,6 +4,7 @@ import Axios from "axios";
 import Home from './components/pages/home';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
+import Playlist from './components/pages/playlist';
 import UserContext from "./components/misc/userContext";
 import "./style.css";
 import collexDash from "./components/collex/collexDash";
@@ -11,6 +12,7 @@ import collexPage from "./components/collex/collexPage";
 import UsrDash from "./components/pages/usrdash";
 
 
+    
 
 export default function App() {
     const [userData, setUserData] = useState({
@@ -22,7 +24,7 @@ export default function App() {
     useEffect(() => {
         const checkLoggedIn = async () => {
             let token = localStorage.getItem("auth-token");
-            if (token === null) {
+            if (token.value === null) {
                 localStorage.setItem("auth-token", "");
                 token = "";
             }
@@ -53,10 +55,14 @@ export default function App() {
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
-                        <Route exact path="/collexDash" component={collexDash} />
-                        <Route path="/collexDash/:collexId" component={collexPage} />
+
+                        <Route exact path="/collexDash" component={ userData.user ? collexDash :  Login }  />
+                        <Route path="/collexDash/:collexId" component={userData.user ? collexPage : Login} />
+
+                        <Route path="/playlist" component={Playlist}/>
+
                     </Switch>
-                </UserContext.Provider>
+                </UserContext.Provider> 
             </BrowserRouter>
         </>
     );

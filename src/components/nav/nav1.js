@@ -13,7 +13,7 @@ export default function Nav1() {
     return (
         <>
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="#home" style={{ marginLeft: "1.5%" }}>
+                <Navbar.Brand href="/" style={{ marginLeft: "1.5%" }}>
                     <img
                         src= { logo }
                         height="40"
@@ -27,7 +27,7 @@ export default function Nav1() {
                     <Nav className="mr-auto">
                        
                     </Nav>
-                    <Button className="rounded-pill" onClick={login} style={{ margin: "0 2% 0 0", padding: "7px 25px 5px 25px" }} variant="info"> <h6> Login </h6></Button>
+                    <Button className="rounded-pill" onClick={login} style={{ background: "#5ab9ea", margin: "0 2% 0 0", padding: "7px 25px 5px 25px"}} variant="info"> <h6> Login </h6></Button>
                 </Navbar.Collapse>
             </Navbar>
         </>
