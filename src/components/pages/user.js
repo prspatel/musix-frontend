@@ -4,11 +4,33 @@ import { Link } from 'react-router-dom'
 import Nav2 from "../nav/nav2";
 import Footer from "../nav/footer";
 
-import { ReactComponent as PlayIcon } from '../../images/play.svg'
+
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 import "../../CSS/pages/playlist.scss"
+import "../../CSS/collex/collexPage.css"
 
 export default function User () {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 7
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
     const dataPlaylists = [
         {
           id: 101,
@@ -175,28 +197,26 @@ export default function User () {
             </div>
           </div>
           </div>
-            <div className="cardsWrap">
-                <div className="cardsWrapInner">
+              <Carousel 
+              swipeable={false}
+              showDots={true}
+              responsive={responsive}
+              ssr={true} // means to render carousel on server-side.
+              infinite={true}
+              autoPlaySpeed={1000}
+              itemClass="cards">
                     {dataPlaylists.map((playlist, id) => (
                         <Link to={`/playlist/` + playlist.id} key={id}>
-                        <Card className="card" key={id}>
-                            <Card.Body>
-                            <div className="cardImage">
-                            <img src={playlist.img} alt="Pic 1" />
-                            </div>
-                            <div className="cardContent">
-                            <h3>{playlist.name}</h3>
-                            <span>{playlist.desc}</span>
-                            </div>
-                            <span className="playIcon">
-                            <PlayIcon />
-                            </span>
-                            </Card.Body>
+                        <Card className="card" key={id} style={{ width: '13rem'}}>
+                            <Card.Img variant="top" src={playlist.img} />
+                              <Card.Body>
+                                <Card.Title>{playlist.name}</Card.Title>
+                                <Card.Text>{playlist.desc}</Card.Text>
+                              </Card.Body>
                         </Card>
                         </Link>
                     ))}
-                </div>
-            </div>
+              </Carousel>
         </div>
         <Footer/>
         </>
