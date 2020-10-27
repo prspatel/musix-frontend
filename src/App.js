@@ -5,11 +5,13 @@ import Home from './components/pages/home';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
 import Playlist from './components/pages/playlist';
+import User from './components/pages/user';
 import UserContext from "./components/misc/userContext";
 import "./style.css";
 import collexDash from "./components/collex/collexDash";
 import collexPage from "./components/collex/collexPage";
 import UsrDash from "./components/pages/usrdash";
+import CreatePlaylist from './components/pages/createPlaylist';
 
 
     
@@ -55,11 +57,13 @@ export default function App() {
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
+
                         <Route path="/usrDash" component={userData.user ? UsrDash : Login} />
+                        <Route path="/user" component={User}/>
                         <Route exact path="/collexDash" component={ userData.user ? collexDash :  Login }  />
                         <Route path="/collexDash/:collexId" component={userData.user ? collexPage : Login} />
                         <Route path="/playlist" component={userData.user ? Playlist : Login}/>
-
+                        <Route path="/createPlaylist" component={userData.user ? CreatePlaylist : Login} />
                     </Switch>
                 </UserContext.Provider> 
             </BrowserRouter>

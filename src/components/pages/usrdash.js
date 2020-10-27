@@ -36,7 +36,7 @@ export default function UsrDash() {
     return (
         <>
             <Nav2 />
-            <h2 className="usrdash-title"> Your Playlists <GrAddCircle size="20px" /></h2>
+            <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
             <div className="dash-body">
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     <Card style={{ width: '13rem' }}>
