@@ -9,6 +9,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import "../../CSS/pages/playlist.scss"
+import "../../CSS/pages/usrdash.css"
 import "../../CSS/collex/collexPage.css"
 
 export default function User () {
@@ -16,11 +17,11 @@ export default function User () {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5
+      items: 4
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 7
+      items: 10
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -184,7 +185,7 @@ export default function User () {
               />
             </div>
             <div className="playlistPageContent">
-              <p className="smallText uppercase bold">User</p>
+              <p className="largeText uppercase bold">User</p>
               <h1>Jessica Guan</h1>
 
               <p className="tagline">
@@ -197,14 +198,7 @@ export default function User () {
             </div>
           </div>
           </div>
-              <Carousel 
-              swipeable={false}
-              showDots={true}
-              responsive={responsive}
-              ssr={true} // means to render carousel on server-side.
-              infinite={true}
-              autoPlaySpeed={1000}
-              itemClass="cards">
+              <Carousel className="carousel" responsive={responsive} itemClass="cards">
                     {dataPlaylists.map((playlist, id) => (
                         <Link to={`/playlist/` + playlist.id} key={id}>
                         <Card className="card" key={id} style={{ width: '13rem'}}>

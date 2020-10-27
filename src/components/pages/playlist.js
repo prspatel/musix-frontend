@@ -23,7 +23,7 @@ export default function Playlist() {
             />
           </div>
           <div className="playlistPageContent">
-            <p className="smallText uppercase bold">Playlist</p>
+            <p className="largeText uppercase bold">Playlist</p>
             <h1>A Perfect Day</h1>
 
             <p className="tagline">

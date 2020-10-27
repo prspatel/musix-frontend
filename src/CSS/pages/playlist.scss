@@ -266,6 +266,7 @@ body {
     display: flex;
     flex-direction: column;
   }
+
   .playlistPageInfo {
     // width: 300px;
     text-align: center;
@@ -334,6 +335,7 @@ body {
       }
     }
   }
+
   .playlistPageContent {
     text-align: left;
     padding: 1.5rem 2rem;
@@ -342,11 +344,11 @@ body {
       margin: 0;
       line-height: 1;
       font-family: circular-black;
-      word-spacing: -18px;
+      word-spacing: 1px;
       letter-spacing: -6px;
     }
     .tagline {
-      font-size: 0.9rem;
+      font-size: 1.75rem;
       opacity: 0.7;
       margin-bottom: 0.5rem;
     }
@@ -361,6 +363,7 @@ body {
         opacity: 0.7;
         position: relative;
         padding-left: 20px;
+        font-size: 1.5rem;
         &:before {
           content: '';
           width: 4px;
