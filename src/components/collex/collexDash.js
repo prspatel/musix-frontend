@@ -75,32 +75,34 @@ export default function CollexDash() {
         return (
             <>
                 <Nav />
-                <h1 className="collex-heading"> Collex Gallery </h1>
-                <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
-                <hr className="solid" />
+                <section className="collexDash-Back">
+                    <h1 className="collex-header"> Collex Gallery </h1>
+                    <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
+                    <hr className="solid" />
 
-                <div className="search-bar">
-                    {/* this goes inside input value={this.state.value}
-                        onChange={e => this.onChangeHandler(e)}*/}
-                    <input
-                        type="text"
-                        placeholder="Type here to search the collex gallery"
-                    />
+                    <div className="search-bar">
+                        {/* this goes inside input value={this.state.value}
+                            onChange={e => this.onChangeHandler(e)}*/}
+                        <input
+                            type="text"
+                            placeholder="Type here to search the collex gallery"
+                        />
                    
-                </div>
-                <div className= "collex-cards">
-                    {data ? data.map(item => (
-                        <Card key={ item._id} style={{ width: '18rem' }}>
-                            <Card.Body>
-                                <Card.Title>{item.name}</Card.Title>
-                                <Card.Text>
-                                    {item.description}
-                                    </Card.Text>
-                                <Link to={`collexDash/${item._id}`}>View this collex</Link>
-                            </Card.Body>
-                        </Card>
-                    )) : <h1>No data</h1>}
-                </div>
+                    </div>
+                    <div className= "collex-cards">
+                        {data ? data.map(item => (
+                            <Card key={item._id} style={{ width: '18rem', border: "1px solid  #69b1ec", borderRadius: "24px", backgroundColor:"white" }}>
+                                <Card.Body>
+                                    <Card.Title>{item.name}</Card.Title>
+                                    <Card.Text>
+                                        {item.description}
+                                        </Card.Text>
+                                    <Link to={`collexDash/${item._id}`}>View this collex</Link>
+                                </Card.Body>
+                            </Card>
+                        )) : <h1>No data</h1>}
+                    </div>
+                </section>
                 <Footer/>
             </>
            
