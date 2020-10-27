@@ -8,6 +8,7 @@ import UserContext from "./components/misc/userContext";
 import "./style.css";
 import collexDash from "./components/collex/collexDash";
 import collexPage from "./components/collex/collexPage";
+import UsrDash from "./components/pages/usrdash";
 
 
 
@@ -21,7 +22,7 @@ export default function App() {
     useEffect(() => {
         const checkLoggedIn = async () => {
             let token = localStorage.getItem("auth-token");
-            if (token.value === null) {
+            if (token === null) {
                 localStorage.setItem("auth-token", "");
                 token = "";
             }
