@@ -13,6 +13,7 @@ export default function Nav1() {
 
     const aboutUs = () => history.push('/aboutUs');
     const contactUs = () => history.push('/contactUs');
+    const usrDash = () => history.push('/usrDash');
 
     //implement the logout function. Clear token and stuff.
     const logout = () => {
@@ -39,7 +40,7 @@ export default function Nav1() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link style={{ margin:"0 15px 0 15px" }} href="/"><h6>Home</h6></Nav.Link>
+                        <Nav.Link style={{ margin:"0 15px 0 15px" }} onClick = {usrDash} href="#"><h6>Home</h6></Nav.Link>
                         <Nav.Link style={{ margin: "0 15px 0 15px" }} onClick ={aboutUs} className="navlink" href="#"><h6>About Us</h6></Nav.Link>
                         <Nav.Link style={{ margin: "0 15px 0 15px" }} onClick ={contactUs} className="navlink" href="#"><h6>Contact Us</h6></Nav.Link> 
                     </Nav>
