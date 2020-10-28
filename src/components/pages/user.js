@@ -38,7 +38,7 @@ export default function User () {
           category_id: 3,
           name: 'Home playlist 1',
           img:
-            'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
+            'https://images.unsplash.com/photo-1587151711096-23c51f92c920?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
           desc: 'Lorem ipsum',
         },
         {
@@ -142,7 +142,7 @@ export default function User () {
           category_id: 1,
           name: 'Focus playlist 1',
           img:
-            'https://images.unsplash.com/photo-1587165282385-fe9bbf5eb1a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+            'https://images.unsplash.com/photo-1587151711096-23c51f92c920?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
           desc: 'Lorem ipsum',
         },
         {
@@ -166,7 +166,7 @@ export default function User () {
           category_id: 2,
           name: 'Mood playist 2',
           img:
-            'https://images.unsplash.com/photo-1587169544748-d21bd810f57e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+            'https://images.unsplash.com/photo-1587151711096-23c51f92c920?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
           desc: 'Lorem ipsum',
         },
       ]
@@ -178,12 +178,6 @@ export default function User () {
         <div className="playlistPage">
         <div className="mainInner">
           <div className="playlistPageInfo">
-            <div className="playlistPageImage">
-              <img
-                src="https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80"
-                alt="pic"
-              />
-            </div>
             <div className="playlistPageContent">
               <p className="largeText uppercase bold">User</p>
               <h1>Jessica Guan</h1>
@@ -191,13 +185,16 @@ export default function User () {
               <p className="tagline">
                 Date of Birth: 01/01/2020
               </p>
-              <div className="playlistPageDesc">
-                <span>Joined Musix in 2020</span>
-                <span>4hr 35 min</span>
+                 <div className="playlistPageDesc">
+                   <p style={{ fontSize: "15px" }}>Joined Musix in 2020</p>
+              </div>
+                <div className="playlistPageDesc">               
+                   <p style={{ fontSize: "15px" }}>Total Playlist Time: 4hr 35 min</p>
               </div>
             </div>
           </div>
-          </div>
+                </div>
+                <h2 style={{ fontStyle:"Roboto, sans-sarif", margin:"2% 0 2% 10%"}}>Public Playlists </h2>
               <Carousel className="carousel" responsive={responsive} itemClass="cards">
                     {dataPlaylists.map((playlist, id) => (
                         <Link to={`/playlist/` + playlist.id} key={id}>

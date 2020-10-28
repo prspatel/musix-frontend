@@ -18,10 +18,10 @@ export default function Footer() {
                                     <Link to="/" className="footerlink" >HOME</Link>
                                 </li>
                                 <li>
-                                    <Link to="#" className="footerlink" >ABOUT US</Link>
+                                    <Link to="/aboutUs" className="footerlink" >ABOUT US</Link>
                                 </li>
                                 <li>
-                                    <Link to="#" className="footerlink" >CONTACT US</Link>
+                                    <Link to="/contactUs" className="footerlink" >CONTACT US</Link>
                                 </li>
                             </ul>
                             <span style={{ float: "right", display: "inline", fontFamily: "Roboto , sans-serif" }}>Copyright 2020. Radiant Developers. </span>
