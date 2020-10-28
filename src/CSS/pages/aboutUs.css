@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500;700&display=swap');
+
+.aboutUs-header {
+    text-align: center;
+    color: #696969;
+    font-family: 'Turret Road', cursive;
+    padding-top: 5%;
+    font-weight: 500;
+    font-size: 56px;
+}
+
+.aboutUsText{
+    text-align: center;
+    padding-right: 5%;
+    padding-left: 5%;
+    font-size: 15px;
+}
