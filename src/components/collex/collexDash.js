@@ -11,6 +11,7 @@ import Footer from "../nav/footer";
 import { ReactComponent as CreateIcon } from '../../images/pen.svg'
 
 import "../../CSS/collex/collexDash.css"
+import { GrAddCircle } from "react-icons/gr";
 
 import "../../CSS/pages/playlist.scss"
 
@@ -85,8 +86,7 @@ export default function CollexDash() {
                     <h1 className="collex-header"> Collex Gallery </h1>
                     <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
                     <hr className="solid" />
-
-
+                    
                     <div className="search-bar">
                         {/* this goes inside input value={this.state.value}
                             onChange={e => this.onChangeHandler(e)}*/}

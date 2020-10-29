@@ -17,6 +17,7 @@
 
 .search-bar {
     text-align: center;
+    display:block;
 }
 
 hr.solid {
@@ -38,7 +39,9 @@ hr.solid {
     width: 50%;
     display:inline;
 }
-
+.searchBar::after {
+    display:inline;
+}
 .search-bar input:focus{
     border-color:lightgreen;
 }

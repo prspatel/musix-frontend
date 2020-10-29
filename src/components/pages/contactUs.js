@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Nav from '../nav/nav2';
 import Footer from "../nav/footer";
 
