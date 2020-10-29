@@ -36,6 +36,7 @@ hr.solid {
     transition: 0.25s;
     color: black;
     width: 50%;
+    display:inline;
 }
 
 .search-bar input:focus{
@@ -49,3 +50,11 @@ hr.solid {
     grid-gap: 25px;
 }
 
+.iconsCreate svg { 
+    width: 28px;
+    height: 28px;
+    fill:black;
+}
+.iconsCreate svg:hover{
+    fill:white;
+}

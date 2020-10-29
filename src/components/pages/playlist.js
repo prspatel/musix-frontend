@@ -4,7 +4,7 @@ import Footer from "../nav/footer";
 
 
 import ReactJkMusicPlayer from 'react-jinke-music-player'
-import 'react-jinke-music-player/assets/index.css'
+import "../../CSS/pages/index.css"
 
 import { ReactComponent as PlayIcon } from '../../images/play.svg'
 import { ReactComponent as NoteIcon } from '../../images/note.svg';
