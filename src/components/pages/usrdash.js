@@ -11,6 +11,8 @@ import { BsFillMusicPlayerFill } from "react-icons/bs";
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
 
+import jsonData from '../../jsonFiles/userdash.json';
+
 export default function UsrDash() {
     const [modalShow, setModalShow] = useState(false);
     const responsive = {
@@ -32,6 +34,27 @@ export default function UsrDash() {
           items: 1
         }
       };
+    const loadPlaylist = jsonData.playlist.map((jsonData) =>{
+      return (
+        <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
+          <Card.Img variant="top" src={jsonData.cover}/>
+          <Card.Body>
+            <Card.Title>{jsonData.name}</Card.Title>
+          </Card.Body>
+        </Card>
+      )
+    });
+
+    const loadCollex = jsonData.collex.map((jsonData) =>{
+      return (
+        <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
+          <Card.Img variant="top" src={jsonData.cover}/>
+          <Card.Body>
+            <Card.Title>{jsonData.name}</Card.Title>
+          </Card.Body>
+        </Card>
+      )
+    });
 
     return (
         <>
@@ -39,123 +62,18 @@ export default function UsrDash() {
             <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
             <div className="dash-body">
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
-                    <Card style={{ width: '13rem' }}>
-                      <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 1</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://media.pitchfork.com/photos/5d7285360db1d10008f1fa96/1:1/w_600/weloveyoutecca_tecca.jpeg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 2</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://i.pinimg.com/originals/80/21/6c/80216c94ee1dc035d7b9ebebc4fa5bc9.jpg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 3</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/220px-Taylor_Swift_-_1989.png" />
-                      <Card.Body>
-                        <Card.Title>Playlist 4</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/en/5/51/Michael_Jackson_-_Bad.png" />
-                      <Card.Body>
-                        <Card.Title>Playlist 5</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                        <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
-                        <Card.Body>
-                            <Card.Title>Playlist 1</Card.Title>
-                        </Card.Body>
-                    </Card>
+                    {loadPlaylist}
                 </Carousel>
                 <hr className="solid" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
-                    <Card style={{ width: '13rem' }}>
-                      <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 1</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://media.pitchfork.com/photos/5d7285360db1d10008f1fa96/1:1/w_600/weloveyoutecca_tecca.jpeg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 2</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://i.pinimg.com/originals/80/21/6c/80216c94ee1dc035d7b9ebebc4fa5bc9.jpg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 3</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/220px-Taylor_Swift_-_1989.png" />
-                      <Card.Body>
-                        <Card.Title>Playlist 4</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/en/5/51/Michael_Jackson_-_Bad.png" />
-                      <Card.Body>
-                        <Card.Title>Playlist 5</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                        <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
-                        <Card.Body>
-                            <Card.Title>Playlist 1</Card.Title>
-                        </Card.Body>
-                    </Card>
+                    {loadPlaylist}
                 </Carousel>
                 <hr className="solid" />
                 <h2 className="usrdash-title"> Liked Collections <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
                     <a title="Explore Collex Gallery" href="/collexDash"><BsFillMusicPlayerFill size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
-                    <Card style={{ width: '13rem' }}>
-                      <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 1</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://media.pitchfork.com/photos/5d7285360db1d10008f1fa96/1:1/w_600/weloveyoutecca_tecca.jpeg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 2</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://i.pinimg.com/originals/80/21/6c/80216c94ee1dc035d7b9ebebc4fa5bc9.jpg" />
-                      <Card.Body>
-                        <Card.Title>Playlist 3</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/220px-Taylor_Swift_-_1989.png" />
-                      <Card.Body>
-                        <Card.Title>Playlist 4</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/en/5/51/Michael_Jackson_-_Bad.png" />
-                      <Card.Body>
-                        <Card.Title>Playlist 5</Card.Title>
-                      </Card.Body>
-                    </Card>
-                    <Card style={{ width: '13rem' }}>
-                        <Card.Img variant="top" src="https://okayplayer-wpengine.netdna-ssl.com/wp-content/uploads/2013/09/Drake-NWTS-big-ghost-review2.jpg" />
-                        <Card.Body>
-                            <Card.Title>Playlist 1</Card.Title>
-                        </Card.Body>
-                    </Card>
+                    {loadCollex}
                 </Carousel>
                 <MyVerticallyCenteredModal
                     show={modalShow}
