@@ -194,6 +194,15 @@ function MyVerticallyCenteredModal(props) {
                             <Form.Label>Description</Form.Label>
                             <Form.Control type="text" placeholder="Description" />
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Upload an image for your collex</Form.Label>
+                            <Form.File
+                                id="custom-file"
+                                label="Custom file input"
+                                custom
+                            />
+                        </Form.Group>
+                        <Button type="submit">Create Collex</Button>
                     </Form>
                 </p>
             </Modal.Body>

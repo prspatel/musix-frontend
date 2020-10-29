@@ -7,6 +7,7 @@ import Nav from '../nav/nav2';
 import Footer from "../nav/footer";
 
 import "../../CSS/collex/collexDash.css"
+import { GrAddCircle } from "react-icons/gr";
 
 
 
@@ -79,15 +80,15 @@ export default function CollexDash() {
                     <h1 className="collex-header"> Collex Gallery </h1>
                     <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
                     <hr className="solid" />
-
-                    <div className="search-bar">
-                        {/* this goes inside input value={this.state.value}
-                            onChange={e => this.onChangeHandler(e)}*/}
-                        <input
-                            type="text"
-                            placeholder="Type here to search the collex gallery"
-                        />
-                   
+                    <div>
+                        <div className="search-bar">
+                            {/* this goes inside input value={this.state.value}
+                                onChange={e => this.onChangeHandler(e)}*/}
+                            <input
+                                type="text"
+                                placeholder="Type here to search the collex gallery"
+                            />
+                        </div>
                     </div>
                     <div className= "collex-cards">
                         {data ? data.map(item => (
