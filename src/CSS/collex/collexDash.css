@@ -57,6 +57,7 @@ hr.solid {
     width: 28px;
     height: 28px;
     fill:black;
+    margin-left:5%;
 }
 .iconsCreate svg:hover{
     fill:white;
