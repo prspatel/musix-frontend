@@ -39,7 +39,7 @@ export default function UsrDash() {
         <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
           <Card.Img variant="top" src={jsonData.cover}/>
           <Card.Body>
-            <Card.Title>{jsonData.name}</Card.Title>
+            <Card.Title><a href= "/playlist/${jsonData.id}"> {jsonData.name}</a></Card.Title>
           </Card.Body>
         </Card>
       )
@@ -50,7 +50,7 @@ export default function UsrDash() {
         <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
           <Card.Img variant="top" src={jsonData.cover}/>
           <Card.Body>
-            <Card.Title>{jsonData.name}</Card.Title>
+            <Card.Title><a href= "#">{jsonData.name}</a></Card.Title>
           </Card.Body>
         </Card>
       )

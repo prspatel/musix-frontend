@@ -4,7 +4,7 @@
     text-align: center;
     color: #696969;
     font-family: 'Turret Road', cursive;
-    padding-top: 5%;
+    padding-top: 3%;
     font-weight: 500;
     font-size: 56px;
 }
@@ -14,4 +14,17 @@
     padding-right: 5%;
     padding-left: 5%;
     font-size: 15px;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 5%;
+    text-align: center;
+    height: 20%;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+    flex: 33.33%;
+    padding: 5px;
 }
