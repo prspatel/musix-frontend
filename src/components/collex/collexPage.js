@@ -58,7 +58,7 @@ export default function CollexPage() {
                                         <Card.Text>
                                             {item.description}
                                         </Card.Text>
-                                        <Link to={"/Playlist"}>View this playlist</Link>
+                                        <Link to={`/playlist/${item._id}`}>View this playlist</Link>
                                     </Card.Body>
                                 </Card>     
                            ))

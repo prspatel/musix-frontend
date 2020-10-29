@@ -253,18 +253,18 @@ body {
 .playlistPage {
   background-color: #84ceeb;
   height:100vh;
+  background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
   .mainInner {
     background-image: -webkit-gradient(
       linear,
       left top,
       left bottom,
-      from(rgba(33, 40, 139, 0.603)),
-      color-stop(40%, #376dd1)
     );
-    background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
+    //background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-left:10%;
   }
 
   .playlistPageInfo {
@@ -333,10 +333,66 @@ body {
           }
         }
       }
+      .iconsFork { //The edit icon for the playlist
+        width: 28px;
+        height: 28px;
+        svg {
+          fill: black;
+        }
+        &:hover{
+          svg{
+            fill:white;
+          }
+        }
+      }
     }
   }
 
   .playlistPageContent {
+    text-align: left;
+    padding: 1.5rem 2rem;
+    h1 {
+      font-size: 7rem;
+      margin: 0;
+      line-height: 1;
+      font-family: circular-black;
+      word-spacing: 1px;
+      letter-spacing: -6px;
+    }
+    .tagline {
+      font-size: 1.75rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .playlistPageDesc {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      p {
+        margin: 0;
+      }
+      span {
+        opacity: 0.7;
+        position: relative;
+        padding-left: 20px;
+        font-size: 1.5rem;
+        &:before {
+          content: '';
+          width: 4px;
+          height: 4px;
+          background: white;
+          overflow: hidden;
+          border-radius: 50%;
+          position: absolute;
+          margin-left: -10px;
+          top: 9px;
+        }
+      }
+    }
+  }
+}
+
+.userPageContent {
     text-align: left;
     padding: 1.5rem 2rem;
     margin-left: 10%;
@@ -379,7 +435,7 @@ body {
       }
     }
   }
-}
+
 
 ul.songList {
   padding: 0;
@@ -427,7 +483,7 @@ ul.songList {
       }
     }
     .songTime {
-      margin-left: auto;
+      margin-left:auto;
     }
     .songIcon {
       padding-right: 1rem;

@@ -28,7 +28,7 @@ export default function Nav1() {
         <>
 
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/" style={{ marginLeft: "1.5%" }}>
+                <Navbar.Brand href="/usrDash" style={{ marginLeft: "1.5%" }}>
                     <img
                         src={logo}
                         height="40"

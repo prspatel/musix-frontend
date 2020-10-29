@@ -178,7 +178,7 @@ export default function User () {
         <div className="playlistPage">
         <div className="mainInner">
           <div className="playlistPageInfo">
-            <div className="playlistPageContent">
+            <div className="userPageContent">
               <p className="largeText uppercase bold">User</p>
               <h1>Jessica Guan</h1>
 
@@ -194,7 +194,7 @@ export default function User () {
             </div>
           </div>
                 </div>
-                <h2 style={{ fontStyle:"Roboto, sans-sarif", margin:"2% 0 2% 10%"}}>Public Playlists </h2>
+                <h2 style={{ fontStyle:"Roboto, sans-sarif", margin:"2% 0 2% 22%"}}>Public Playlists </h2>
               <Carousel className="carousel" responsive={responsive} itemClass="cards">
                     {dataPlaylists.map((playlist, id) => (
                         <Link to={`/playlist/` + playlist.id} key={id}>

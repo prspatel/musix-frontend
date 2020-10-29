@@ -2,9 +2,15 @@ import React from "react";
 import Nav from "../nav/nav2";
 import Footer from "../nav/footer";
 
+
+import ReactJkMusicPlayer from 'react-jinke-music-player'
+import 'react-jinke-music-player/assets/index.css'
+
 import { ReactComponent as PlayIcon } from '../../images/play.svg'
 import { ReactComponent as NoteIcon } from '../../images/note.svg';
 import { ReactComponent as HeartIcon } from '../../images/heart.svg';
+
+import { ReactComponent as ForkIcon } from '../../images/fork.svg';
 import { ReactComponent as EditIcon } from '../../images/edit.svg';
 
 import "../../CSS/pages/playlist.scss"
@@ -22,7 +28,7 @@ export default function Playlist() {
               alt="pic"
             />
           </div>
-          <div className="playlistPageContent">
+          <div className="playlistPageContent" >
             <p className="largeText uppercase bold">Playlist</p>
             <h1>A Perfect Day</h1>
 
@@ -46,6 +52,9 @@ export default function Playlist() {
               </div>
               <div className="icon iconsEdit">
                 <EditIcon />
+              </div>
+              <div className="icon iconsFork">
+                <ForkIcon />
               </div>
               <div className="icon iconsDots"></div>
             </div>
@@ -133,6 +142,7 @@ export default function Playlist() {
           </ul>
         </div>
       </div>
+      <ReactJkMusicPlayer background-color="white" theme="light"/>,
     </div>
         <Footer/>
         </>
