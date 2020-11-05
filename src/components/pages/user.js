@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, {  useState, useEffect } from "react";
 import Card from 'react-bootstrap/Card';
 import { Link,  useParams }  from 'react-router-dom'
 import Nav2 from "../nav/nav2";
 import Footer from "../nav/footer";
-import UserContext from "../misc/userContext";
 import jsonData from '../../jsonFiles/userdash.json';
 import { Button, Modal, Form } from "react-bootstrap";
 import ErrorNotice from "../misc/error";
 import Axios from "axios";
+
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -19,7 +19,8 @@ import "../../CSS/collex/collexPage.css"
 export default function User() {
     const  parameters = useParams();
     const [modalShow, setModalShow] = useState(false);
-    const { userData } = useContext(UserContext);
+
+    const [user, setUser] = useState();
     const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -40,7 +41,19 @@ export default function User() {
     }
     };
 
-   
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = parameters.userId;
+            const result = await Axios.get(
+                `http://localhost:5000/users/${userId}`
+            );
+            console.log(result.data);
+            setUser(result.data);
+        };
+
+        fetchData();
+    }, []);
+
     const dataPlaylist = jsonData.userPlaylists.map((playlist, id) => {
         return (
             <Link to={`/playlist/` + playlist.id} key={id}>
@@ -65,11 +78,14 @@ export default function User() {
                             <div className="userPageContent">
                                 <p className="largeText uppercase bold">User</p>
                                 <div className="userHeader">
-                                    <h1 style={{ display: "inline" }}>{userData.user.name}</h1>
+                                    <h1 style={{ display: "inline" }}>{user? (user.name) : (<></>) }</h1>
                                 <a title="Click to Change Password" onClick={() => setModalShow(true)} style={{ cursor: "pointer", color: "black" }}><h5 style={{ fontFamily: "circular-black", display: "inline", float: "right" }}> Change password</h5> </a>
                                 </div>
                                 <p className="tagline">
-                                    Date of Birth: 01/01/2020
+                                    Date of Birth: {user ? (user.dob) : (<></>)}    
+                                </p>
+                                <p className="tagline">
+                                    Email: {user ? (user.email  ) : (<></>)}
                                 </p>
                                  <div className="playlistPageDesc">
                                     <p style={{ fontSize: "15px" }}>Joined Musix in 2020</p>
