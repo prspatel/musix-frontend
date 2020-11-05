@@ -1,15 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500;700&display=swap');
 
 .usrdash-title {
-    padding: 1% 0 0 10%;
+    padding-top: 1%;
     font-family: 'Turret Road', cursive;
     color: #696969;
     font-weight: 700;
 }
 
 .carousel{
-    margin-left: 10%;
-    margin-right: 10%;
+  
     margin-bottom:1%;
 }
 
@@ -20,5 +19,15 @@
 }
 
 .dash-body {
-    margin-bottom: 5%;
+    margin: 0 10% 5% 10%;
+}
+
+hr.solid-divider {
+    margin-top: 3%;
+    border-color:lightgray;
+    width: 100%;
+}
+
+.userPage-carousel {
+    margin: 1% 10% 1% 10%;
 }

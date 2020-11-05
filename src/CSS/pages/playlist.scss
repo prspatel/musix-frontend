@@ -264,7 +264,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-left:10%;
+    margin:0 10% 0 10%;
   }
 
   .playlistPageInfo {
@@ -394,10 +394,10 @@ body {
 }
 
 .userPageContent {
+    width: 80%;
     text-align: left;
     padding: 1.5rem 2rem;
-    margin-left: 10%;
-    h1 {
+     h1 {
       font-size: 7rem;
       margin: 0;
       line-height: 1;
@@ -442,7 +442,7 @@ ul.songList {
   padding: 0;
   li {
     list-style-type: none;
-    width: 100%;
+    width: 80%;
     padding: 0.8rem;
     display: flex;
     align-items: center;

@@ -58,18 +58,21 @@ export default function UsrDash() {
 
     return (
         <>
-            <Nav2 />
-            <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
+            <Nav2 />       
             <div className="dash-body">
+                <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadPlaylist}
                 </Carousel>
-                <hr className="solid" />
+                <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
+                <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadPlaylist}
                 </Carousel>
-                <hr className="solid" />
+                <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
+
+                <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Collections <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
                     <a title="Explore Collex Gallery" href="/collexDash"><BsFillMusicPlayerFill size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">

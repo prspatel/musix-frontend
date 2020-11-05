@@ -43,7 +43,7 @@ export default function CollexPage() {
                             <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif", display: "inline", fontSize: "20px" }}>{data.description}</p>
                             <a href="#" style={{ display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }}>
                                 <AiFillHeart style={{ color: "#69b1ec", size: "2em" }} />
-                                Like this collection
+                                Like this Collex
                             </a>
                         </div>
                     </div>
