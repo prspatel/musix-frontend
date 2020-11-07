@@ -79,7 +79,8 @@ export default function User() {
                                 <p className="largeText uppercase bold">User</p>
                                 <div className="userHeader">
                                     <h1 style={{ display: "inline" }}>{user? (user.name) : (<></>) }</h1>
-                                <a title="Click to Change Password" onClick={() => setModalShow(true)} style={{ cursor: "pointer", color: "black" }}><h5 style={{ fontFamily: "circular-black", display: "inline", float: "right" }}> Change password</h5> </a>
+                                <a title="Click to Change Password" onClick={() => setModalShow(true)} style={{ cursor: "pointer", color: "black" }}>
+                                    <h5 style={{ fontFamily: "circular-black", display: "inline", float: "right" }}> Change password</h5> </a>
                                 </div>
                                 <p className="tagline">
                                     Date of Birth: {user ? (user.dob) : (<></>)}    

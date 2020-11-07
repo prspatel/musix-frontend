@@ -1,14 +1,81 @@
 
-import React from "react";
+import React, { useState } from "react";
 import "../../CSS/pages/createPlaylist.css"
 import { Dropdown, DropdownButton, ListGroup } from "react-bootstrap";
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import Nav from "../nav/nav2";
 import Button from 'react-bootstrap/Button';
 import Footer from "../nav/footer";
+import { Search } from "../misc/search";
+import { GrAddCircle } from "react-icons/gr";
 
+import { AiFillPlayCircle } from "react-icons/ai";
 
 export default function CreatePlaylist() {
+
+    const [searchResults, setResults] = useState({
+        tracks: null,
+        loading: false,
+        value:""
+    });
+
+    let searchHandler = async e => {
+        search(e.target.value);
+        setResults({ value: e.target.value });
+    };
+
+    let search = async val => {
+        setResults({ loading: true });
+        const res = await Search(
+            `http://localhost:5000/spotify/${val}`
+        );
+        const tracks = res;
+        setResults({ tracks, loading: false });
+        console.log(searchResults.tracks);
+
+    };
+
+
+    /*const dataPlaylist = searchResults.track.map((playlist, id) => {
+        return (
+            <Link to={`/playlist/` + playlist.id} key={id}>
+                <Card className="card" key={id} style={{ width: '13rem' }}>
+                    <Card.Img variant="top" src={playlist.img} />
+                    <Card.Body>
+                        <Card.Title>{playlist.name}</Card.Title>
+                        <Card.Text>{playlist.desc}</Card.Text>
+                    </Card.Body>
+                </Card>
+            </Link >
+        )
+    });*/
+
+    function getTracks() { 
+        const renderTracks = searchResults.tracks.data.map((track, id) => {
+            return (
+                < ListGroup.Item key={id} >
+                    <div className="list-item">
+                        <h5>{track.name}</h5> by {track.artists.join(", ")}
+                    
+                        <div className="list-icons" >
+                            <a href={track.preview_url} target="_blank" title="Play the preview"><AiFillPlayCircle size="30px" /></a>
+                            <a onClick= "" style={{ cursor: "pointer" }} title="Add this track tol playlist"><GrAddCircle size="30px" /></a>
+                        </div>
+                    </div>
+                </ListGroup.Item >
+            )
+        });
+        return renderTracks
+    }
+
+    function displayTracks(){
+        let tracks = "";
+        if (searchResults.tracks) {
+            tracks = getTracks();
+        }
+        return tracks;
+    }
+
     return (
         <>
             <Nav/>
@@ -34,8 +101,15 @@ export default function CreatePlaylist() {
                     <input
                         type="text"
                         placeholder="Type here to search a song to add it to the playlist"
+                        onChange={e => searchHandler(e)}
+                        value={setResults.value}
                     />
                 </div>
+                <div className="search-result">
+                    < ListGroup variant="flush">
+                        {displayTracks()}
+                    </ ListGroup>
+                 </div>
                 <div className="added-songs">
                     <h2 style={{ fontFamily: "Turret Road, cursive" }}>
                         Added Songs
