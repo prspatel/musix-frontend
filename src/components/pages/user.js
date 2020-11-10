@@ -1,17 +1,14 @@
-import React, {  useState, useEffect } from "react";
+import React, {  useState, useEffect, useContext } from "react";
 import Card from 'react-bootstrap/Card';
 import { Link,  useParams }  from 'react-router-dom'
 import Nav2 from "../nav/nav2";
 import Footer from "../nav/footer";
-import jsonData from '../../jsonFiles/userdash.json';
 import { Button, Modal, Form } from "react-bootstrap";
 import ErrorNotice from "../misc/error";
 import Axios from "axios";
-
-
+import UserContext from "../misc/userContext";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
 import "../../CSS/pages/playlist.scss"
 import "../../CSS/pages/usrdash.css"
 import "../../CSS/collex/collexPage.css"
@@ -19,8 +16,11 @@ import "../../CSS/collex/collexPage.css"
 export default function User() {
     const  parameters = useParams();
     const [modalShow, setModalShow] = useState(false);
-
+    const { userData } = useContext(UserContext);
+    const [sameUser, setSameUser] = useState(true);
     const [user, setUser] = useState();
+    const [playlists, setPlaylist] = useState([]);
+
     const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -29,7 +29,7 @@ export default function User() {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 7
+      items: 5
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -43,30 +43,25 @@ export default function User() {
 
     useEffect(() => {
         const fetchData = async () => {
+           
             const userId = parameters.userId;
             const result = await Axios.get(
                 `http://localhost:5000/users/${userId}`
             );
             console.log(result.data);
             setUser(result.data);
+
+            const resPlaylist = await Axios.get(
+                `http://localhost:5000/playlist/public/${userId}`
+            );
+            console.log(resPlaylist.data);
+            setPlaylist(resPlaylist.data);
+
         };
 
         fetchData();
     }, []);
 
-    const dataPlaylist = jsonData.userPlaylists.map((playlist, id) => {
-        return (
-            <Link to={`/playlist/` + playlist.id} key={id}>
-                <Card className="card" key={id} style={{ width: '13rem' }}>
-                    <Card.Img variant="top" src={playlist.img} />
-                    <Card.Body>
-                        <Card.Title>{playlist.name}</Card.Title>
-                        <Card.Text>{playlist.desc}</Card.Text>
-                    </Card.Body>
-                </Card>
-            </Link >
-        )
-    });
 
         
     return(
@@ -78,9 +73,13 @@ export default function User() {
                             <div className="userPageContent">
                                 <p className="largeText uppercase bold">User</p>
                                 <div className="userHeader">
-                                    <h1 style={{ display: "inline" }}>{user? (user.name) : (<></>) }</h1>
-                                <a title="Click to Change Password" onClick={() => setModalShow(true)} style={{ cursor: "pointer", color: "black" }}>
-                                    <h5 style={{ fontFamily: "circular-black", display: "inline", float: "right" }}> Change password</h5> </a>
+                                <h1 style={{ display: "inline" }}>{user ? (user.name) : (<></>)}</h1>
+                                {userData && userData.user && userData.user.id === parameters.userId ? 
+                                    <a title="Click to Change Password" onClick={() => setModalShow(true)} style={{ cursor: "pointer", color: "black" }}>
+                                        <h5 style={{ fontFamily: "circular-black", display: "inline", float: "right" }}> Change password</h5> </a>
+                                    :<></>
+                                }
+                                    
                                 </div>
                                 <p className="tagline">
                                     Date of Birth: {user ? (user.dob) : (<></>)}    
@@ -93,14 +92,26 @@ export default function User() {
                                  </div>
                                  <div className="playlistPageDesc">
                                    <p style={{ fontSize: "15px" }}>Total Playlist Time: 4hr 35 min</p>
-                                  </div>
+                                </div>
+                                <h2 style={{ fontStyle: "Roboto, sans-sarif", margin: "2% 0 2% 0%" }}>Public Playlists </h2>
+
+                                {playlists.length !== 0 ?
+                                    <Carousel className="carousel" responsive={responsive} itemClass="cards">
+                                        {playlists.map(playlist => (
+                                            <Card style={{ width: '13rem' }} key={playlist._id} >
+                                                <Card.Img variant="top" src={playlist.cover} />
+                                                <Card.Body>
+                                                    <Card.Title><Link to={`/playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
+                                                </Card.Body>
+                                            </Card>
+                                        ))}
+                                    </Carousel>
+                                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any publicplaylists.</h5>}
                             </div>
                       </div>
                 </div>
-            <h2 style={{ fontStyle:"Roboto, sans-sarif", margin:"2% 0 2% 10%"}}>Public Playlists </h2>
-            <Carousel className="userPage-carousel" responsive={responsive} itemClass="cards">
-                {dataPlaylist}
-                </Carousel>
+                
+           
                 <ChangePasswordModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}

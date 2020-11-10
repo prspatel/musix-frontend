@@ -14,7 +14,6 @@ import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
 
 import jsonData from '../../jsonFiles/userdash.json';
-import User from "./user";
 
 export default function UsrDash() {
     const [modalShow, setModalShow] = useState(false);
@@ -85,13 +84,13 @@ export default function UsrDash() {
                 {playlists.length!==0 ? 
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {playlists.map(playlist => (
-                        <Card style={{ width: '13rem' }} key={playlist._id} >
-                            <Card.Img variant="top" src={playlist.cover} />
-                            <Card.Body>
-                                    <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
-                            </Card.Body>
-                        </Card>
-                    ))}
+                            <Card style={{ width: '13rem' }} key={playlist._id} >
+                                <Card.Img variant="top" src={playlist.cover} />
+                                <Card.Body>
+                                        <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
+                                </Card.Body>
+                            </Card>
+                        ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any playlists. Please click on the add button and create one</h5>}
                 
