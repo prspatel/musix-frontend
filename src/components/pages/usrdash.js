@@ -1,20 +1,26 @@
-import React, { useState }from "react";
+import React, { useState, useContext, useEffect }from "react";
 import Nav2 from "../nav/nav2";
 import { Button, Modal, Form } from "react-bootstrap";
 import Footer from "../nav/footer";
-
+import UserContext from "../misc/userContext";
+import axios from "axios"
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { GrAddCircle } from "react-icons/gr";
 import { BsFillMusicPlayerFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
 
 import jsonData from '../../jsonFiles/userdash.json';
+import User from "./user";
 
 export default function UsrDash() {
     const [modalShow, setModalShow] = useState(false);
+    const [playlists, setUserPlaylists] = useState([]);
+    const { userData, setUserData } = useContext(UserContext);
+
     const responsive = {
         superLargeDesktop: {
           // the naming can be any, depends on you.
@@ -33,7 +39,21 @@ export default function UsrDash() {
           breakpoint: { max: 464, min: 0 },
           items: 1
         }
-      };
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = userData.user.id ;
+            console.log(userId);
+            const result = await axios.get(
+                `http://localhost:5000/playlist/playlists/${userId}`,
+            ); 
+            setUserPlaylists(result.data);
+        };
+
+        fetchData();
+    }, []);
+
     const loadPlaylist = jsonData.playlist.map((jsonData) =>{
       return (
         <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
@@ -61,9 +81,20 @@ export default function UsrDash() {
             <Nav2 />       
             <div className="dash-body">
                 <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
-                <Carousel  className="carousel" responsive={responsive} itemClass="cards">
-                    {loadPlaylist}
-                </Carousel>
+
+                {playlists.length!==0 ? 
+                    <Carousel className="carousel" responsive={responsive} itemClass="cards">
+                        {playlists.map(playlist => (
+                        <Card style={{ width: '13rem' }} key={playlist._id} >
+                            <Card.Img variant="top" src={playlist.cover} />
+                            <Card.Body>
+                                    <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
+                            </Card.Body>
+                        </Card>
+                    ))}
+                    </Carousel>
+                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any playlists. Please click on the add button and create one</h5>}
+                
                 <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
