@@ -58,15 +58,13 @@ export default function App() {
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
-
                         <Route path="/aboutUs" component={AboutUs} />
                         <Route path="/contactUs" component={ContactUs} />
-
                         <Route path="/usrDash" component={userData.user ? UsrDash : Login} />
-                        <Route path="/user" component={User}/>
+                        <Route path="/user/:userId" component={User}/>
                         <Route exact path="/collexDash" component={ userData.user ? collexDash :  Login }  />
                         <Route path="/collexDash/:collexId" component={userData.user ? collexPage : Login} />
-                        <Route path="/playlist/:playlistId" component={userData.user ? Playlist : Login}/>
+                        <Route path="/playlist/:playlistId" component={userData.user ? Playlist : Login} /> 
                         <Route path="/createPlaylist" component={userData.user ? CreatePlaylist : Login} />
                     </Switch>
                 </UserContext.Provider> 

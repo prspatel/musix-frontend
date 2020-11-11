@@ -5,15 +5,17 @@ import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import logo from "../../images/logo2.png";
 import UserContext from "../misc/userContext";
+import { FaUserCircle } from "react-icons/fa";
 
 
 export default function Nav1() {
     const history = useHistory();
-    const { setUserData } = useContext(UserContext);
+    const { userData, setUserData } = useContext(UserContext);
 
     const aboutUs = () => history.push('/aboutUs');
     const contactUs = () => history.push('/contactUs');
-
+    const usrDash = () => history.push('/usrDash');
+    const userPage = () => history.push(`/user/${userData.user.id}`);
     //implement the logout function. Clear token and stuff.
     const logout = () => {
         setUserData({
@@ -39,9 +41,10 @@ export default function Nav1() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link style={{ margin:"0 15px 0 15px" }} href="/usrDash"><h6>Home</h6></Nav.Link>
-                        <Nav.Link style={{ margin: "0 15px 0 15px" }} onClick ={aboutUs} className="navlink" href="#"><h6>About Us</h6></Nav.Link>
-                        <Nav.Link style={{ margin: "0 15px 0 15px" }} onClick ={contactUs} className="navlink" href="#"><h6>Contact Us</h6></Nav.Link> 
+                        <Nav.Link style={{ margin: "2px 15px 0 15px" }} onClick={usrDash}><h6>Home</h6></Nav.Link>
+                        <Nav.Link style={{ margin: "2px 15px 0 15px" }} onClick ={aboutUs} className="navlink" href="#"><h6>About Us</h6></Nav.Link>
+                        <Nav.Link style={{ margin: "2px 15px 0 15px" }} onClick={contactUs} className="navlink" href="#"><h6>Contact Us</h6></Nav.Link>
+                        <Nav.Link style={{ margin: "0 15px 0 15px" }} title="User Info" onClick={userPage}><FaUserCircle size={24} /></Nav.Link>
                     </Nav>
                     
                     <Button className="rounded-pill" onClick={logout} style={{ margin: "0 2% 0 2%", padding: "7px 25px 5px 25px" }} variant="info"> <h6> Logout </h6></Button>

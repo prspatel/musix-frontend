@@ -15,3 +15,17 @@
     padding-left: 5%;
     font-size: 15px;
 }
+
+.contactFormdiv {
+    text-align: center;
+    margin-bottom:5%;
+}
+
+.contact-form {
+    height: 40%;
+    width: 30%;
+    border: 2px solid lightblue;
+    padding: 2%;
+    border-radius: 25px;
+    margin : 2% auto;
+}

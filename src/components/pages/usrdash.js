@@ -39,7 +39,7 @@ export default function UsrDash() {
         <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
           <Card.Img variant="top" src={jsonData.cover}/>
           <Card.Body>
-            <Card.Title>{jsonData.name}</Card.Title>
+            <Card.Title><a href= "/playlist/${jsonData.id}"> {jsonData.name}</a></Card.Title>
           </Card.Body>
         </Card>
       )
@@ -50,7 +50,7 @@ export default function UsrDash() {
         <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
           <Card.Img variant="top" src={jsonData.cover}/>
           <Card.Body>
-            <Card.Title>{jsonData.name}</Card.Title>
+            <Card.Title><a href= "#">{jsonData.name}</a></Card.Title>
           </Card.Body>
         </Card>
       )
@@ -58,18 +58,21 @@ export default function UsrDash() {
 
     return (
         <>
-            <Nav2 />
-            <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
+            <Nav2 />       
             <div className="dash-body">
+                <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadPlaylist}
                 </Carousel>
-                <hr className="solid" />
+                <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
+                <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadPlaylist}
                 </Carousel>
-                <hr className="solid" />
+                <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
+
+                <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Collections <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
                     <a title="Explore Collex Gallery" href="/collexDash"><BsFillMusicPlayerFill size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">

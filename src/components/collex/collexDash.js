@@ -95,7 +95,6 @@ export default function CollexDash() {
                             placeholder="Type here to search the collex gallery"
                         />
                     </div>
-                    
                     <div className= "collex-cards">
                         {data ? data.map(item => (
                             <Card key={item._id} style={{ width: '18rem', border: "1px solid  #69b1ec", borderRadius: "24px", backgroundColor:"white" }}>
