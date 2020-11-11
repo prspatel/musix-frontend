@@ -4,8 +4,13 @@ import Footer from "../nav/footer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import { useHistory } from "react-router-dom";
+
+import { Button, Modal, Form } from "react-bootstrap";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import "../../CSS/pages/index.css"
+
+import 'react-multi-carousel/lib/styles.css';
 
 import { ReactComponent as PlayIcon } from '../../images/play.svg'
 import { ReactComponent as NoteIcon } from '../../images/note.svg';
@@ -13,14 +18,14 @@ import { ReactComponent as HeartIcon } from '../../images/heart.svg';
 
 import { ReactComponent as ForkIcon } from '../../images/fork.svg';
 import { ReactComponent as EditIcon } from '../../images/edit.svg';
+import { ReactComponent as DeleteIcon } from '../../images/delete.svg';
 
 import "../../CSS/pages/playlist.scss"
 
 export default function Playlist() {
-
+    const [modalShow, setModalShow] = useState(false);
     const [playlist, setPlaylist] = useState();
     let parameters = useParams();
-
     useEffect(() => {
         const fetchData = async () => {
             const playlistId = parameters.playlistId;
@@ -74,6 +79,9 @@ export default function Playlist() {
                                         <div className="icon iconsFork">
                                             <ForkIcon />
                                         </div>
+                                        <div className="icon iconsDelete" onClick={() => setModalShow(true)}>
+                                            <DeleteIcon />
+                                        </div>
                                         <div className="icon iconsDots"></div>
                                     </div>
                                 </div>
@@ -99,13 +107,48 @@ export default function Playlist() {
                                 </ul>
                             </div>
                         </div>
-                        <ReactJkMusicPlayer background-color="white" theme="light" />,
+                        <ReactJkMusicPlayer background-color="white" theme="light" />
+                        <MyVerticallyCenteredModal
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                        />
                     </div>
                 </>
 
                 :<></>}
             <Footer />
         </>
-    )
+    );
 
+}
+
+function MyVerticallyCenteredModal(props) {
+    const history = useHistory();
+    const deletePlaylist = () => history.push("/usrDash");
+    return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Delete Playlist
+                </Modal.Title>
+                
+            </Modal.Header>
+            <Modal.Body>
+                <p style={{ fontStyle: "italic" ,fontSize:'20px'}}>Are you sure you want to delete this playlist? Once deleted, the playlist is unretrievable.</p>
+                <p>
+                    <Form>
+                        <Button type="submit" onClick={deletePlaylist}>Yes</Button>
+                    </Form>
+                </p>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+    );
 }

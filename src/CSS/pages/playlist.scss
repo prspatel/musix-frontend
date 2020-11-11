@@ -333,7 +333,7 @@ body {
           }
         }
       }
-      .iconsFork { //The edit icon for the playlist
+      .iconsFork { //The fork icon for the playlist
         width: 28px;
         height: 28px;
         svg {
@@ -345,7 +345,18 @@ body {
           }
         }
       }
-
+      .iconsDelete { //The delete icon for the playlist
+        width: 28px;
+        height: 28px;
+        svg {
+          fill: black;
+        }
+        &:hover{
+          svg{
+            fill:white;
+          }
+        }
+      }
     }
   }
 
