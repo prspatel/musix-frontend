@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500;700&display=swap');
 
 .createPlaylist-body {
-    margin: 0 10% 0 10%;
+    margin: 0 10% 3% 10%;
 }
 .createPlaylist-title {
     color: #696969;
@@ -35,9 +35,15 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .configs input[type = "search"]:focus{
-        border-color: coral;
+    border-color: coral;
 }
 
-collection-div {
-    margin-bottom:2%;
+
+.list-items {
+    display:inline;
+}
+.list-icons {
+    display:inline;
+    float: right;
+    padding: 0 5px 0px 5px;
 }
