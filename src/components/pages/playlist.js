@@ -3,6 +3,7 @@ import Nav from "../nav/nav2";
 import Footer from "../nav/footer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import ErrorNotice from "../misc/error";
 
 import { useHistory } from "react-router-dom";
 
@@ -111,6 +112,7 @@ export default function Playlist() {
                         <MyVerticallyCenteredModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
+                            playlistid = {parameters.playlistId}
                         />
                     </div>
                 </>
@@ -124,7 +126,22 @@ export default function Playlist() {
 
 function MyVerticallyCenteredModal(props) {
     const history = useHistory();
-    const deletePlaylist = () => history.push("/usrDash");
+        const [error, setError] = useState();
+
+    const deletePlaylist = async (e) => {
+        e.preventDefault();
+        try {
+            let playlistId = props.playlistid;
+           
+            const deletRes = await axios.post(
+                `http://localhost:5000/playlist/delete/${playlistId}`                
+            );
+            history.push("/usrDash");
+
+        } catch (err) {
+            err.response.data.msg && setError(err.response.data.msg);
+        }
+    };
     return (
         <Modal
             {...props}
@@ -138,14 +155,18 @@ function MyVerticallyCenteredModal(props) {
                 </Modal.Title>
                 
             </Modal.Header>
-            <Modal.Body>
-                <p style={{ fontStyle: "italic" ,fontSize:'20px'}}>Are you sure you want to delete this playlist? Once deleted, the playlist is unretrievable.</p>
-                <p>
-                    <Form>
+
+                <Modal.Body>
+                    <p style={{ fontStyle: "italic", fontSize: '20px' }}>Are you sure you want to delete this playlist? Once deleted, the playlist is unretrievable.</p>
+                    {error && (
+                        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                    )}
+
+                   <Form>
                         <Button type="submit" onClick={deletePlaylist}>Yes</Button>
-                    </Form>
-                </p>
-            </Modal.Body>
+                   </Form>
+                </Modal.Body>
+            )}
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
