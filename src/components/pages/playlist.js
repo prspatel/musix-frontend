@@ -57,7 +57,7 @@ export default function Playlist() {
                                     <h1>{ playlist.name }</h1>
 
                                     <p className="tagline">
-                                        Minimalism, electronica and modern classical to concentrate to.
+                                        { playlist.description}
                                     </p>
                                     <div className="playlistPageDesc">
                                         <span>{ playlist.likes} likes</span>
@@ -100,7 +100,7 @@ export default function Playlist() {
                                                     <span>by { track.artists.join(", ")}</span>
                                                 </div>
                                                 <div className="songTime">
-                                                    <span>4:07</span>
+                                                    <span>{ track.duration}</span>
                                                 </div>
                                             </li>  
                                         ))

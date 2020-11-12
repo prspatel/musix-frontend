@@ -29,6 +29,7 @@ export default function EditPlaylist() {
     const [playlistName, setName] = useState();
     const [isPublic, setPublic] = useState(true);
     const { userData, setUserData } = useContext(UserContext);
+    const [playlistDesc, setDesc] = useState();
 
     let parameters = useParams();
 
@@ -41,7 +42,9 @@ export default function EditPlaylist() {
             console.log(result.data);
             setData(result.data);
             addTracks(result.data.songs);
-
+            setPublic(result.data.public);
+            setName(result.data.name);
+            setDesc(result.data.description);
         };
         fetchData();
     }, []);
@@ -100,7 +103,7 @@ export default function EditPlaylist() {
 
     function removeTrack(track){
         if (addedTracks.includes(track, 0)) {
-            var removeIndex = addedTracks.map(function (item) { return item.spotify_id; }).indexOf(track.spotify_id);
+            var removeIndex = addedTracks.map(function (item) { return item.spotifyID; }).indexOf(track.spotifyID);
             var copy = [...addedTracks];
             copy.splice(removeIndex, 1);
             addTracks(copy);
@@ -139,8 +142,8 @@ export default function EditPlaylist() {
         e.preventDefault();
         try {
             const creator_id = userData.user.id;
-
-            const playlist = { playlistName, creator_id, isPublic, tracks: [...addedTracks] }
+            const playlistId = parameters.playlistID;
+            const playlist = { playlistId, playlistName, isPublic, tracks: [...addedTracks], playlistDesc }
             const loginRes = await Axios.post(
                 "http://localhost:5000/playlist/edit",
                 playlist
@@ -183,11 +186,21 @@ export default function EditPlaylist() {
                             style={{ marginTop: "7px", marginLeft: "5px", display: "inline", float: "right", }}
                             name="Public"
                             onChange={(e) => setPublic(e.target.value)}
-                            id="public">
-                            <option value="true" selected = {data.public ? true : false}>Yes</option>
-                            <option value="false" selected = {data.public ? false : true}>No</option>                       
+                                id="public">
+                                <option value="true" selected={data.public ? true : false}>Yes</option>
+                                <option value="false" selected={data.public ? false : true}>No</option>                       
                         </select>
                         <p style={{ display: "inline", float: "right", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop:"12px"}}> Public playlists are visible to other users. Public?</p>
+                    </div>
+                     <div className="description">
+                        <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Playlist Description</p>
+
+                        <input
+                            type="text"
+                            defaultValue= {data.description}
+                            placeholder="Description"
+                            onChange={(e) => setDesc(e.target.value)}
+                            required />
                     </div>
                     <div className="search-bar">
                         {/* this goes inside input value={this.state.value}

@@ -27,6 +27,8 @@ export default function CreatePlaylist() {
     const history = useHistory();
     const [addedTracks, addTracks] = useState([]);
     const [playlistName, setName] = useState();
+    const [playlistDesc, setDesc] = useState();
+
     const [isPublic, setPublic] = useState(true);
     const { userData, setUserData } = useContext(UserContext);
 
@@ -84,7 +86,7 @@ export default function CreatePlaylist() {
 
     function removeTrack(track){
         if (addedTracks.includes(track, 0)) {
-            var removeIndex = addedTracks.map(function (item) { return item.spotify_id; }).indexOf(track.spotify_id);
+            var removeIndex = addedTracks.map(function (item) { return item.spotifyID; }).indexOf(track.spotifyID);
             var copy = [...addedTracks];
             copy.splice(removeIndex, 1);
             addTracks(copy);
@@ -125,7 +127,7 @@ export default function CreatePlaylist() {
         try {
             const creator_id = userData.user.id;
 
-            const playlist = { playlistName, creator_id, isPublic, tracks: [...addedTracks] }
+            const playlist = { playlistName, creator_id, isPublic, tracks: [...addedTracks], playlistDesc }
             const loginRes = await Axios.post(
                 "http://localhost:5000/playlist/create",
                 playlist
@@ -170,6 +172,15 @@ export default function CreatePlaylist() {
                             <option value="false">No</option>                       
                         </select>
                         <p style={{ display: "inline", float: "right", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop:"12px"}}> Public playlists are visible to other users. Public?</p>
+                    </div>
+                    <div className="description">
+                        <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Playlist Description</p>
+
+                        <input
+                            type="text"
+                            placeholder="Description"
+                            onChange={(e) => setDesc(e.target.value)}
+                            required />
                     </div>
                     <div className="search-bar">
                         {/* this goes inside input value={this.state.value}
