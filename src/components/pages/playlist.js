@@ -69,7 +69,7 @@ export default function Playlist() {
                                             <HeartIcon />
                                         </div>
                                         <div className="icon iconsEdit">
-                                            <EditIcon />
+                                            <a href={`/editPlaylist/${parameters.playlistId}`}><EditIcon /></a>
                                         </div>
                                         <div className="icon iconsFork">
                                             <ForkIcon />

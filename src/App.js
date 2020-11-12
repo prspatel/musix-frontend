@@ -14,6 +14,7 @@ import UsrDash from "./components/pages/usrdash";
 import CreatePlaylist from './components/pages/createPlaylist';
 import AboutUs from './components/pages/aboutUs';
 import ContactUs from './components/pages/contactUs';
+import EditPlaylist from './components/pages/editPlaylist';
 
     
 
@@ -65,6 +66,7 @@ export default function App() {
                         <Route exact path="/collexDash" component={ userData.user ? collexDash :  Login }  />
                         <Route path="/collexDash/:collexId" component={userData.user ? collexPage : Login} />
                         <Route path="/playlist/:playlistId" component={userData.user ? Playlist : Login} /> 
+                        <Route path="/editPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
                         <Route path="/createPlaylist" component={CreatePlaylist} />
 
                     </Switch>
