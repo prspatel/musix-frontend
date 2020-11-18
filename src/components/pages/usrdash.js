@@ -19,7 +19,7 @@ export default function UsrDash() {
     const [modalShow, setModalShow] = useState(false);
     const [playlists, setUserPlaylists] = useState([]);
     const { userData, setUserData } = useContext(UserContext);
-
+    const [likedPlaylists, setLikedPlaylists] = useState([]);
     const responsive = {
         superLargeDesktop: {
           // the naming can be any, depends on you.
@@ -48,21 +48,16 @@ export default function UsrDash() {
                 `http://localhost:5000/playlist/playlists/${userId}`,
             ); 
             setUserPlaylists(result.data);
+            const likedRes = await axios.get(
+                `http://localhost:5000/playlist/likedPlaylists/${userId}`,
+            );
+            console.log(likedRes.data);
+            setLikedPlaylists(likedRes.data);
         };
 
         fetchData();
     }, []);
 
-    const loadPlaylist = jsonData.playlist.map((jsonData) =>{
-      return (
-        <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
-          <Card.Img variant="top" src={jsonData.cover}/>
-          <Card.Body>
-            <Card.Title><a href= "/playlist/${jsonData.id}"> {jsonData.name}</a></Card.Title>
-          </Card.Body>
-        </Card>
-      )
-    });
 
     const loadCollex = jsonData.collex.map((jsonData) =>{
       return (
@@ -94,13 +89,22 @@ export default function UsrDash() {
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any playlists. Please click on the add button and create one</h5>}
                 
-                <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
+                {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View All Playlists >>></a> : <></> }
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
-                <Carousel  className="carousel" responsive={responsive} itemClass="cards">
-                    {loadPlaylist}
-                </Carousel>
-                <a href ="#"style={{ float: "right" }}> View All Playlists >>></a> 
+                {likedPlaylists.length !== 0 ?
+                    <Carousel className="carousel" responsive={responsive} itemClass="cards">
+                        {likedPlaylists.map(playlist => (
+                            <Card style={{ width: '13rem' }} key={playlist._id} >
+                                <Card.Img variant="top" src={playlist.cover} />
+                                <Card.Body>
+                                    <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
+                                </Card.Body>
+                            </Card>
+                        ))}
+                    </Carousel>
+                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any playlists. Please click on the like button when you view a playlist page</h5>}
+                {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>}
 
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Collections <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
@@ -108,6 +112,8 @@ export default function UsrDash() {
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadCollex}
                 </Carousel>
+                {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Collex >>></a> : <></>}
+
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}

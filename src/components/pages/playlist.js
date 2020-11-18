@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Nav from "../nav/nav2";
 import Footer from "../nav/footer";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import Axios from "axios";
 import ErrorNotice from "../misc/error";
 
 import { useHistory } from "react-router-dom";
@@ -12,6 +12,10 @@ import ReactJkMusicPlayer from 'react-jinke-music-player'
 import "../../CSS/pages/index.css"
 
 import 'react-multi-carousel/lib/styles.css';
+import UserContext from "../misc/userContext";
+
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
 
 import { ReactComponent as PlayIcon } from '../../images/play.svg'
 import { ReactComponent as NoteIcon } from '../../images/note.svg';
@@ -24,20 +28,43 @@ import { ReactComponent as DeleteIcon } from '../../images/delete.svg';
 import "../../CSS/pages/playlist.scss"
 
 export default function Playlist() {
+    const { userData, setUserData } = useContext(UserContext);
     const [modalShow, setModalShow] = useState(false);
     const [playlist, setPlaylist] = useState();
     let parameters = useParams();
+    const [error, setError] = useState();
+    const [likes, setLikes] = useState();
+
     useEffect(() => {
         const fetchData = async () => {
             const playlistId = parameters.playlistId;
-            const result = await axios.get(
+            const result = await Axios.get(
                 `http://localhost:5000/playlist/${playlistId}`
             );
             setPlaylist(result.data);
+            setLikes(result.data.likes);
         };
 
         fetchData();
     }, []);
+
+    const likePlaylist = async (e) => {
+        e.preventDefault();
+        try {
+            const creator_id = userData.user.id;
+            const playlistId = parameters.playlistId;
+            const info = { creator_id, playlistId }
+            const likeRes = await Axios.post(
+                "http://localhost:5000/playlist/like",
+                info
+            );
+            var l = likes;
+            l = l + 1;
+            setLikes(l);
+        } catch (err) {
+            err.response.data.msg && setError(err.response.data.msg);
+        }
+    };
     return (
         <>
             <Nav />
@@ -60,9 +87,12 @@ export default function Playlist() {
                                         { playlist.description}
                                     </p>
                                     <div className="playlistPageDesc">
-                                        <span>{ playlist.likes} likes</span>
+                                        <span>{likes} likes</span>
                                         <span>4hr 35 min</span>
                                     </div>
+                                    {error && (
+                                        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                                    )}
                                 </div>
                             </div>
                             <div className="playlistPageSongs">
@@ -72,20 +102,31 @@ export default function Playlist() {
                                     </span>
                                     <div className="icons">
                                         <div className="icon iconsHeart">
-                                            <HeartIcon />
+                                            <a onClick={ likePlaylist }><HeartIcon /></a>
                                         </div>
                                         <div className="icon iconsEdit">
-                                            <a href={`/editPlaylist/${parameters.playlistId}`}><EditIcon /></a>
+                                            <a href={`/editPlaylist/${parameters.playlistId}`} title="edit this playlist"><EditIcon /></a>
                                         </div>
                                         <div className="icon iconsFork">
                                             <ForkIcon />
                                         </div>
-                                        <div className="icon iconsDelete" onClick={() => setModalShow(true)}>
+                                        <div className="icon iconsDelete" title= "delete this playlist" onClick={() => setModalShow(true)}>
                                             <DeleteIcon />
-                                        </div>
-                                        <div className="icon iconsDots"></div>
+                                        </div>                                      
+                                    </div>
+                                    {
+
+
+                                    }
+                                    <div className="likeDislike">
+                                        <a onClick={likePlaylist} title= "Like the playlist"><AiFillLike size = "32"/></a>
+                                    </div>
+                                    <div>
+                                        <a onClick={likePlaylist} title = "Unlike this playlist"><AiFillDislike size="32" /></a>
                                     </div>
                                 </div>
+
+                                
 
                                 <ul className="songList">
                                     {
@@ -133,7 +174,7 @@ function MyVerticallyCenteredModal(props) {
         try {
             let playlistId = props.playlistid;
            
-            const deletRes = await axios.post(
+            const deletRes = await Axios.post(
                 `http://localhost:5000/playlist/delete/${playlistId}`                
             );
             history.push("/usrDash");
