@@ -207,7 +207,6 @@ function MyVerticallyCenteredModal(props) {
                         <Button type="submit" onClick={deletePlaylist}>Yes</Button>
                    </Form>
                 </Modal.Body>
-            )}
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>

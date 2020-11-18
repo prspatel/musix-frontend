@@ -13,6 +13,8 @@ import UserContext from "../misc/userContext";
 import ErrorNotice from "../misc/error";
 import Axios from "axios";
 import { AiFillPlayCircle } from "react-icons/ai";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditPlaylist() {
 
@@ -94,10 +96,24 @@ export default function EditPlaylist() {
 
     //add the track to current playlist
     function addToPlaylist(track) {
-        if (!addedTracks.includes(track, 0)) { 
+        var found = false;
+        for (var song of addedTracks) {
+            if (song.spotifyID === track.spotifyID) {
+                found = true;
+            }
+        }
+        if (!found) { 
             if (track) {
                 addTracks(oldArray => [...oldArray, track]);
+                toast.info("Added the song to the playlist. Scroll down.", {
+                    position: "bottom-center"
+                })
             }
+        }
+        else {
+            toast.error("Already added this song to the playlist.", {
+                position: "bottom-center"
+            })
         }
     }
 
@@ -108,6 +124,7 @@ export default function EditPlaylist() {
             copy.splice(removeIndex, 1);
             addTracks(copy);
             console.log(addedTracks);
+            toast.warning(`Removed ${track.name} from Playlist`, { position: "bottom-center" });
         }
     }
 
@@ -211,7 +228,9 @@ export default function EditPlaylist() {
                             onChange={e => searchHandler(e)}
                             value={setResults.value}
                         />
-                    </div>
+                        </div>
+                        <ToastContainer />
+
                     <div className="search-result">
                         < ListGroup variant="flush">
                             {displayTracks()}

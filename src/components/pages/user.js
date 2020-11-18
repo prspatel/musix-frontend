@@ -12,6 +12,8 @@ import 'react-multi-carousel/lib/styles.css';
 import "../../CSS/pages/playlist.scss"
 import "../../CSS/pages/usrdash.css"
 import "../../CSS/collex/collexPage.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function User() {
     const  parameters = useParams();
@@ -111,7 +113,8 @@ export default function User() {
                       </div>
                 </div>
                 
-           
+                <ToastContainer />
+
                 <ChangePasswordModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
@@ -128,7 +131,6 @@ function ChangePasswordModal(props) {
     const [currentPassword, setCurrentPassword] = useState();
     const [newPassword, setNewPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
-    const [callbackMsg, setCallbackMsg] = useState({ msg: undefined });
     const passwordSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -138,9 +140,8 @@ function ChangePasswordModal(props) {
                 "http://localhost:5000/users/changePassword",
                 passwordChange
             );
-            setCallbackMsg({ msg: passwordRes.data.msg });
-           
-
+            toast.success(passwordRes.data.msg, { position: "bottom-center" });
+            props.onHide();
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
@@ -158,7 +159,6 @@ function ChangePasswordModal(props) {
                 </Modal.Title>
 
             </Modal.Header>
-            {callbackMsg.msg ? (<h5 style={{ padding: "2%", color: "green" }}>{callbackMsg.msg}</h5>) : (
                 <Modal.Body>
                     <p style={{ fontStyle: "italic" }}>You can change your password by putting in your current password and create new one which has to be atleast 5 characters</p>
                     {error && (
@@ -183,7 +183,6 @@ function ChangePasswordModal(props) {
                     </Form>
 
                 </Modal.Body>
-            )}
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
