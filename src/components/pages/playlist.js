@@ -25,6 +25,8 @@ import { ReactComponent as ForkIcon } from '../../images/fork.svg';
 import { ReactComponent as EditIcon } from '../../images/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../images/delete.svg';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../../CSS/pages/playlist.scss"
 
 export default function Playlist() {
@@ -34,7 +36,7 @@ export default function Playlist() {
     let parameters = useParams();
     const [error, setError] = useState();
     const [likes, setLikes] = useState();
-
+    const [likedbyUser, setlikedbyUser] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             const playlistId = parameters.playlistId;
@@ -43,6 +45,12 @@ export default function Playlist() {
             );
             setPlaylist(result.data);
             setLikes(result.data.likes);
+            const userId = userData.user.id;
+            const likeresult = await Axios.get(
+                `http://localhost:5000/playlist/likedbyUser/${playlistId}/${userId}`
+            );
+            console.log(likeresult.data);
+            setlikedbyUser(likeresult.data);
         };
 
         fetchData();
@@ -58,9 +66,35 @@ export default function Playlist() {
                 "http://localhost:5000/playlist/like",
                 info
             );
-            var l = likes;
-            l = l + 1;
-            setLikes(l);
+            var playlistLikes = likes;
+            playlistLikes = playlistLikes + 1;
+            setLikes(playlistLikes);
+            setlikedbyUser(true);
+            toast.success("You liked this playlist", {
+                position: "bottom-center"
+            })
+        } catch (err) {
+            err.response.data.msg && setError(err.response.data.msg);
+        }
+    };
+
+    const dislikePlaylist = async (e) => {
+        e.preventDefault();
+        try {
+            const creator_id = userData.user.id;
+            const playlistId = parameters.playlistId;
+            const info = { creator_id, playlistId }
+            const likeRes = await Axios.post(
+                "http://localhost:5000/playlist/dislike",
+                info
+            );
+            var playlistLikes = likes;
+            playlistLikes = playlistLikes - 1; 
+            setLikes(playlistLikes);
+            setlikedbyUser(false);
+            toast.error("You disliked this playlist", {
+                position: "bottom-center"
+            })
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
@@ -101,9 +135,10 @@ export default function Playlist() {
                                         <PlayIcon />
                                     </span>
                                     <div className="icons">
-                                        <div className="icon iconsHeart">
+                                        {/*<div className="icon iconsHeart">
                                             <a onClick={ likePlaylist }><HeartIcon /></a>
                                         </div>
+                                        */}
                                         <div className="icon iconsEdit">
                                             <a href={`/editPlaylist/${parameters.playlistId}`} title="edit this playlist"><EditIcon /></a>
                                         </div>
@@ -115,15 +150,18 @@ export default function Playlist() {
                                         </div>                                      
                                     </div>
                                     {
-
-
+                                        likedbyUser ?
+                                            <div className="likeDislike">
+                                                <a onClick={dislikePlaylist} title="Unlike this playlist">
+                                                    <AiFillDislike size="32" onMouseOver={({ target }) => target.style.color = "white"} onMouseOut={({ target }) => target.style.color = "black"}/></a>
+                                            </div>
+                                            :
+                                            <div className="likeDislike">
+                                                <a onClick={likePlaylist} title="Like the playlist">
+                                                    <AiFillLike size="32" onMouseOver={({ target }) => target.style.color = "white"} onMouseOut={({ target }) => target.style.color = "black"}/></a>
+                                            </div>
                                     }
-                                    <div className="likeDislike">
-                                        <a onClick={likePlaylist} title= "Like the playlist"><AiFillLike size = "32"/></a>
-                                    </div>
-                                    <div>
-                                        <a onClick={likePlaylist} title = "Unlike this playlist"><AiFillDislike size="32" /></a>
-                                    </div>
+                                    
                                 </div>
 
                                 
@@ -158,7 +196,8 @@ export default function Playlist() {
                     </div>
                 </>
 
-                :<></>}
+                : <></>}
+            <ToastContainer/>
             <Footer />
         </>
     );
