@@ -79,8 +79,8 @@ export default function UsrDash() {
                 {playlists.length!==0 ? 
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {playlists.map(playlist => (
-                            <Card style={{ width: '15rem' }} key={playlist._id} >
-                                <Card.Img variant="top" src={playlist.cover} height="200" width="200" />
+                            <Card style={{ width: '14rem' }} key={playlist._id} >
+                                <Card.Img variant="top" src={playlist.cover} height="200" width="150" />
                                 <Card.Body>
                                         <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
                                 </Card.Body>
@@ -95,8 +95,8 @@ export default function UsrDash() {
                 {likedPlaylists.length !== 0 ?
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {likedPlaylists.map(playlist => (
-                            <Card style={{ width: '15rem' }} key={playlist._id} >
-                                <Card.Img variant="top" src={playlist.cover} height="200" width="200"/>
+                            <Card style={{ width: '14rem' }} key={playlist._id} >
+                                <Card.Img variant="top" src={playlist.cover} height="200" width="150"/>
                                 <Card.Body>
                                     <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
                                 </Card.Body>
