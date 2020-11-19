@@ -67,6 +67,7 @@ export default function App() {
                         <Route path="/collexDash/:collexId" component={userData.user ? collexPage : Login} />
                         <Route path="/playlist/:playlistId" component={userData.user ? Playlist : Login} /> 
                         <Route path="/editPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
+                        <Route path="/forkPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
                         <Route path="/createPlaylist" component={CreatePlaylist} />
 
                     </Switch>
