@@ -36,7 +36,6 @@ export default function EditPlaylist() {
     let parameters = useParams();
 
     useEffect(() => {
-        console.log(window.location.pathname);
 
         const fetchData = async () => {
             const playlistId = parameters.playlistID;
