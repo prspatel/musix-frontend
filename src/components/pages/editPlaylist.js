@@ -26,6 +26,7 @@ export default function EditPlaylist() {
 
     const [data, setData] = useState();
     const [error, setError] = useState();
+    const [cover, setCover] = useState();
     const history = useHistory();
     const [addedTracks, addTracks] = useState([]);
     const [playlistName, setName] = useState();
@@ -34,6 +35,7 @@ export default function EditPlaylist() {
     const [playlistDesc, setDesc] = useState();
 
     let parameters = useParams();
+    let isFork = window.location.pathname.startsWith("/forkPlaylist");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,6 +49,7 @@ export default function EditPlaylist() {
             setPublic(result.data.public);
             setName(result.data.name);
             setDesc(result.data.description);
+            setCover(result.data.cover);
         };
         fetchData();
     }, []);
@@ -160,11 +163,17 @@ export default function EditPlaylist() {
         try {
             const creator_id = userData.user.id;
             const playlistId = parameters.playlistID;
-            const playlist = { playlistId, playlistName, isPublic, tracks: [...addedTracks], playlistDesc }
-            const loginRes = await Axios.post(
-                "http://localhost:5000/playlist/edit",
-                playlist
-            );
+            const playlist = isFork ? { playlistName, creator_id, isPublic, tracks: [...addedTracks], playlistDesc } : { playlistId, playlistName, isPublic, tracks: [...addedTracks], playlistDesc }
+            const loginRes = isFork ? 
+                await Axios.post(
+                    "http://localhost:5000/playlist/fork",
+                    playlist
+                ) :
+                await Axios.post(
+                    "http://localhost:5000/playlist/edit",
+                    playlist
+                );
+            console.log(addedTracks);
             const id = loginRes.data.id;
             history.push(`/playlist/${id}`);
         } catch (err) {
@@ -178,7 +187,7 @@ export default function EditPlaylist() {
             {data ?
             <div className="createPlaylist-body">
                 <div className="createPlaylist-header">
-                    <h1 className="createPlaylist-title"> Edit your playlist </h1>
+                    <h1 className="createPlaylist-title"> {isFork ? "Fork this playlist" : "Edit your playlist" }</h1>
                     <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Playlist is a collection of the songs you would love to hear now or later </p>
                    
                 </div>

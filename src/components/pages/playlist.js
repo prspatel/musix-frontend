@@ -56,6 +56,8 @@ export default function Playlist() {
         fetchData();
     }, []);
 
+    console.log(playlist?playlist.songs:"xxxxxxx");
+
     const likePlaylist = async (e) => {
         e.preventDefault();
         try {
@@ -143,7 +145,7 @@ export default function Playlist() {
                                             <a href={`/editPlaylist/${parameters.playlistId}`} title="edit this playlist"><EditIcon /></a>
                                         </div>
                                         <div className="icon iconsFork">
-                                            <ForkIcon />
+                                            <a href={`/forkPlaylist/${parameters.playlistId}`} title="fork this playlist"><ForkIcon /></a>
                                         </div>
                                         <div className="icon iconsDelete" title= "delete this playlist" onClick={() => setModalShow(true)}>
                                             <DeleteIcon />
