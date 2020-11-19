@@ -36,6 +36,8 @@ export default function EditPlaylist() {
     let parameters = useParams();
 
     useEffect(() => {
+        console.log(window.location.pathname);
+
         const fetchData = async () => {
             const playlistId = parameters.playlistID;
             const result = await Axios.get(
@@ -132,7 +134,6 @@ export default function EditPlaylist() {
     function displayAddedTracks(){
         let tracks = <h2 style={{textAlign:"center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop:"12px" }}> No tracks added to this playlist </h2>;
         if (addedTracks) {
-            console.log(addedTracks)
             tracks = getAddedTracks();
         }
         return tracks;

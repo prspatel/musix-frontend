@@ -9,7 +9,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { GrAddCircle } from "react-icons/gr";
 import { BsFillMusicPlayerFill } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-
+import MyVerticallyCenteredModal from "../collex/createCollex";
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
 
@@ -61,8 +61,8 @@ export default function UsrDash() {
 
     const loadCollex = jsonData.collex.map((jsonData) =>{
       return (
-        <Card style={{width: '13rem'}} id={jsonData.id} creatorId={jsonData.creatorID}>
-          <Card.Img variant="top" src={jsonData.cover}/>
+          <Card style={{ width: '15rem' }} id={jsonData.id} creatorId={jsonData.creatorID}>
+              <Card.Img variant="top" src={jsonData.cover} height="200" width = "200" />
           <Card.Body>
             <Card.Title><a href= "#">{jsonData.name}</a></Card.Title>
           </Card.Body>
@@ -79,8 +79,8 @@ export default function UsrDash() {
                 {playlists.length!==0 ? 
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {playlists.map(playlist => (
-                            <Card style={{ width: '13rem' }} key={playlist._id} >
-                                <Card.Img variant="top" src={playlist.cover} />
+                            <Card style={{ width: '15rem' }} key={playlist._id} >
+                                <Card.Img variant="top" src={playlist.cover} height="200" width="200" />
                                 <Card.Body>
                                         <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
                                 </Card.Body>
@@ -95,8 +95,8 @@ export default function UsrDash() {
                 {likedPlaylists.length !== 0 ?
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {likedPlaylists.map(playlist => (
-                            <Card style={{ width: '13rem' }} key={playlist._id} >
-                                <Card.Img variant="top" src={playlist.cover} />
+                            <Card style={{ width: '15rem' }} key={playlist._id} >
+                                <Card.Img variant="top" src={playlist.cover} height="200" width="200"/>
                                 <Card.Body>
                                     <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
                                 </Card.Body>
@@ -122,50 +122,4 @@ export default function UsrDash() {
             <Footer/>
         </>   
     ); 
-}
-
-function MyVerticallyCenteredModal(props) {
-    return (
-        <Modal
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Create Collex
-                </Modal.Title>
-                
-            </Modal.Header>
-            <Modal.Body>
-                <p style={{ fontStyle: "italic" }}>Collex is a collection of playlists which will be publicly accesed by other user. Other users can add their playlist to the collex to extend collection on the topic</p>
-                <p>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>Collex Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter name for collex" />                           
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" placeholder="Description" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Upload an image for your collex</Form.Label>
-                            <Form.File
-                                id="custom-file"
-                                label="Custom file input"
-                                custom
-                            />
-                        </Form.Group>
-                        <Button type="submit">Create Collex</Button>
-                    </Form>
-                </p>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-            </Modal.Footer>
-        </Modal>
-    );
 }
