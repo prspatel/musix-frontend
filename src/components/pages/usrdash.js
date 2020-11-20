@@ -107,7 +107,7 @@ export default function UsrDash() {
                 {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>}
 
                 <hr className="solid-divider" />
-                <h2 className="usrdash-title"> Liked Collections <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
+                <h2 className="usrdash-title"> Liked Collexs <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
                     <a title="Explore Collex Gallery" href="/collexDash"><BsFillMusicPlayerFill size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadCollex}
