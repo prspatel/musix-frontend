@@ -45,12 +45,11 @@ hr.solid {
 .search-bar input:focus{
     border-color:lightgreen;
 }
-.collex-cards {
-    padding: 0 10% 0 10%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    grid-gap: 25px;
+.carousel-container {
+    margin: 0 10% 0 10%;
+}
+.collexDash-carousel {
+    margin-bottom: 1%;
 }
 
 .iconsCreate svg { 

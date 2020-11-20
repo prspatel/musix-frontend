@@ -80,7 +80,7 @@ export default function EditPlaylist() {
                     
                         <div className="list-icons" >
                             <a href={track.preview_url} target="_blank" title="Play the preview"><AiFillPlayCircle size="30px" /></a>
-                            <a onClick={() => addToPlaylist(track)} style={{ cursor: "pointer" }} title="Add this track tol playlist"><GrAddCircle size="30px" /></a>
+                            <a onClick={() => addToPlaylist(track)} style={{ cursor: "pointer" }} title="Add this track to playlist"><GrAddCircle size="30px" /></a>
                         </div>
                     </div>
                 </ListGroup.Item >
