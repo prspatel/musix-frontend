@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect }from "react";
 import Nav2 from "../nav/nav2";
-import { Button, Modal, Form } from "react-bootstrap";
 import Footer from "../nav/footer";
 import UserContext from "../misc/userContext";
 import axios from "axios"
@@ -12,13 +11,14 @@ import { Link } from 'react-router-dom';
 import MyVerticallyCenteredModal from "../collex/createCollex";
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
+import { ToastContainer } from 'react-toastify';
 
 import jsonData from '../../jsonFiles/userdash.json';
 
 export default function UsrDash() {
     const [modalShow, setModalShow] = useState(false);
     const [playlists, setUserPlaylists] = useState([]);
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
     const [likedPlaylists, setLikedPlaylists] = useState([]);
     const responsive = {
         superLargeDesktop: {
@@ -89,7 +89,7 @@ export default function UsrDash() {
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any playlists. Please click on the add button and create one</h5>}
                 
-                {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View All Playlists >>></a> : <></> }
+                {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View All Playlists >>></a> : <></> */}
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
                 {likedPlaylists.length !== 0 ?
@@ -104,20 +104,22 @@ export default function UsrDash() {
                         ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any playlists. Please click on the like button when you view a playlist page</h5>}
-                {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>}
+                {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>*/}
 
                 <hr className="solid-divider" />
-                <h2 className="usrdash-title"> Liked Collexs <a title="Create Collex" href="#" onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
+                <h2 className="usrdash-title"> Liked Collexs <a title="Create Collex"  onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
                     <a title="Explore Collex Gallery" href="/collexDash"><BsFillMusicPlayerFill size="20px" /></a></h2>
                 <Carousel  className="carousel" responsive={responsive} itemClass="cards">
                     {loadCollex}
                 </Carousel>
-                {playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Collex >>></a> : <></>}
+                {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Collex >>></a> : <></>*/}
 
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 />
+
+                <ToastContainer/>
             </div>
             <Footer/>
         </>   

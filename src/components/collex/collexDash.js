@@ -87,7 +87,7 @@ export default function CollexDash() {
                         <Card.Img variant="top" src={item.cover} height="200" width="150" />
                         <Card.Title>{item.name}</Card.Title>
                         <Card.Text>
-                            {item.description}
+                            {item.likes} Likes
                         </Card.Text>
                         <Link to={`collexDash/${item._id}`}>View this collex</Link>
                     </Card.Body>

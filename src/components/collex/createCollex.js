@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import "../../CSS/collex/createCollex.css"
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import ErrorNotice from "../misc/error";
+import { ToastContainer, toast } from 'react-toastify';
 
 const imageslinks = ["https://i.pinimg.com/564x/a5/be/c0/a5bec0a5b1c45b71c97cbd4b112e7f34.jpg", "https://i.pinimg.com/236x/8a/f8/d8/8af8d84492c442f6c35147e74ac5a66f.jpg", "https://i.pinimg.com/236x/6b/f1/95/6bf19514d6b2c19f23a345cd85a937eb.jpg",
     "https://i.pinimg.com/236x/47/0a/b6/470ab64e2c181bca6520e744d70da5f5.jpg", "https://i.pinimg.com/236x/10/52/69/105269e5cad0204f07a74b6c2b9ac364.jpg", "https://i.pinimg.com/236x/20/78/9f/20789f8bfa94b7a5e3958b8a114e7951.jpg"
@@ -16,7 +18,7 @@ export default function MyVerticallyCenteredModal(props) {
     const [collexPic, setImage] = useState(null);
     const [collexName,setName] = useState(null);
     const [collexDesc,setDesc] = useState(null);
-    
+
     const history = useHistory();
     const [error, setError] = useState();
 
@@ -25,7 +27,6 @@ export default function MyVerticallyCenteredModal(props) {
     };
     const createCollex = async (e) => {
         e.preventDefault();
-        props.onHide();
         try {
             const collex = { collexName, collexDesc, collexPic };
             console.log(collex);
@@ -34,13 +35,14 @@ export default function MyVerticallyCenteredModal(props) {
                 collex
             );
             const id = loginRes.data.id;
+            toast.success("New Collex successfully created", { position: "bottom-center" });
+            props.onHide(); 
             //history.push(`/collex/${id}`);
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
     };
     return (
-        <form onSubmit={createCollex}>
         <Modal
             {...props}
             size="lg"
@@ -55,7 +57,10 @@ export default function MyVerticallyCenteredModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <p style={{ fontStyle: "italic" }}>Collex is a collection of playlists which will be publicly accesed by other user. Other users can add their playlist to the collex to extend collection on the topic</p>
-                    <Form>
+                {error && (
+                    <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                )}
+                <Form onSubmit={createCollex}>
                         <Form.Group>
                             <Form.Label>Collex Name</Form.Label>
                             <Form.Control type="text" placeholder="Enter name for collex" onChange={(e) => setName(e.target.value)} required/>
@@ -73,12 +78,11 @@ export default function MyVerticallyCenteredModal(props) {
                             />
                         </div>
                         <Button type="submit">Create Collex</Button>
-                    </Form>
+                </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
-        </form>
     );
 }

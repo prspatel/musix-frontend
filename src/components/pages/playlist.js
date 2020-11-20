@@ -19,7 +19,6 @@ import { AiFillDislike } from "react-icons/ai";
 
 import { ReactComponent as PlayIcon } from '../../images/play.svg'
 import { ReactComponent as NoteIcon } from '../../images/note.svg';
-import { ReactComponent as HeartIcon } from '../../images/heart.svg';
 
 import { ReactComponent as ForkIcon } from '../../images/fork.svg';
 import { ReactComponent as EditIcon } from '../../images/edit.svg';
