@@ -143,6 +143,7 @@ export default function CreatePlaylist() {
                 playlist
             );
             const id = loginRes.data.id;
+            console.log(id);
             history.push(`/playlist/${id}`);
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
