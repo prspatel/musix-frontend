@@ -51,7 +51,7 @@ export default function UsrDash() {
             const likedRes = await axios.get(
                 `http://localhost:5000/playlist/likedPlaylists/${userId}`,
             );
-            console.log(likedRes.data);
+            console.log(result.data);
             setLikedPlaylists(likedRes.data);
         };
 
