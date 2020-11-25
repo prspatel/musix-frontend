@@ -122,21 +122,25 @@ export default function CollexDash() {
                                  </Carousel>
                                     
                                 : data ?
-                                    <Carousel className="collexDash-carousel" responsive={responsive} >
-                                        {data.map(item => (
-                                            <Card key={item._id} style={{ width: '14rem', border: "1px solid  #69b1ec", borderRadius: "24px", backgroundColor: "white" }}>
-                                                <Card.Body>
+                                    <>
+                                        <Carousel className="collexDash-carousel" responsive={responsive} >
+                                            {data.map(item => (
+                                                <Card style={{ width: '14rem' }} key={item._id} >
                                                     <Card.Img variant="top" src={item.cover} height="200" width="150" />
-                                                    <Card.Title>{item.name}</Card.Title>
-                                                    <Card.Text>
-                                                        {item.likes} Likes
-                                                    </Card.Text>
-                                                    <Link to={`collexDash/${item._id}`}>View this collex</Link>
-                                                </Card.Body>
-                                            </Card>))}
-                                </Carousel>
+                                                    <Card.Body>
+                                                        <Card.Title>{item.name}</Card.Title>
+                                                        <Card.Text>
+                                                            {item.likes} Likes
+                                                        </Card.Text>
+                                                        <Link to={`/collex/${item._id}`}>View this collex</Link>                                                    </Card.Body>
+                                                </Card>
+                                                ))}
+                                        </Carousel>
+                                        <a href="/allCollex/viewAll" style={{ float: "right" }}> View All Collex >>></a>
+                                    </>
                             : <h1>No collex in the database</h1>
                         }
+
                     </div>
                 </section>
                 <Footer/>

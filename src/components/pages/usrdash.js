@@ -12,7 +12,7 @@ import MyVerticallyCenteredModal from "../collex/createCollex";
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
 import { ToastContainer } from 'react-toastify';
-
+import viewAll from "../pages/viewAll";
 import jsonData from '../../jsonFiles/userdash.json';
 
 export default function UsrDash() {
@@ -88,8 +88,8 @@ export default function UsrDash() {
                         ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any playlists. Please click on the add button and create one</h5>}
-                
-                {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View All Playlists >>></a> : <></> */}
+
+                {playlists.length > 0 ? <a href="/allPlaylists/viewAll" style={{ float: "right" }}> View All Playlists >>></a> : <></>}
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Playlists</h2>
                 {likedPlaylists.length !== 0 ?
@@ -104,7 +104,7 @@ export default function UsrDash() {
                         ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any playlists. Please click on the like button when you view a playlist page</h5>}
-                {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>*/}
+                {playlists.length > 0 ? <a href="/likedPlaylists/viewAll" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>}
 
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Collexs <a title="Create Collex"  onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>

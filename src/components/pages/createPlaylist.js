@@ -171,6 +171,7 @@ export default function CreatePlaylist() {
                             type="search"
                             placeholder="Playlist name..."
                             onChange={(e) => setName(e.target.value)}
+                            maxLength="19"
                             required />
 
                     
@@ -191,6 +192,7 @@ export default function CreatePlaylist() {
                             type="text"
                             placeholder="Description"
                             onChange={(e) => setDesc(e.target.value)}
+                            maxLength="70"
                             required />
                     </div>
                     <div className="search-bar">

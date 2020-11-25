@@ -205,6 +205,7 @@ export default function EditPlaylist() {
                             defaultValue={data.name}
                             placeholder="Playlist name..."
                             onChange={(e) => setName(e.target.value)}
+                            maxLength= "19"
                             required />
 
                     
@@ -226,6 +227,7 @@ export default function EditPlaylist() {
                             defaultValue= {data.description}
                             placeholder="Description"
                             onChange={(e) => setDesc(e.target.value)}
+                            maxLength="70"
                             required />
                     </div>
                     <div className="search-bar">

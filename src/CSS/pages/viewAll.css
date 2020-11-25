@@ -1,0 +1,28 @@
+
+
+.viewall-body{
+	margin: 0 10% 0 10%;
+}
+.viewall-header {
+	margin: 3% 0 0 0 ;
+}
+.viewall-topic {
+	text-align: left;
+	color: #696969;
+	font-family: 'Turret Road', cursive;
+	font-weight: 500;
+	font-size: 56px;
+}
+hr.viewAll-solid {
+	margin-top: 1%;
+	border-color: lightgray;
+	width: 100%;
+}
+.display-cards {
+	display: inline-flex;
+	width: 100%;
+	flex-wrap: wrap;
+	position: center;
+	justify-content: flex-start;
+	margin-bottom: 3%;
+}

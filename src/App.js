@@ -15,6 +15,7 @@ import CreatePlaylist from './components/pages/createPlaylist';
 import AboutUs from './components/pages/aboutUs';
 import ContactUs from './components/pages/contactUs';
 import EditPlaylist from './components/pages/editPlaylist';
+import viewAll from "./components/pages/viewAll";
 
     
 
@@ -64,8 +65,13 @@ export default function App() {
                         <Route path="/usrDash" component={userData.user ? UsrDash : Login} />
                         <Route path="/user/:userId" component={User}/>
                         <Route exact path="/collexDash" component={ userData.user ? collexDash :  Login }  />
-                        <Route path="/collexDash/:collexId" component={userData.user ? collexPage : Login} />
-                        <Route path="/playlist/:playlistId" component={userData.user ? Playlist : Login} /> 
+                        <Route path="/collex/:collexId" component={userData.user ? collexPage : Login} />
+                        <Route path="/playlist/:playlistId" component={userData.user ? Playlist : Login} />
+                        <Route path="/likedPlaylists/viewAll" component={userData.user ? viewAll : Login} /> 
+                        <Route path="/allPlaylists/viewAll" component={userData.user ? viewAll : Login} /> 
+                        <Route path="/likedCollex/viewAll" component={userData.user ? viewAll : Login} /> 
+                        <Route path="/allCollex/viewAll" component={userData.user ? viewAll : Login} /> 
+
                         <Route path="/editPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
                         <Route path="/forkPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
                         <Route path="/createPlaylist" component={CreatePlaylist} />

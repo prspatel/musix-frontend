@@ -56,14 +56,15 @@ export default function MyVerticallyCenteredModal(props) {
 
             </Modal.Header>
             <Modal.Body>
-                <p style={{ fontStyle: "italic" }}>Collex is a collection of playlists which will be publicly accesed by other user. Other users can add their playlist to the collex to extend collection on the topic</p>
+                <p style={{ fontStyle: "italic" }}>Collex is a collection of playlists which will be publicly accesed by other user. Other users can add their playlist to the collex to extend collection on the topic.
+                    The name can only be 19 character long.</p>
                 {error && (
                     <ErrorNotice message={error} clearError={() => setError(undefined)} />
                 )}
                 <Form onSubmit={createCollex}>
                         <Form.Group>
                             <Form.Label>Collex Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter name for collex" onChange={(e) => setName(e.target.value)} required/>
+                            <Form.Control type="text" placeholder="Enter name for collex" onChange={(e) => setName(e.target.value)} maxLength= "19" required/>
                         </Form.Group>
 
                         <Form.Group>
