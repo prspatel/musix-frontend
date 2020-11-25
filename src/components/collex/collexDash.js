@@ -132,7 +132,8 @@ export default function CollexDash() {
                                                         <Card.Text>
                                                             {item.likes} Likes
                                                         </Card.Text>
-                                                        <Link to={`/collex/${item._id}`}>View this collex</Link>                                                    </Card.Body>
+                                                        <Link to={`/collex/${item._id}`}>View this collex</Link>
+                                                    </Card.Body>
                                                 </Card>
                                                 ))}
                                         </Carousel>

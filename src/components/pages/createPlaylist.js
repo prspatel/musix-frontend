@@ -196,8 +196,6 @@ export default function CreatePlaylist() {
                             required />
                     </div>
                     <div className="search-bar">
-                        {/* this goes inside input value={this.state.value}
-                                onChange={e => this.onChangeHandler(e)}*/}
                         <input
                             type="text"
                             placeholder="Type here to search a song to add it to the playlist"

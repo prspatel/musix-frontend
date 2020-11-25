@@ -88,6 +88,13 @@ export default function Playlist() {
         }
     };
 
+    function convertTominutes(totalduration) {
+        var minutes = Math.floor(totalduration / 60000);
+        var seconds = ((totalduration % 60000) / 1000).toFixed(0);
+        var duration = minutes + "m " + (seconds < 10 ? '0' : '') + seconds + "s";
+
+        return duration;
+    }
     const dislikePlaylist = async (e) => {
         e.preventDefault();
         try {
@@ -139,8 +146,8 @@ export default function Playlist() {
                                         { playlist.description}
                                     </p>
                                     <div className="playlistPageDesc">
-                                        <span>{likes} likes</span>
-                                        <span>4hr 35 min</span>
+                                        <span style={{ fontStyle: "italic" }}>{likes} likes</span>
+                                        <span style ={{ fontStyle: "italic" }}>Duration: {playlist.duration ? playlist.duration : <></> }</span>
                                     </div>
                                     {error && (
                                         <ErrorNotice message={error} clearError={() => setError(undefined)} />
@@ -186,7 +193,7 @@ export default function Playlist() {
 
                                 <ul className="songList">
                                     {
-                                        playlist.songs.map(track => (
+                                        playlist.songs.map(track => (         
                                             <li key={ track._id}>
                                                 <div className="songIcon">
                                                     <NoteIcon className="noteI" />
@@ -197,7 +204,7 @@ export default function Playlist() {
                                                     <span>by { track.artists.join(", ")}</span>
                                                 </div>
                                                 <div className="songTime">
-                                                    <span>{ track.duration}</span>
+                                                    <span>{convertTominutes(track.duration)}</span>
                                                 </div>
                                             </li>  
                                         ))
