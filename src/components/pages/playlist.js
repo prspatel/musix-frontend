@@ -35,7 +35,9 @@ export default function Playlist() {
     let parameters = useParams();
     const [error, setError] = useState();
     const [likes, setLikes] = useState();
+    const [likesBy, setLikesBy] = useState();
     const [likedbyUser, setlikedbyUser] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
             const playlistId = parameters.playlistId;
@@ -44,32 +46,39 @@ export default function Playlist() {
             );
             setPlaylist(result.data);
             setLikes(result.data.likes);
+            setLikesBy(result.data.likedBy);
             const userId = userData.user.id;
             const likeresult = await Axios.get(
                 `http://localhost:5000/playlist/likedbyUser/${playlistId}/${userId}`
             );
-            console.log(likeresult.data);
+            console.log(result.data);
             setlikedbyUser(likeresult.data);
         };
 
         fetchData();
     }, []);
 
-    console.log(playlist?playlist.songs:"xxxxxxx");
-
     const likePlaylist = async (e) => {
         e.preventDefault();
         try {
             const creator_id = userData.user.id;
             const playlistId = parameters.playlistId;
-            const info = { creator_id, playlistId }
+
+            var playlistLikes = likes;
+            playlistLikes = playlistLikes + 1;
+            setLikes(playlistLikes);
+            
+            var userLikes = likesBy;
+            userLikes.push(creator_id);
+            setLikesBy(userLikes);
+
+            const info = { creator_id, playlistId, playlistLikes, userLikes }
+
             const likeRes = await Axios.post(
                 "http://localhost:5000/playlist/like",
                 info
             );
-            var playlistLikes = likes;
-            playlistLikes = playlistLikes + 1;
-            setLikes(playlistLikes);
+
             setlikedbyUser(true);
             toast.success("You liked this playlist", {
                 position: "bottom-center"
@@ -84,14 +93,22 @@ export default function Playlist() {
         try {
             const creator_id = userData.user.id;
             const playlistId = parameters.playlistId;
-            const info = { creator_id, playlistId }
+
+            var playlistLikes = likes;
+            playlistLikes = playlistLikes - 1; 
+            setLikes(playlistLikes);
+
+            var userLikes = likesBy;
+            userLikes.splice(userLikes.indexOf(creator_id), 1);
+            setLikesBy(userLikes);
+
+            const info = { creator_id, playlistId, playlistLikes, userLikes }
+
             const likeRes = await Axios.post(
                 "http://localhost:5000/playlist/dislike",
                 info
             );
-            var playlistLikes = likes;
-            playlistLikes = playlistLikes - 1; 
-            setLikes(playlistLikes);
+
             setlikedbyUser(false);
             toast.error("You disliked this playlist", {
                 position: "bottom-center"
