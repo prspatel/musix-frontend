@@ -20,6 +20,8 @@ export default function UsrDash() {
     const [playlists, setUserPlaylists] = useState([]);
     const { userData } = useContext(UserContext);
     const [likedPlaylists, setLikedPlaylists] = useState([]);
+    const [likedCollex, setLikedCollex] = useState([]);
+
     const responsive = {
         superLargeDesktop: {
           // the naming can be any, depends on you.
@@ -51,8 +53,11 @@ export default function UsrDash() {
             const likedRes = await axios.get(
                 `http://localhost:5000/playlist/likedPlaylists/${userId}`,
             );
-            console.log(result.data);
             setLikedPlaylists(likedRes.data);
+            const likedCollexRes = await axios.get(
+                `http://localhost:5000/collex/likedCollex/${userId}`,
+            );
+            setLikedCollex(likedCollexRes.data);
         };
 
         fetchData();
@@ -109,9 +114,20 @@ export default function UsrDash() {
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Collexs <a title="Create Collex"  onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
                     <a title="Explore Collex Gallery" href="/collexDash"><BsFillMusicPlayerFill size="20px" /></a></h2>
-                <Carousel  className="carousel" responsive={responsive} itemClass="cards">
-                    {loadCollex}
-                </Carousel>
+                {likedCollex.length !== 0 ?
+                    <Carousel className="carousel" responsive={responsive} itemClass="cards">
+                        {likedCollex.map(collex => (
+                            <Card style={{ width: '14rem' }} key={collex._id} >
+                                <Card.Img variant="top" src={collex.cover} height="200" width="150" />
+                                <Card.Body>
+                                    <Card.Title><Link to={`/collex/${collex._id}`} >{collex.name}</Link></Card.Title>
+                                </Card.Body>
+                            </Card>
+                        ))}
+                    </Carousel>
+                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any collex. Please click on the like button when you view a collex page</h5>}
+                {playlists.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right" }}> View Liked Collexs >>></a> : <></>}
+
                 {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Collex >>></a> : <></>*/}
 
                 <MyVerticallyCenteredModal

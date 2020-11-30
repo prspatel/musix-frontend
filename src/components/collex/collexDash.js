@@ -68,9 +68,10 @@ export default function CollexDash() {
         const res = await Search(
             `http://localhost:5000/collex/search/${val}`
         );  
-        const collexs = res.collexs;
-        setResults({ collexs, loading: false });
-
+        if (res.collexs) {
+            const collexs = res.collexs;
+            setResults({ collexs, loading: false });
+        }
     };
 
     function displayCollexs() {
@@ -89,7 +90,7 @@ export default function CollexDash() {
                         <Card.Text>
                             {item.likes} Likes
                         </Card.Text>
-                        <Link to={`collexDash/${item._id}`}>View this collex</Link>
+                        <Link to={`collex/${item._id}`}>View this collex</Link>
                     </Card.Body>
                 </Card>))
         }

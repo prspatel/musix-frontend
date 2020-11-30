@@ -36,8 +36,8 @@ export default function MyVerticallyCenteredModal(props) {
             );
             const id = loginRes.data.id;
             toast.success("New Collex successfully created", { position: "bottom-center" });
-            props.onHide(); 
-            //history.push(`/collex/${id}`);
+            props.onHide();
+            history.push(`/collex/${id}`);
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }

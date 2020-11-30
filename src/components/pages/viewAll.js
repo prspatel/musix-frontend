@@ -37,12 +37,12 @@ export default function ViewAll() {
 
             }
             else if (isLikedCollex) {
-                /*const result = await axios.get(
-                    `http://localhost:5000/playlist/likedPlaylists/${userId}`,
+                const result = await axios.get(
+                    `http://localhost:5000/collex/likedCollex/${userId}`,
                 );
-                setPorC("playlist")
+                setPorC("collex")
                 setData(result.data);
-                */
+                
             }
             else {
                 const result = await axios(

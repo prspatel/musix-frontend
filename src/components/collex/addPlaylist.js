@@ -28,11 +28,9 @@ export default function MyVerticallyCenteredModal(props) {
     useEffect(() => {
         const fetchData = async () => {
             const userId = userData.user.id;
-            console.log(userId);
             const result = await Axios.get(
                 `http://localhost:5000/playlist/public/${userId}`,
             );
-            console.log(result.data);
             setUserPlaylists(result.data);
         };
 
@@ -53,16 +51,35 @@ export default function MyVerticallyCenteredModal(props) {
         let playlists = [];
         if (res) {
             playlists = [...res.playlists];
-            console.log(playlists);
             setResults({ playlists, loading: false });
         }
 
     };  
 
+    const addPlaylistToCollex = async (playlist) => {
+        try {
+            console.log(playlist)
+            const collexId = props.collexid
+            console.log(collexId)
+
+            const  addRes= await Axios.post(
+                "http://localhost:5000/collex/addPlaylist",
+                { playlist, collexId }
+            );
+            toast.success(" Playlist was added successfully to this Collex", { position: "bottom-center" });
+            props.onHide();
+            window.location.reload(false)
+
+        } catch (err) {
+            toast.error(" Playlist is already added to the collex", { position: "bottom-center" });
+            err.response.data.msg && setError(err.response.data.msg);
+        }
+    };
+
     function getPlaylists() {
         const renderPlaylists = playlists.map((item, id) => {
             return (
-                < ListGroup.Item key={id} variant = "success">
+                < ListGroup.Item key={id} variant="success" action onClick={()=>addPlaylistToCollex(item) }>
                     <div className="list-item">
                         <h5>{item.name}</h5>
                         <div className="list-icons" >
@@ -97,13 +114,9 @@ export default function MyVerticallyCenteredModal(props) {
         }
         return collexs;
     }
-    const addPlaylist = async (e) => {
-        try {
-        } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg);
-        }
-    };
+    
     return (
+        <>
         <Modal
             {...props}
             size="lg"
@@ -121,7 +134,6 @@ export default function MyVerticallyCenteredModal(props) {
                 {error && (
                     <ErrorNotice message={error} clearError={() => setError(undefined)} />
                 )}
-                <Form onSubmit={addPlaylist}>
                     <div className="search-bar">
                         <input
                             type="text"
@@ -130,7 +142,7 @@ export default function MyVerticallyCenteredModal(props) {
                             value={setResults.value}
                         />
                     </div>
-                    <p style={{ fontStyle: "italic" }}>Below are your public playlists</p>
+                    <p style={{ fontStyle: "italic" }}>Below are your public playlists. Click on the playlist to add it to the Collex.</p>
                     <div className="user-playlists">
                         {
                             searchResults.playlists ?
@@ -145,12 +157,12 @@ export default function MyVerticallyCenteredModal(props) {
 
                         </> : <h2 style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> You haven't created any playlists </h2>}
                     </div>
-                    <Button type="submit">Add Playlist</Button>
-                </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
+        <ToastContainer />
+        </>
     );
 }

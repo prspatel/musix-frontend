@@ -15,10 +15,12 @@
     display: flex;
     flex-wrap: wrap;
     grid-gap: 60px;
+}
+
+.cards-section {
     height: 40vh;
     overflow-y: auto;
 }
-
 .comment-section {
     margin: 1% 10% 5% 10%;
 }
