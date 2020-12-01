@@ -496,6 +496,7 @@ ul.songList {
     transition: background 0.2s ease-in-out;
     &:hover {
       background: #5ab9ea;
+      cursor: pointer;
       .songDetails {
         h3 {
           color:white;
