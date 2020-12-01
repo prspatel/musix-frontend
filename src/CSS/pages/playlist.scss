@@ -252,9 +252,10 @@ body {
 
 .playlistPage {
     background-color: #84ceeb;
-    height: 100vh;
+    height: 77vh; // doesnt change screen size
+    overflow-y:auto;
+    overflow-x: hidden;
     background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
-
     .mainInner {
         background-image: -webkit-gradient( linear, left top, left bottom, );
         //background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
@@ -307,6 +308,11 @@ body {
                 height: 26px;
                 width: 26px;
             }
+            &:hover {
+              svg {
+                cursor: pointer;
+              }
+          }
         }
 
         .likeDislike{
@@ -318,7 +324,9 @@ body {
                 margin-left: 1.5rem;
                 float: left;
             }
-
+            &:hover {
+              cursor: pointer;
+            }
             .iconsHeart { //The heart icon for the playlist
                 float: right;
                 width: 28px;
