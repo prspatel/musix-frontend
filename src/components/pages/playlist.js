@@ -28,6 +28,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../../CSS/pages/playlist.scss"
 
+import SpotifyWebPlayer from 'react-spotify-web-playback';
+
 export default function Playlist() {
     const { userData, setUserData } = useContext(UserContext);
     const [modalShow, setModalShow] = useState(false);
@@ -37,6 +39,16 @@ export default function Playlist() {
     const [likes, setLikes] = useState();
     const [likesBy, setLikesBy] = useState();
     const [likedbyUser, setlikedbyUser] = useState(false);
+    const [play, setPlayStatus] = useState(false);
+    const [trackList, setTrackList] = useState([]);
+
+    /*const getTrack = async () => {
+        if(playlist && trackList!=[]){
+            let tempList=[];
+            playlist.songs.map(track =>(tempList.push("spotify:track:"+track.spotifyID)));
+            setTrackList(tempList);  
+        }  
+    }*/
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,6 +57,7 @@ export default function Playlist() {
                 `http://localhost:5000/playlist/${playlistId}`
             );
             setPlaylist(result.data);
+            console.log(playlist);
             setLikes(result.data.likes);
             setLikesBy(result.data.likedBy);
             const userId = userData.user.id;
@@ -53,10 +66,13 @@ export default function Playlist() {
             );
             console.log(result.data);
             setlikedbyUser(likeresult.data);
-        };
-
+            };
         fetchData();
     }, []);
+
+
+    console.log(playlist?playlist.songs:"xxxxxxx");
+    
 
     const likePlaylist = async (e) => {
         e.preventDefault();
@@ -157,7 +173,7 @@ export default function Playlist() {
                             <div className="playlistPageSongs">
                                 <div className="playlistButtons">
                                     <span className="playIcon">
-                                        <PlayIcon />
+                                        <PlayIcon onClick={() => setPlayStatus(true)}/>
                                     </span>
                                     <div className="icons">
                                         {/*<div className="icon iconsHeart">
@@ -212,16 +228,31 @@ export default function Playlist() {
                                 </ul>
                             </div>
                         </div>
-                        <ReactJkMusicPlayer background-color="white" theme="light" />
                         <MyVerticallyCenteredModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
                             playlistid = {parameters.playlistId}
                         />
+                        
                     </div>
                 </>
 
-                : <></>}
+                : <></>
+                }
+            <SpotifyWebPlayer
+                styles={{
+                    trackNameColor: "black",
+                    color: '#39FF14',
+                    sliderColor: '#5680e9',
+                    sliderTrackColor: '#39FF14',
+                    height: '11vh',
+                }}
+                //syncExternalDevice={false}
+                magnifySliderOnHover={true}
+                callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
+                play={play}
+                token='BQBb-9OI3oDVUG86gNfFE9J6Nodxm1OT6BcP_yeHsrOJqMgN7eMlQtCs_80HA6CNnS2PpojSmTZgrjRBLbCM-tK3kp8athJz-TQrFaQ_x5aGOx-hsapPRkb6MwKWIBp7CPstkjunkJb09ws9Pz6y504zEq1iZgAJ_TWePpfIsfV064ONoNKpvJHelUz3V0qscGZUcEH-0VMT'
+                uris={playlist ? playlist.songs.map(track => "spotify:track:" + track.spotifyID) : []} /> 
             <ToastContainer/>
             <Footer />
         </>
