@@ -242,7 +242,7 @@ export default function Playlist() {
                     magnifySliderOnHover={true}
                     callback={({isPlaying}) => isPlaying.valueOf()? true: setPlayStatus(false)}
                     play={play}
-                    token='BQA6nF9TQyPaYA_7RqhvTo-ub7Tk0eP-JTuPzTJYtA199zC0HNScETH29xnmThv34x7lW7UWi4_bCuRfWkIhXaDyyYZTF07P12LTwOJ7EXsRiNOcGJ_980IhqZ1a1zui-W90cbw5p1cyDPU9UJ9q60VZO85hYthPOdMNyw630OtKqXLccT8F' 
+                    token='BQBb-9OI3oDVUG86gNfFE9J6Nodxm1OT6BcP_yeHsrOJqMgN7eMlQtCs_80HA6CNnS2PpojSmTZgrjRBLbCM-tK3kp8athJz-TQrFaQ_x5aGOx-hsapPRkb6MwKWIBp7CPstkjunkJb09ws9Pz6y504zEq1iZgAJ_TWePpfIsfV064ONoNKpvJHelUz3V0qscGZUcEH-0VMT' 
                     uris={playlist?playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
             <ToastContainer/>
             <Footer />
