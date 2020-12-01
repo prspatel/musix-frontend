@@ -142,7 +142,7 @@ export default function MyVerticallyCenteredModal(props) {
                             value={setResults.value}
                         />
                     </div>
-                    <p style={{ fontStyle: "italic" }}>Below are your public playlists. Click on the playlist to add it to the Collex.</p>
+                    <p style={{ fontStyle: "italic" }}>Below are your public playlists. <b>Click on the playlist to add it to the Collex.</b></p>
                     <div className="user-playlists">
                         {
                             searchResults.playlists ?
