@@ -37,17 +37,10 @@ export default function Playlist() {
     let parameters = useParams();
     const [error, setError] = useState();
     const [likes, setLikes] = useState();
+    const [track, setTrack] = useState(0);
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [play, setPlayStatus] = useState(false);
-    const [trackList, setTrackList] = useState([]);
 
-    /*const getTrack = async () => {
-        if(playlist && trackList!=[]){
-            let tempList=[];
-            playlist.songs.map(track =>(tempList.push("spotify:track:"+track.spotifyID)));
-            setTrackList(tempList);  
-        }  
-    }*/
 
     useEffect(() => {
         const fetchData = async () => {
@@ -184,7 +177,7 @@ export default function Playlist() {
                                 <ul className="songList">
                                     {
                                         playlist.songs.map(track => (
-                                            <li key={ track._id}>
+                                            <li key={ track._id} onClick={() => {setTrack(playlist.songs.map(track =>track._id).indexOf(track._id)); setPlayStatus(true);}}>
                                                 <div className="songIcon">
                                                     <NoteIcon className="noteI" />
                                                     <PlayIcon className="playI" />
@@ -220,8 +213,10 @@ export default function Playlist() {
                     magnifySliderOnHover={true}
                     callback={({isPlaying}) => isPlaying.valueOf()? true: setPlayStatus(false)}
                     play={play}
-                    token='BQBb-9OI3oDVUG86gNfFE9J6Nodxm1OT6BcP_yeHsrOJqMgN7eMlQtCs_80HA6CNnS2PpojSmTZgrjRBLbCM-tK3kp8athJz-TQrFaQ_x5aGOx-hsapPRkb6MwKWIBp7CPstkjunkJb09ws9Pz6y504zEq1iZgAJ_TWePpfIsfV064ONoNKpvJHelUz3V0qscGZUcEH-0VMT' 
-                    uris={playlist?playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
+                    offset={track}
+                    autoPlay={true}
+                    token='BQBkywADGWJrv9lsqzBQO9bk62JlkPnKclEhkeEuDpH2fISllOSUpzFOUekZATEg7owRnN4-FRPcZ5ulSU1Fs98vwRXkrWvdRoN3GyQLyh4hU2MbOV9JBDVWk_ZxIwGLZkNPq2dIKC6tCBdNyjYcTo5FLiIvTXztE3C089fh5UqjCasXPxA_tqZtENIh-DOls_8Xh0Au3Ald' 
+                    uris={playlist? playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
             <ToastContainer/>
             <Footer />
         </>
