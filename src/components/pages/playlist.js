@@ -4,6 +4,9 @@ import Footer from "../nav/footer";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import ErrorNotice from "../misc/error";
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { useHistory } from "react-router-dom";
 
@@ -37,9 +40,12 @@ export default function Playlist() {
     let parameters = useParams();
     const [error, setError] = useState();
     const [likes, setLikes] = useState();
+    const [likesBy, setLikesBy] = useState();
+    // const [likeShow, setLikeShow] = useState(false);
     const [track, setTrack] = useState(0);
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [play, setPlayStatus] = useState(false);
+    const [userLike, setUserLike] = useState();
 
 
     useEffect(() => {
@@ -49,7 +55,6 @@ export default function Playlist() {
                 `http://localhost:5000/playlist/${playlistId}`
             );
             setPlaylist(result.data);
-            console.log(playlist);
             setLikes(result.data.likes);
             setLikesBy(result.data.likedBy);
             const userId = userData.user.id;
@@ -58,6 +63,15 @@ export default function Playlist() {
             );
             console.log(result.data);
             setlikedbyUser(likeresult.data);
+            var x;
+            let usersWhoLiked = {}
+            for (x of result.data.likedBy){
+                const result = await Axios.get(
+                `http://localhost:5000/users/${x}`
+                );
+                usersWhoLiked[x]=result.data.name;
+            }
+            setUserLike(usersWhoLiked);
             };
         fetchData();
     }, []);
@@ -75,7 +89,6 @@ export default function Playlist() {
             var userLikes = likesBy;
             userLikes.push(creator_id);
             setLikesBy(userLikes);
-
             const info = { creator_id, playlistId, playlistLikes, userLikes }
 
             const likeRes = await Axios.post(
@@ -83,10 +96,16 @@ export default function Playlist() {
                 info
             );
 
+            const result = await Axios.get(
+                `http://localhost:5000/users/${creator_id}`
+            );
+            userLike[creator_id] = result.data.name;
+            setUserLike(userLike);
+
             setlikedbyUser(true);
             toast.success("You liked this playlist", {
                 position: "bottom-center"
-            })
+            });
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
@@ -120,6 +139,9 @@ export default function Playlist() {
                 info
             );
 
+            delete userLike[creator_id];
+            setUserLike(userLike);
+
             setlikedbyUser(false);
             toast.error("You disliked this playlist", {
                 position: "bottom-center"
@@ -150,7 +172,8 @@ export default function Playlist() {
                                         { playlist.description}
                                     </p>
                                     <div className="playlistPageDesc">
-                                        <span style={{ fontStyle: "italic" }}>{likes} likes</span>
+                                        {/* <span style={{ fontStyle: "italic" }}> {likes} likes</span>  */}
+                                        <MouseOverPopover likes={likes} userLike={userLike} />
                                         <span style ={{ fontStyle: "italic" }}>Duration: {playlist.duration ? playlist.duration : <></> }</span>
                                     </div>
                                     {error && (
@@ -243,6 +266,80 @@ export default function Playlist() {
         </>
     );
 
+}
+
+const useStyles = makeStyles((theme) => ({
+    popover: {
+      pointerEvents: 'none',
+    },
+    paper: {
+      padding: theme.spacing(1),
+    },
+  }));
+  
+function MouseOverPopover(props) {
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+  
+    const handlePopoverOpen = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handlePopoverClose = () => {
+      setAnchorEl(null);
+    };
+  
+    const open = Boolean(anchorEl);
+    
+    const userLikes = props.userLike;
+
+    var popup;
+    let less = false;
+    if (userLikes){
+        let likesInList = Object.keys(userLikes)
+        if (likesInList.length < 4){
+            popup = likesInList.map(users =>(<Typography>{userLikes[users]}</Typography>))
+        }
+        else{
+            popup = likesInList.slice(0,4).map(users =>(<Typography>{userLikes[users]}</Typography>))
+            less = true;
+        }
+    }
+  
+    return (
+      <div>
+        <Typography
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+        >
+          {props.likes} {props.likes == 1 ? "like" : "likes"}
+        </Typography>
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+            {popup}
+            {less ? <Typography>...and {Object.keys(userLikes).length - 4} more...</Typography>: null }
+        </Popover>
+      </div>
+    );
 }
 
 function MyVerticallyCenteredModal(props) {
