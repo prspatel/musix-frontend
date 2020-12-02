@@ -37,4 +37,4 @@ const makeRequestCreator = () => {
     };
 };
 
-export const Search = makeRequestCreator()
+export const SearchFunction = makeRequestCreator()

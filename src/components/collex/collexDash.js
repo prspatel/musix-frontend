@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Card from "react-bootstrap/Card";
 import Nav from '../nav/nav2';
 import Footer from "../nav/footer";
-import { Search } from "../misc/search";
+import { SearchFunction } from "../misc/search";
 import Carousel from 'react-multi-carousel';
 
 
@@ -59,13 +59,14 @@ export default function CollexDash() {
         fetchData();
     }, []);
     let searchHandler = async e => {
-        search(e.target.value);
+        if (e.target.value)
+            search(e.target.value);
         setResults({ value: e.target.value });
     };
 
     let search = async val => {
         setResults({ loading: true });
-        const res = await Search(
+        const res = await SearchFunction(
             `http://localhost:5000/collex/search/${val}`
         );  
         if (res.collexs) {

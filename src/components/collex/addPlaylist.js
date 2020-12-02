@@ -6,7 +6,7 @@ import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import ErrorNotice from "../misc/error";
 import { ToastContainer, toast } from 'react-toastify';
-import { Search } from "../misc/search";
+import { SearchFunction } from "../misc/search";
 import UserContext from "../misc/userContext";
 import { ListGroup } from "react-bootstrap";
 
@@ -39,13 +39,14 @@ export default function MyVerticallyCenteredModal(props) {
 
  
     let searchHandler = async e => {
-        search(e.target.value);
+        if (e.target.value) 
+            search(e.target.value);
         setResults({ value: e.target.value });
     };
 
     let search = async val => {
         setResults({ loading: true });
-        const res = await Search(
+        const res = await SearchFunction(
             `http://localhost:5000/playlist/search/${val}`
         );
         let playlists = [];

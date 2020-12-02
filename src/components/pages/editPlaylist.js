@@ -7,7 +7,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai"
 import Nav from "../nav/nav2";
 import Button from 'react-bootstrap/Button';
 import Footer from "../nav/footer";
-import { Search } from "../misc/search";
+import { SearchFunction } from "../misc/search";
 import { GrAddCircle } from "react-icons/gr";
 import UserContext from "../misc/userContext";
 import ErrorNotice from "../misc/error";
@@ -56,13 +56,14 @@ export default function EditPlaylist() {
     }, []);
 
     let searchHandler = async e => {
-        search(e.target.value);
+        if (e.target.value)
+            search(e.target.value);
         setResults({ value: e.target.value });
     };
 
     let search = async val => {
         setResults({ loading: true });
-        const res = await Search(
+        const res = await SearchFunction(
             `http://localhost:5000/spotify/${val}`
         );
         const tracks = res;

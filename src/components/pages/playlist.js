@@ -4,6 +4,7 @@ import Footer from "../nav/footer";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import ErrorNotice from "../misc/error";
+import qs from 'qs';
 
 import { useHistory } from "react-router-dom";
 
@@ -41,6 +42,7 @@ export default function Playlist() {
     const [track, setTrack] = useState(0);
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [play, setPlayStatus] = useState(false);
+    //const [apitoken, setToken] = useState();
 
 
     useEffect(() => {
@@ -59,15 +61,13 @@ export default function Playlist() {
             );
             console.log(result.data);
             setlikedbyUser(likeresult.data);
-            //authorize with the api
-            // const auth = await Axios.get("https://accounts.spotify.com/authorize?client_id=6beaf72bdb304360abce3b366958de2d&response_type=code&redirect_uri=http%3A%2F%2Flocalhost:3000%2Fcallback&scope=user-read-private%20user-read-email&state=34fFs29kd09")
+            //getAuth();
             };
         fetchData();
     }, []);
 
 
     console.log(playlist?playlist.songs:"xxxxxxx");
-    
 
     const likePlaylist = async (e) => {
         e.preventDefault();
@@ -236,20 +236,23 @@ export default function Playlist() {
                 : <></>
                 }
             <SpotifyWebPlayer
-                    styles={{color:'#5680e9',
-                            sliderColor:'#5680e9',
-                            sliderTrackColor: '#c1c8e4',
-                            height: '11vh',
-                    }}
-                    //syncExternalDevice={false}
-                    magnifySliderOnHover={true}
-                    callback={({isPlaying}) => isPlaying.valueOf()? true: setPlayStatus(false)}
-                    play={play}
-                    offset={track}
-                    autoPlay={true}
-                    token='BQBkywADGWJrv9lsqzBQO9bk62JlkPnKclEhkeEuDpH2fISllOSUpzFOUekZATEg7owRnN4-FRPcZ5ulSU1Fs98vwRXkrWvdRoN3GyQLyh4hU2MbOV9JBDVWk_ZxIwGLZkNPq2dIKC6tCBdNyjYcTo5FLiIvTXztE3C089fh5UqjCasXPxA_tqZtENIh-DOls_8Xh0Au3Ald' 
-                    uris={playlist? playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
-            <ToastContainer/>
+                styles={{
+                    color: '#ffa500',
+                    sliderColor: '#5680e9',
+                    sliderTrackColor: '#1b03a3',
+                    trackNameColor:"white",
+                    height: '11vh',
+                    bgColor:"black"
+                }}
+                //syncExternalDevice={false}
+                magnifySliderOnHover={true}
+                callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
+                play={play}
+                offset={track}
+                autoPlay={true}
+                token="BQDtBMs2z16NzKs79yIbZvsgJG1mOf24YMBkb1IzbW9TUIotoQd_ag1muGTUEYniKsc69cUKgMdaydajLvxEAtzho8oWV6uVSZxjxk5sUS_2tDq_gPo1xl25V-OoqPNaTNSiDVJdJGBuXwhnEqJR6M06oqPmldu1OaGPtFIzvgD4XrYun8qutVFMjBZA8lUMS7Moj5iLonFs"
+                uris={playlist? playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
+            <ToastContainer/>   
             <Footer />
         </>
     );
