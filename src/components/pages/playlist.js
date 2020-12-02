@@ -7,6 +7,7 @@ import ErrorNotice from "../misc/error";
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import qs from 'qs';
 
 import { useHistory } from "react-router-dom";
 
@@ -244,24 +245,30 @@ export default function Playlist() {
                             onHide={() => setModalShow(false)}
                             playlistid = {parameters.playlistId}
                         />
+                        
                     </div>
                 </>
 
                 : <></>
                 }
             <SpotifyWebPlayer
-                    styles={{color:'#5680e9',
-                            sliderColor:'#5680e9',
-                            sliderTrackColor:'#c1c8e4'}}
-                    //syncExternalDevice={false}
-                    magnifySliderOnHover={true}
-                    callback={({isPlaying}) => isPlaying.valueOf()? true: setPlayStatus(false)}
-                    play={play}
-                    offset={track}
-                    autoPlay={true}
-                    token='BQBkywADGWJrv9lsqzBQO9bk62JlkPnKclEhkeEuDpH2fISllOSUpzFOUekZATEg7owRnN4-FRPcZ5ulSU1Fs98vwRXkrWvdRoN3GyQLyh4hU2MbOV9JBDVWk_ZxIwGLZkNPq2dIKC6tCBdNyjYcTo5FLiIvTXztE3C089fh5UqjCasXPxA_tqZtENIh-DOls_8Xh0Au3Ald' 
-                    uris={playlist? playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
-            <ToastContainer/>
+                styles={{
+                    color: '#ffa500',
+                    sliderColor: '#5680e9',
+                    sliderTrackColor: '#1b03a3',
+                    trackNameColor:"white",
+                    height: '11vh',
+                    bgColor:"black"
+                }}
+                //syncExternalDevice={false}
+                magnifySliderOnHover={true}
+                callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
+                play={play}
+                offset={track}
+                autoPlay={true}
+                token="BQDtBMs2z16NzKs79yIbZvsgJG1mOf24YMBkb1IzbW9TUIotoQd_ag1muGTUEYniKsc69cUKgMdaydajLvxEAtzho8oWV6uVSZxjxk5sUS_2tDq_gPo1xl25V-OoqPNaTNSiDVJdJGBuXwhnEqJR6M06oqPmldu1OaGPtFIzvgD4XrYun8qutVFMjBZA8lUMS7Moj5iLonFs"
+                uris={playlist? playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
+            <ToastContainer/>   
             <Footer />
         </>
     );

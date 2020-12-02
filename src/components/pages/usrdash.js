@@ -110,7 +110,7 @@ export default function UsrDash() {
                         ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any playlists. Please click on the like button when you view a playlist page</h5>}
-                {playlists.length > 0 ? <a href="/likedPlaylists/viewAll" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>}
+                {likedPlaylists.length > 0 ? <a href="/likedPlaylists/viewAll" style={{ float: "right" }}> View Liked Playlists >>></a> : <></>}
 
                 <hr className="solid-divider" />
                 <h2 className="usrdash-title"> Liked Collexs <a title="Create Collex"  onClick={() => setModalShow(true)}><GrAddCircle size="20px" /></a>
@@ -127,7 +127,7 @@ export default function UsrDash() {
                         ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any collex. Please click on the like button when you view a collex page</h5>}
-                {playlists.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right" }}> View Liked Collexs >>></a> : <></>}
+                {likedCollex.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right" }}> View Liked Collexs >>></a> : <></>}
 
                 {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Collex >>></a> : <></>*/}
 

@@ -141,7 +141,7 @@ export default function CollexPage() {
                                     <Card.Body>
                                         <Card.Title>{item.name}</Card.Title>
                                         <Card.Text>
-                                            {item.description}
+                                            {item.likes} likes
                                         </Card.Text>
                                         <Link to={`/playlist/${item._id}`}>View this playlist</Link>
                                     </Card.Body>
