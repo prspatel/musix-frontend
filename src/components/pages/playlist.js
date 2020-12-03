@@ -4,12 +4,9 @@ import Footer from "../nav/footer";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import ErrorNotice from "../misc/error";
-import qs from 'qs';
-
 import { useHistory } from "react-router-dom";
 
 import { Button, Modal, Form } from "react-bootstrap";
-import ReactJkMusicPlayer from 'react-jinke-music-player'
 import "../../CSS/pages/index.css"
 
 import 'react-multi-carousel/lib/styles.css';
@@ -28,8 +25,11 @@ import { ReactComponent as DeleteIcon } from '../../images/delete.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../../CSS/pages/playlist.scss"
+import Cookies from 'js-cookie'
 
 import SpotifyWebPlayer from 'react-spotify-web-playback';
+import { ErrorBoundary } from 'react-error-boundary'
+
 
 export default function Playlist() {
     const { userData, setUserData } = useContext(UserContext);
@@ -42,8 +42,17 @@ export default function Playlist() {
     const [track, setTrack] = useState(0);
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [play, setPlayStatus] = useState(false);
+
+    const history = useHistory();
+
+    const token = Cookies.get('spotifyAuthToken');
     //const [apitoken, setToken] = useState();
 
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+        console.log("caught the 403");
+
+        return false;
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -61,12 +70,17 @@ export default function Playlist() {
             );
             console.log(result.data);
             setlikedbyUser(likeresult.data);
-            //getAuth();
+            //getAuth()
             };
         fetchData();
     }, []);
 
-
+   /* function getAuth() {
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', "https://accounts.spotify.com/authorize?client_id=6beaf72bdb304360abce3b366958de2d&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-private%20user-read-email&state=34fFs29kd09");
+        console.log(xhr.response);
+        xhr.send()
+    }*/
     console.log(playlist?playlist.songs:"xxxxxxx");
 
     const likePlaylist = async (e) => {
@@ -98,6 +112,16 @@ export default function Playlist() {
             err.response.data.msg && setError(err.response.data.msg);
         }
     };
+
+    function ErrorFallback({ error, resetErrorBoundary }) {
+        return (
+            <div role="alert">
+                <p>Something went wrong:</p>
+                <pre>{error.message}</pre>
+                <button onClick={resetErrorBoundary}>Try again</button>
+            </div>
+        )
+    }
 
     function convertTominutes(totalduration) {
         var minutes = Math.floor(totalduration / 60000);
@@ -235,23 +259,33 @@ export default function Playlist() {
 
                 : <></>
                 }
-            <SpotifyWebPlayer
-                styles={{
-                    color: '#ffa500',
-                    sliderColor: '#5680e9',
-                    sliderTrackColor: '#1b03a3',
-                    trackNameColor:"white",
-                    height: '11vh',
-                    bgColor:"black"
-                }}
-                //syncExternalDevice={false}
-                magnifySliderOnHover={true}
-                callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
-                play={play}
-                offset={track}
-                autoPlay={true}
-                token="BQDtBMs2z16NzKs79yIbZvsgJG1mOf24YMBkb1IzbW9TUIotoQd_ag1muGTUEYniKsc69cUKgMdaydajLvxEAtzho8oWV6uVSZxjxk5sUS_2tDq_gPo1xl25V-OoqPNaTNSiDVJdJGBuXwhnEqJR6M06oqPmldu1OaGPtFIzvgD4XrYun8qutVFMjBZA8lUMS7Moj5iLonFs"
-                uris={playlist? playlist.songs.map(track => "spotify:track:"+track.spotifyID):[]}/> 
+            {token ? 
+                <>
+                    <ErrorBoundary
+                        ErrorFallback={ErrorFallback}          
+                    >
+                    <SpotifyWebPlayer
+                            styles={{
+                                color: '#ffa500',
+                                sliderColor: '#5680e9',
+                                sliderTrackColor: '#1b03a3',
+                                trackNameColor: "white",
+                                height: '11vh',
+                                bgColor: "black"
+
+                            }}
+                            //syncExternalDevice={false}
+                            magnifySliderOnHover={true}
+                            //callback={( error) => console.log(error)}
+                            callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
+                    play={play}
+                    offset={track}
+                    autoPlay={true}
+                    token={ token }
+                    uris={playlist ? playlist.songs.map(track => "spotify:track:" + track.spotifyID) : []} />
+                    </ErrorBoundary>
+
+                </> : <h5 style={{ textAlign: "center", marginTop: "2%" }}>Please click to<a href="/callback"> login </a> with spotify to load the player.</h5>}
             <ToastContainer/>   
             <Footer />
         </>

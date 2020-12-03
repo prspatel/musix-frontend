@@ -16,6 +16,7 @@ import AboutUs from './components/pages/aboutUs';
 import ContactUs from './components/pages/contactUs';
 import EditPlaylist from './components/pages/editPlaylist';
 import viewAll from "./components/pages/viewAll";
+import Test from "./components/pages/test";
 
     
 
@@ -70,7 +71,8 @@ export default function App() {
                         <Route path="/likedPlaylists/viewAll" component={userData.user ? viewAll : Login} /> 
                         <Route path="/allPlaylists/viewAll" component={userData.user ? viewAll : Login} /> 
                         <Route path="/likedCollex/viewAll" component={userData.user ? viewAll : Login} /> 
-                        <Route path="/allCollex/viewAll" component={userData.user ? viewAll : Login} /> 
+                        <Route path="/allCollex/viewAll" component={userData.user ? viewAll : Login} />
+                        <Route path="/callback" component={Test} /> 
 
                         <Route path="/editPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
                         <Route path="/forkPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />

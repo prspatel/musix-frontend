@@ -9,6 +9,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { Search } from "semantic-ui-react";
 import Axios from "axios";
 import { SearchFunction } from "../misc/search";
+import Cookies from 'js-cookie'
 
 export default function Nav1() {
     const history = useHistory();
@@ -31,6 +32,7 @@ export default function Nav1() {
             token: undefined,
             user: undefined,
         });
+        Cookies.remove('spotifyAuthToken');
         localStorage.setItem("auth-token", "");
         history.push("/")
     };
