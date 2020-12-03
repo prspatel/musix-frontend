@@ -108,7 +108,7 @@ export default function User() {
                                             </Card>
                                         ))}
                                     </Carousel>
-                                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't created any publicplaylists.</h5>}
+                                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>User hasn't created any public playlists.</h5>}
                             </div>
                       </div>
                 </div>

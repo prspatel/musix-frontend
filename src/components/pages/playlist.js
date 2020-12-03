@@ -50,7 +50,7 @@ export default function Playlist() {
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [play, setPlayStatus] = useState(false);
     const history = useHistory();
-
+    const [premium, setPremium] = useState(false);
     const token = Cookies.get('spotifyAuthToken');
     const [userLike, setUserLike] = useState();
 
@@ -73,23 +73,36 @@ export default function Playlist() {
             setlikedbyUser(likeresult.data);
             var x;
             let usersWhoLiked = {}
-            for (x of result.data.likedBy){
+            for (x of result.data.likedBy) {
                 const result = await Axios.get(
-                `http://localhost:5000/users/${x}`
+                    `http://localhost:5000/users/${x}`
                 );
-                usersWhoLiked[x]=result.data.name;
+                usersWhoLiked[x] = result.data.name;
             }
             setUserLike(usersWhoLiked);
-            };
+
+            if (token) {
+                const res = await Axios.get("https://api.spotify.com/v1/me", {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                })
+                console.log(res.data.product);
+                if (res.data.product === "premium") {
+                    setPremium(true);
+                }
+            }
+
+        };
         fetchData();
     }, []);
 
-   /* function getAuth() {
-        const xhr = new XMLHttpRequest()
-        xhr.open('GET', "https://accounts.spotify.com/authorize?client_id=6beaf72bdb304360abce3b366958de2d&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-private%20user-read-email&state=34fFs29kd09");
-        console.log(xhr.response);
-        xhr.send()
-    }*/
+    /* function getAuth() {
+         const xhr = new XMLHttpRequest()
+         xhr.open('GET', "https://accounts.spotify.com/authorize?client_id=6beaf72bdb304360abce3b366958de2d&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-private%20user-read-email&state=34fFs29kd09");
+         console.log(xhr.response);
+         xhr.send()
+     }*/
 
 
     const likePlaylist = async (e) => {
@@ -101,7 +114,7 @@ export default function Playlist() {
             var playlistLikes = likes;
             playlistLikes = playlistLikes + 1;
             setLikes(playlistLikes);
-            
+
             var userLikes = likesBy;
             userLikes.push(creator_id);
             setLikesBy(userLikes);
@@ -136,7 +149,10 @@ export default function Playlist() {
             </div>
         )
     }
-
+    function signinPremium() {
+        Cookies.remove('spotifyAuthToken');
+        history.push('/callback')
+    }
     function convertTominutes(totalduration) {
         var minutes = Math.floor(totalduration / 60000);
         var seconds = ((totalduration % 60000) / 1000).toFixed(0);
@@ -151,7 +167,7 @@ export default function Playlist() {
             const playlistId = parameters.playlistId;
 
             var playlistLikes = likes;
-            playlistLikes = playlistLikes - 1; 
+            playlistLikes = playlistLikes - 1;
             setLikes(playlistLikes);
 
             var userLikes = likesBy;
@@ -186,21 +202,21 @@ export default function Playlist() {
                             <div className="playlistPageInfo">
                                 <div className="playlistPageImage">
                                     <img
-                                        src={ playlist.cover }
+                                        src={playlist.cover}
                                         alt="pic"
                                     />
                                 </div>
                                 <div className="playlistPageContent" >
                                     <p className="largeText uppercase bold">Playlist</p>
-                                    <h1>{ playlist.name }</h1>
+                                    <h1>{playlist.name}</h1>
 
                                     <p className="tagline">
-                                        { playlist.description}
+                                        {playlist.description}
                                     </p>
                                     <div className="playlistPageDesc">
                                         {/* <span style={{ fontStyle: "italic" }}> {likes} likes</span>  */}
                                         <div style={{ cursor: "pointer" }} onClick={() => setLikesModalShow(true)}><MouseOverPopover likes={likes} userLike={userLike} /></div>
-                                        <span style ={{ fontStyle: "italic" }}>Duration: {playlist.duration ? playlist.duration : <></> }</span>
+                                        <span style={{ fontStyle: "italic" }}>Duration: {playlist.duration ? playlist.duration : <></>}</span>
                                     </div>
                                     {error && (
                                         <ErrorNotice message={error} clearError={() => setError(undefined)} />
@@ -210,100 +226,102 @@ export default function Playlist() {
                             <div className="playlistPageSongs">
                                 <div className="playlistButtons">
                                     <span className="playIcon">
-                                        <PlayIcon onClick={() => setPlayStatus(true)}/>
+                                        <PlayIcon onClick={() => setPlayStatus(true)} />
                                     </span>
                                     <div className="icons">
                                         {userData && userData.user && userData.user.id === playlist.creatorId ? (<div className="icon iconsEdit">
                                             <a href={`/editPlaylist/${parameters.playlistId}`} title="edit this playlist"><EditIcon /></a>
-                                        </div>):<></>}
+                                        </div>) : <></>}
                                         <div className="icon iconsFork">
                                             <a href={`/forkPlaylist/${parameters.playlistId}`} title="fork this playlist"><ForkIcon /></a>
                                         </div>
                                         {userData && userData.user && userData.user.id === playlist.creatorId ? (<div className="icon iconsDelete" title="delete this playlist" onClick={() => setModalShow(true)}>
                                             <DeleteIcon />
-                                        </div>) : <></>}                                      
+                                        </div>) : <></>}
                                     </div>
                                     {
                                         likedbyUser ?
                                             <div className="likeDislike">
                                                 <a onClick={dislikePlaylist} title="Unlike this playlist">
-                                                    <AiFillDislike size="32" onMouseOver={({ target }) => target.style.color = "white"} onMouseOut={({ target }) => target.style.color = "black"}/></a>
+                                                    <AiFillDislike size="32" onMouseOver={({ target }) => target.style.color = "white"} onMouseOut={({ target }) => target.style.color = "black"} /></a>
                                             </div>
                                             :
                                             <div className="likeDislike">
                                                 <a onClick={likePlaylist} title="Like the playlist">
-                                                    <AiFillLike size="32" onMouseOver={({ target }) => target.style.color = "white"} onMouseOut={({ target }) => target.style.color = "black"}/></a>
+                                                    <AiFillLike size="32" onMouseOver={({ target }) => target.style.color = "white"} onMouseOut={({ target }) => target.style.color = "black"} /></a>
                                             </div>
                                     }
-                                    
+
                                 </div>
 
-                                
+
 
                                 <ul className="songList">
                                     {
                                         playlist.songs.map(track => (
-                                            <li key={ track._id} onClick={() => {setTrack(playlist.songs.map(track =>track._id).indexOf(track._id)); setPlayStatus(true);}}>
+                                            <li key={track._id} onClick={() => { setTrack(playlist.songs.map(track => track._id).indexOf(track._id)); setPlayStatus(true); }}>
                                                 <div className="songIcon">
                                                     <NoteIcon className="noteI" />
                                                     <PlayIcon className="playI" />
                                                 </div>
                                                 <div className="songDetails">
-                                                    <h3>{ track.name }</h3>
-                                                    <span>by { track.artists.join(", ")}</span>
+                                                    <h3>{track.name}</h3>
+                                                    <span>by {track.artists.join(", ")}</span>
                                                 </div>
                                                 <div className="songTime">
                                                     <span>{convertTominutes(track.duration)}</span>
                                                 </div>
-                                            </li>  
+                                            </li>
                                         ))
-                                    }                                 
+                                    }
                                 </ul>
                             </div>
                         </div>
                         <MyVerticallyCenteredModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
-                            playlistid = {parameters.playlistId}
+                            playlistid={parameters.playlistId}
                         />
                         <LikesModal
                             show={likesModalShow}
                             onHide={() => setLikesModalShow(false)}
-                            userLike = {userLike}
-                            userId = {userData.user.id}
+                            userLike={userLike}
+                            userId={userData.user.id}
                         />
                     </div>
                 </>
 
                 : <></>
-                }
-            {token ? 
-                <>
-                    <ErrorBoundary
-                        ErrorFallback={ErrorFallback}          
+            }
+            {token ? (
+                premium ?
+                    <>
+                    < ErrorBoundary
+                        ErrorFallback={ErrorFallback}
                     >
                     <SpotifyWebPlayer
-                            styles={{
-                                color: '#ffa500',
-                                sliderColor: '#5680e9',
-                                sliderTrackColor: '#1b03a3',
-                                trackNameColor: "white",
-                                height: '11vh',
-                                bgColor: "black"
+                        styles={{
+                            color: '#ffa500',
+                            sliderColor: '#5680e9',
+                            sliderTrackColor: '#1b03a3',
+                            trackNameColor: "white",
+                            height: '11vh',
+                            bgColor: "black"
 
-                            }}
-                            //syncExternalDevice={false}
-                            magnifySliderOnHover={true}
-                            //callback={( error) => console.log(error)}
-                            callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
-                    play={play}
-                    offset={track}
-                    autoPlay={true}
-                    token={ token }
-                    uris={playlist ? playlist.songs.map(track => "spotify:track:" + track.spotifyID) : []} />
+                        }}
+                        //syncExternalDevice={false}
+                        magnifySliderOnHover={true}
+                        //callback={( error) => console.log(error)}
+                        callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
+                        play={play}
+                        offset={track}
+                        autoPlay={true}
+                        token={token}
+                        uris={playlist ? playlist.songs.map(track => "spotify:track:" + track.spotifyID) : []} />
                     </ErrorBoundary>
 
-                </> : <h5 style={{ textAlign: "center", marginTop: "2%" }}>Please click to<a href="/callback"> login </a> with spotify to load the player.</h5>}
+                    </> : <h5 style={{ textAlign: "center", marginTop: "2%" }}>You need to sign in with Spotify Premium to load the player <a style={{color: "blue", cursor:"pointer"}} onClick={() => signinPremium() }>Sign in with Premium</a></h5>)
+                : <h5 style={{ textAlign: "center", marginTop: "2%" }}>Please click to<a href="/callback"> login </a> with Spotify Premium to load the player.</h5>}
             <ToastContainer/>   
             <Footer />
         </>
@@ -403,7 +421,7 @@ function LikesModal(props) {
               Users Who Like This Playlist
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body><td>{userIds ? userIds.map(users => <tr><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></tr>) : null}</td></Modal.Body>
+          <Modal.Body>{userIds ? userIds.map(users => <p><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : null}</Modal.Body>
         </Modal>
     );
   }

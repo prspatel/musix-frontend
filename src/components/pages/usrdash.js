@@ -63,32 +63,21 @@ export default function UsrDash() {
 
         fetchData();
     }, []);
-
-
-    const loadCollex = jsonData.collex.map((jsonData) =>{
-      return (
-          <Card style={{ width: '15rem' }} id={jsonData.id} creatorId={jsonData.creatorID}>
-              <Card.Img variant="top" src={jsonData.cover} height="200" width = "200" />
-          <Card.Body>
-            <Card.Title><a href= "#">{jsonData.name}</a></Card.Title>
-          </Card.Body>
-        </Card>
-      )
-    });
-
     return (
         <>
-            <Nav2 />       
+            <Nav2 />    
+            <div className="dash-back">
+
             <div className="dash-body">
                 <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
 
                 {playlists.length!==0 ? 
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {playlists.map(playlist => (
-                            <Card style={{ width: '14rem' }} key={playlist._id} >
+                            <Card style={{ width: '14rem'  }} key={playlist._id} >
                                 <Card.Img variant="top" src={playlist.cover} height="200" width="150" />
                                 <Card.Body>
-                                        <Card.Title><Link to={`playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>
+                                    <Card.Title><Link to={`playlist/${playlist._id}`} >{playlist.name}</Link></Card.Title>
                                 </Card.Body>
                             </Card>
                         ))}
@@ -118,26 +107,25 @@ export default function UsrDash() {
                 {likedCollex.length !== 0 ?
                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                         {likedCollex.map(collex => (
-                            <Card style={{ width: '14rem' }} key={collex._id} >
+                            <Card style={{ width: '14rem'}} key={collex._id} >
                                 <Card.Img variant="top" src={collex.cover} height="200" width="150" />
-                                <Card.Body>
+                                <Card.Body >
                                     <Card.Title><Link to={`/collex/${collex._id}`} >{collex.name}</Link></Card.Title>
                                 </Card.Body>
                             </Card>
                         ))}
                     </Carousel>
                     : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any collex. Please click on the like button when you view a collex page</h5>}
-                {likedCollex.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right" }}> View Liked Collexs >>></a> : <></>}
-
-                {/*playlists.length > 0 ? <a href="#" style={{ float: "right" }}> View Liked Collex >>></a> : <></>*/}
-
+                    {likedCollex.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right" }}> View Liked Collexs >>></a> : <></>}
+                </div>
+            </div>
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 />
 
                 <ToastContainer/>
-            </div>
+               
             <Footer/>
         </>   
     ); 
