@@ -62,6 +62,7 @@ export default function Playlist() {
                 `http://localhost:5000/playlist/${playlistId}`
             );
             setPlaylist(result.data);
+            console.log(userData.user);
             setLikes(result.data.likes);
             setLikesBy(result.data.likedBy);
             const userId = userData.user.id;
@@ -89,7 +90,6 @@ export default function Playlist() {
         console.log(xhr.response);
         xhr.send()
     }*/
-    console.log(playlist?playlist.songs:"xxxxxxx");
 
 
     const likePlaylist = async (e) => {
@@ -213,19 +213,15 @@ export default function Playlist() {
                                         <PlayIcon onClick={() => setPlayStatus(true)}/>
                                     </span>
                                     <div className="icons">
-                                        {/*<div className="icon iconsHeart">
-                                            <a onClick={ likePlaylist }><HeartIcon /></a>
-                                        </div>
-                                        */}
-                                        <div className="icon iconsEdit">
+                                        {userData && userData.user && userData.user.id === playlist.creatorId ? (<div className="icon iconsEdit">
                                             <a href={`/editPlaylist/${parameters.playlistId}`} title="edit this playlist"><EditIcon /></a>
-                                        </div>
+                                        </div>):<></>}
                                         <div className="icon iconsFork">
                                             <a href={`/forkPlaylist/${parameters.playlistId}`} title="fork this playlist"><ForkIcon /></a>
                                         </div>
-                                        <div className="icon iconsDelete" title= "delete this playlist" onClick={() => setModalShow(true)}>
+                                        {userData && userData.user && userData.user.id === playlist.creatorId ? (<div className="icon iconsDelete" title="delete this playlist" onClick={() => setModalShow(true)}>
                                             <DeleteIcon />
-                                        </div>                                      
+                                        </div>) : <></>}                                      
                                     </div>
                                     {
                                         likedbyUser ?
