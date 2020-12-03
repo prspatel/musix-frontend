@@ -37,6 +37,7 @@ import SpotifyWebPlayer from 'react-spotify-web-playback';
 export default function Playlist() {
     const { userData, setUserData } = useContext(UserContext);
     const [modalShow, setModalShow] = useState(false);
+    const [likesModalShow, setLikesModalShow] = useState(false);
     const [playlist, setPlaylist] = useState();
     let parameters = useParams();
     const [error, setError] = useState();
@@ -174,7 +175,7 @@ export default function Playlist() {
                                     </p>
                                     <div className="playlistPageDesc">
                                         {/* <span style={{ fontStyle: "italic" }}> {likes} likes</span>  */}
-                                        <MouseOverPopover likes={likes} userLike={userLike} />
+                                        <div onClick={() => setLikesModalShow(true)}><MouseOverPopover likes={likes} userLike={userLike}/></div>
                                         <span style ={{ fontStyle: "italic" }}>Duration: {playlist.duration ? playlist.duration : <></> }</span>
                                     </div>
                                     {error && (
@@ -245,7 +246,12 @@ export default function Playlist() {
                             onHide={() => setModalShow(false)}
                             playlistid = {parameters.playlistId}
                         />
-                        
+                        <LikesModal
+                            show={likesModalShow}
+                            onHide={() => setLikesModalShow(false)}
+                            userLike = {userLike}
+                            userId = {userData.user.id}
+                        />
                     </div>
                 </>
 
@@ -300,11 +306,11 @@ function MouseOverPopover(props) {
     
     const userLikes = props.userLike;
 
-    var popup;
+    var popup = "Loading...";
     let less = false;
     if (userLikes){
         let likesInList = Object.keys(userLikes)
-        if (likesInList.length < 4){
+        if (likesInList.length <= 4){
             popup = likesInList.map(users =>(<Typography>{userLikes[users]}</Typography>))
         }
         else{
@@ -312,7 +318,7 @@ function MouseOverPopover(props) {
             less = true;
         }
     }
-  
+
     return (
       <div>
         <Typography
@@ -321,8 +327,9 @@ function MouseOverPopover(props) {
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
-          {props.likes} {props.likes == 1 ? "like" : "likes"}
+          <span className="playlistPageDesc" style ={{ fontStyle: "italic" }}>{props.likes} {props.likes == 1 ? "like" : "likes"}</span>
         </Typography>
+        {props.likes > 0 ? 
         <Popover
           id="mouse-over-popover"
           className={classes.popover}
@@ -343,11 +350,33 @@ function MouseOverPopover(props) {
           disableRestoreFocus
         >
             {popup}
-            {less ? <Typography>...and {Object.keys(userLikes).length - 4} more...</Typography>: null }
-        </Popover>
+            {less ? <Typography>...and {Object.keys(userLikes).length - 4} more.</Typography>: null }
+        </Popover> : null}
       </div>
     );
 }
+
+function LikesModal(props) {
+    let usersWhoLiked = props.userLike;
+    let userIds = usersWhoLiked ? Object.keys(usersWhoLiked) : null;
+
+    return (
+        <Modal
+          {...props}
+          size="sm"
+          aria-labelledby="example-modal-sizes-title-sm"
+          centered
+          scrollable = {true}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-sm">
+              Users Who Like This Playlist
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body><td>{userIds ? userIds.map(users => <tr><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></tr>) : null}</td></Modal.Body>
+        </Modal>
+    );
+  }
 
 function MyVerticallyCenteredModal(props) {
     const history = useHistory();
