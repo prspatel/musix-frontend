@@ -9,7 +9,7 @@ import Axios from "axios";
 import UserContext from "../misc/userContext";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import "../../CSS/pages/playlist.scss"
+import "../../CSS/pages/user.scss"
 import "../../CSS/pages/usrdash.css"
 import "../../CSS/collex/collexPage.css"
 import { ToastContainer, toast } from 'react-toastify';
@@ -69,7 +69,7 @@ export default function User() {
     return(
         <>
         <Nav2/>
-        <div className="playlistPage">
+        <div className="userPage">
                 <div className="mainInner">
                       <div className="playlistPageInfo">
                             <div className="userPageContent">
