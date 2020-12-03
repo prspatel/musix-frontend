@@ -46,8 +46,10 @@ export default function MyVerticallyCenteredModal(props) {
 
     let search = async val => {
         setResults({ loading: true });
+        const userId = userData.user.id;
+
         const res = await SearchFunction(
-            `http://localhost:5000/playlist/search/${val}`
+            `http://localhost:5000/playlist/search/${userId}/${val}`
         );
         let playlists = [];
         if (res) {
