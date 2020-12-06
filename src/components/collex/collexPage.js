@@ -9,10 +9,11 @@ import Card from "react-bootstrap/Card";
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 import { AiFillPlusCircle } from 'react-icons/ai'
-import Comments from "../misc/comments"
 import MyVerticallyCenteredModal from "../collex/addPlaylist";
 import { toast, ToastContainer } from 'react-toastify';
 import UserContext from "../misc/userContext";
+import { Button, Comment, Form } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css'
 
 
 export default function CollexPage() {
@@ -23,6 +24,8 @@ export default function CollexPage() {
     const [likes, setLikes] = useState();
     const { userData, setUserData } = useContext(UserContext);
     const [error, setError] = useState();
+    const [comments, setComments] = useState([]);
+    const [commentText, saveCommentText] = useState();
 
     let parameters = useParams();
 
@@ -35,8 +38,9 @@ export default function CollexPage() {
 
             setLikes(result.data.collex.likes);
             setData(result.data.collex);
+            console.log(result.data.collex);
             setPlaylists(result.data.playlists);
-
+            setComments(result.data.comments);
             const userId = userData.user.id;
             const likeresult = await axios.get(
                 `http://localhost:5000/collex/likedbyUser/${collexId}/${userId}`
@@ -106,30 +110,71 @@ export default function CollexPage() {
         }
     };
 
+
+    function getAddedComments() {
+        const renderComments = comments.map((item, id) => {
+            return (
+                <>
+                    <Comment key={id} style={{ margin: "1% 0 0.5% 0", backgroundColor:"lightgrey" }}>
+                        <Comment.Content>
+                            <Comment.Author as='a' href={"/user/" +  item.comment.creatorId }>{item.username}</Comment.Author>
+                            <Comment.Metadata>
+                                <div>{item.comment.datetime}</div>
+                            </Comment.Metadata>
+                            <Comment.Text>{item.comment.comment}</Comment.Text>
+                        </Comment.Content>
+                    </Comment>
+                    <hr/>
+                </>
+            )
+        });
+        return renderComments
+    }
+    const saveComment = async (e) => {
+        e.preventDefault();
+        try {
+            const userid = userData.user.id;
+            const collexid = parameters.collexId;
+            console.log("userid: " + userid + " comment: " + commentText + " collexid: " + collexid);
+            const comment = { userid, commentText, collexid }
+            const commentRes = await axios.post(
+                "http://localhost:5000/collex/saveComment",
+                comment
+            );
+            let savedcomment = commentRes.data;
+            setComments(oldArray => [savedcomment, ...oldArray]);
+            console.log(comments);
+        } catch (err) {
+            err.response.data.msg && setError(err.response.data.msg);
+        }
+    }
+    //{data && userData && userData.user && userData.user.id != data.creatorid ? <p>Edit this collex</p> : <></>}
+
     return (
         <>
             <Nav />
                 <div>
                     <div className="header">
-                        <div >
+                    <div >
                         <h1 className="collex-topic">{data ? data.name : <></>}</h1>
                         <a onClick={() => setModalShow(true)} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", marginTop: "30px", fontSize: "20px" }}>
                                 <AiFillPlusCircle style={{ color: "#69b1ec", size: "2em" }} />
                                 Add a playlist
-                            </a>
+                        </a>
                         </div>
-                    <div >
-                        <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif", display: "inline", fontSize: "20px" }}>{data ? data.description : <></>}</p>
+                        <div >
+                            <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif", display: "inline", fontSize: "20px" }}>{data ? data.description : <></>}</p>
                             
-                        {
-                            likedbyUser ?
-                                <a onClick={dislikeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Unlike this collex">
-                                    <AiFillDislike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{ likes} likes</a>
-                                :
-                                <a onClick={likeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Like the collex">
-                                    <AiFillLike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{likes} likes</a>
-                        }
+                            {
+                                likedbyUser ?
+                                    <a onClick={dislikeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Unlike this collex">
+                                        <AiFillDislike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{ likes} likes</a>
+                                    :
+                                    <a onClick={likeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Like the collex">
+                                        <AiFillLike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{likes} likes</a>
+                            }
                         </div>
+                        
                     </div>
                 <hr className="solid" />
                 <div className = "cards-section">
@@ -153,9 +198,21 @@ export default function CollexPage() {
                     </div>
                 </div>
                     <hr className="solid" />
-                    <div className="comment-section">
-                        <Comments />
-                    </div>
+                <div className="comment-section">
+                    <h2 style={{ fontFamily: "Turret Road, cursive" }}>
+                        Comments
+                    </h2>
+                    <hr />
+                    <p style={{ fontStyle: "italic" }}> Interact with the collabrators below ...</p>
+
+                    <Comment.Group>
+                        <Form onSubmit={saveComment} reply>
+                            <Form.TextArea required onChange={(e) => saveCommentText(e.target.value)} />
+                            <Button type="submit" content='Add Comment' labelPosition='left' icon='edit' primary />
+                        </Form>
+                        {comments.length != 0 ? getAddedComments() : <h4 style={{ fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> No comments added to this collex </h4>}
+                    </Comment.Group>
+                </div>
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
