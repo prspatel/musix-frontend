@@ -1,6 +1,8 @@
 
 
-.viewall-body{
+.viewall-body {
+	position: relative;
+	min-height: 90vh;
 	margin: 0 10% 0 10%;
 }
 .viewall-header {

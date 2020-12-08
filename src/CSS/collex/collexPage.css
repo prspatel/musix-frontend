@@ -18,10 +18,13 @@
 }
 
 .cards-section {
-    height: 40vh;
+    height: 50vh;
     overflow-y: auto;
 }
 .comment-section {
     margin: 1% 10% 5% 10%;
 }
 
+.ui.comments {
+    max-width:none;
+}

@@ -14,18 +14,21 @@ import { toast, ToastContainer } from 'react-toastify';
 import UserContext from "../misc/userContext";
 import { Button, Comment, Form } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
+import EditCollexModal from "./editCollex";
 
 
 export default function CollexPage() {
     const [modalShow, setModalShow] = useState(false);
+    const [editModal, seteditModal] = useState(false);
+
     const [data, setData] = useState();
     const [playlists, setPlaylists] = useState([]);
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [likes, setLikes] = useState();
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
     const [error, setError] = useState();
     const [comments, setComments] = useState([]);
-    const [commentText, saveCommentText] = useState();
+    const [commentText, saveCommentText] = useState("");
 
     let parameters = useParams();
 
@@ -115,7 +118,7 @@ export default function CollexPage() {
         const renderComments = comments.map((item, id) => {
             return (
                 <>
-                    <Comment key={id} style={{ margin: "1% 0 0.5% 0", backgroundColor:"lightgrey" }}>
+                    <Comment key={item._id} style={{ margin: "1% 0 0.5% 0", backgroundColor: "lightblue" }}>
                         <Comment.Content>
                             <Comment.Author as='a' href={"/user/" +  item.comment.creatorId }>{item.username}</Comment.Author>
                             <Comment.Metadata>
@@ -143,19 +146,24 @@ export default function CollexPage() {
             );
             let savedcomment = commentRes.data;
             setComments(oldArray => [savedcomment, ...oldArray]);
+            saveCommentText("");
             console.log(comments);
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
     }
     //{data && userData && userData.user && userData.user.id != data.creatorid ? <p>Edit this collex</p> : <></>}
-
+    function editModalClose() {
+        seteditModal(false);
+        window.location.reload(false);
+    }
+    
     return (
         <>
             <Nav />
                 <div>
                     <div className="header">
-                    <div >
+                        <div >
                         <h1 className="collex-topic">{data ? data.name : <></>}</h1>
                         <a onClick={() => setModalShow(true)} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", marginTop: "30px", fontSize: "20px" }}>
                                 <AiFillPlusCircle style={{ color: "#69b1ec", size: "2em" }} />
@@ -173,10 +181,11 @@ export default function CollexPage() {
                                     <a onClick={likeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Like the collex">
                                         <AiFillLike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{likes} likes</a>
                             }
-                        </div>
-                        
                     </div>
-                <hr className="solid" />
+                    {data && userData && userData.user && userData.user.id === data.creatorId ? <a onClick={() => seteditModal(true)} style={{ cursor: "pointer", color: "red" }}>Edit this collex</a> : <></>}
+
+                </div>
+                <hr className="solid" />    
                 <div className = "cards-section">
                     <div className="playlist-cards">
                          {playlists && playlists.length!=0 ? 
@@ -205,17 +214,23 @@ export default function CollexPage() {
                     <hr />
                     <p style={{ fontStyle: "italic" }}> Interact with the collabrators below ...</p>
 
-                    <Comment.Group>
-                        <Form onSubmit={saveComment} reply>
-                            <Form.TextArea required onChange={(e) => saveCommentText(e.target.value)} />
-                            <Button type="submit" content='Add Comment' labelPosition='left' icon='edit' primary />
-                        </Form>
+                    <Form onSubmit={saveComment} reply>
+                        <Form.TextArea required value={commentText} onChange={(e) => saveCommentText(e.target.value)} />
+                        <Button type="submit" content='Add Comment' labelPosition='left' icon='edit' primary />
+                    </Form>
+                    <Comment.Group style={{maxWidth: "none"}}>
                         {comments.length != 0 ? getAddedComments() : <h4 style={{ fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> No comments added to this collex </h4>}
                     </Comment.Group>
                 </div>
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
+                    collexid={parameters.collexId}
+                />
+
+                <EditCollexModal
+                    show={editModal}
+                    onHide={() => editModalClose()}
                     collexid={parameters.collexId}
                 />
                 <ToastContainer />

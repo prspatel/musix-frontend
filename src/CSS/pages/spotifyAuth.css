@@ -1,0 +1,21 @@
+#authpage-body {
+    height: 100vh;
+    background-color:black;
+}
+
+#auth-container {
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: solid;
+    border-width: 5px;
+    border-color: lightblue;
+    border-radius: 25px;
+    text-align: center;
+    background-color:lightgreen;
+}
+    

@@ -7,7 +7,6 @@ import ErrorNotice from "../misc/error";
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import qs from 'qs';
 
 import { useHistory } from "react-router-dom";
 
@@ -287,42 +286,44 @@ export default function Playlist() {
                             onHide={() => setLikesModalShow(false)}
                             userLike={userLike}
                             userId={userData.user.id}
-                        />
-                    </div>
+                            />
+
+                           
+                            <ToastContainer />
+                        </div>
+                        {token ? (
+                            premium ?
+                                <>
+                                    < ErrorBoundary
+                                        ErrorFallback={ErrorFallback}
+                                    >
+                                        <SpotifyWebPlayer
+                                            styles={{
+                                                color: '#ffa500',
+                                                sliderColor: '#5680e9',
+                                                sliderTrackColor: '#1b03a3',
+                                                trackNameColor: "white",
+                                                height: '11vh',
+                                                bgColor: "black"
+
+                                            }}
+                                            //syncExternalDevice={false}
+                                            magnifySliderOnHover={true}
+                                            //callback={( error) => console.log(error)}
+                                            callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
+                                            play={play}
+                                            offset={track}
+                                            autoPlay={true}
+                                            token={token}
+                                            uris={playlist ? playlist.songs.map(track => "spotify:track:" + track.spotifyID) : []} />
+                                    </ErrorBoundary>
+
+                                </> : (<><div className="playerdiv"><h5 style={{ paddingTop: "2%", color: "lightgreen", textAlign: "center" }}>You need to sign in with Spotify Premium to load the player <a style={{ color: "blue", cursor: "pointer" }} onClick={() => signinPremium()}>Sign in with Premium</a></h5></div></>))
+                            : (<><div className="playerdiv"><h5 style={{ paddingTop: "2%", color: "lightgreen", textAlign: "center", bottom: "0px" }}>Please click to<a href="/callback"> login </a> with Spotify Premium to load the player.</h5></div></>)}
                 </>
 
                 : <></>
             }
-            {token ? (
-                premium ?
-                    <>
-                    < ErrorBoundary
-                        ErrorFallback={ErrorFallback}
-                    >
-                    <SpotifyWebPlayer
-                        styles={{
-                            color: '#ffa500',
-                            sliderColor: '#5680e9',
-                            sliderTrackColor: '#1b03a3',
-                            trackNameColor: "white",
-                            height: '11vh',
-                            bgColor: "black"
-
-                        }}
-                        //syncExternalDevice={false}
-                        magnifySliderOnHover={true}
-                        //callback={( error) => console.log(error)}
-                        callback={({ isPlaying }) => isPlaying.valueOf() ? true : setPlayStatus(false)}
-                        play={play}
-                        offset={track}
-                        autoPlay={true}
-                        token={token}
-                        uris={playlist ? playlist.songs.map(track => "spotify:track:" + track.spotifyID) : []} />
-                    </ErrorBoundary>
-
-                    </> : <h5 style={{ textAlign: "center", marginTop: "2%" }}>You need to sign in with Spotify Premium to load the player <a style={{color: "blue", cursor:"pointer"}} onClick={() => signinPremium() }>Sign in with Premium</a></h5>)
-                : <h5 style={{ textAlign: "center", marginTop: "2%" }}>Please click to<a href="/callback"> login </a> with Spotify Premium to load the player.</h5>}
-            <ToastContainer/>   
             <Footer />
         </>
     );

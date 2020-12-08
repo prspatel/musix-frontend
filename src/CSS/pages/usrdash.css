@@ -27,7 +27,9 @@
 }
 
 .dash-body {
-    margin: 0 10% 5% 10%;
+    position: relative;
+    min-height: 100vh;
+    margin: 0 10% 3% 10%;
 }
 
 hr.solid-divider {

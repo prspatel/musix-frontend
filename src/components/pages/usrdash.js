@@ -66,7 +66,6 @@ export default function UsrDash() {
     return (
         <>
             <Nav2 />    
-            <div className="dash-back">
 
             <div className="dash-body">
                 <h2 className="usrdash-title"> Your Playlists <a href="/createPlaylist" title="Create your own playlist"><GrAddCircle size="20px" /></a></h2>
@@ -115,13 +114,13 @@ export default function UsrDash() {
                             </Card>
                         ))}
                     </Carousel>
-                    : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any collex. Please click on the like button when you view a collex page</h5>}
-                    {likedCollex.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right" }}> View Liked Collexs >>></a> : <></>}
-                </div>
+                        : <h5 style={{ textAlign: "center", marginTop: "3%" }}>You haven't liked any collex. Please click on the like button when you view a collex page</h5>}
+                    {likedCollex.length > 0 ? <a href="/likedCollex/viewAll" style={{ float: "right", marginBottom: "1%" }}> View Liked Collexs >>></a> : <></>}
             </div>
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
+                    userId={userData.user.id}
                 />
 
                 <ToastContainer/>
