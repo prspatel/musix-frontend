@@ -13,6 +13,7 @@ export default function ViewAll() {
     const { userData } = useContext(UserContext);
     const isLikedPlaylists = window.location.pathname.startsWith("/likedPlaylists");
     const isPlaylists = window.location.pathname.startsWith("/allPlaylist");
+    const ismyCollex = window.location.pathname.startsWith("/myCollex");
     const isLikedCollex = window.location.pathname.startsWith("/likedCollex");
     const isCollex = window.location.pathname.startsWith("/allCollex");
     const [playlistOrCollex, setPorC] = useState("");
@@ -44,6 +45,13 @@ export default function ViewAll() {
                 setData(result.data);
                 
             }
+            else if (ismyCollex) {
+                const result = await axios.get(
+                    `http://localhost:5000/collex/myCollex/${userId}`,
+                );
+                setPorC("collex")
+                setData(result.data);
+            }
             else {
                 const result = await axios(
                     'http://localhost:5000/collex/all',
@@ -57,9 +65,9 @@ export default function ViewAll() {
         fetchData();
     }, []);
     function displayData() {
-        let cards = <h2 style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> No Data </h2>;
+        let cards = <h2 style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> You do not have any {playlistOrCollex} </h2>;
         console.log(data);
-        if (data) {
+        if (data.length!=0) {
             cards = data.map((item, id) => {
                 return (
                     <Card style={{ width: '14rem', margin: "2%", borderRadius: "24px" }} key={item._id} >
@@ -84,7 +92,7 @@ export default function ViewAll() {
             <div className ="viewall-body">
                 <div className="viewall-header">
                     <div >
-                        <h1 className="viewall-topic">{isLikedPlaylists ? "Your Liked Playlists" : (isPlaylists ? "Your Playlists" : (isLikedCollex ? "Your Liked Collex" : "Entire Collex Gallery"))}</h1>
+                        <h1 className="viewall-topic">{isLikedPlaylists ? "Your Liked Playlists" : (isPlaylists ? "Your Playlists" : (isLikedCollex ? "Your Liked Collex" : (ismyCollex ? "Your Created Collexs" : "Entire Collex Gallery")))}</h1>
                         </div>
                     <hr className="viewAll-solid" />
                 </div>

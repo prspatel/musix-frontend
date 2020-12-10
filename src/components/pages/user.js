@@ -56,14 +56,12 @@ export default function User() {
             const resPlaylist = await Axios.get(
                 `http://localhost:5000/playlist/public/${userId}`
             );
-            console.log(resPlaylist.data);
             setPlaylist(resPlaylist.data);
 
         };
 
         fetchData();
     }, []);
-
 
         
     return(
@@ -84,23 +82,23 @@ export default function User() {
                                     
                                 </div>
                                 <p className="tagline">
-                                    Date of Birth: {user ? (user.dob) : (<></>)}    
+                                   <b> Date of Birth</b>: {user ? (user.dob) : (<></>)}    
                                 </p>
                                 <p className="tagline">
-                                    Email: {user ? (user.email  ) : (<></>)}
+                                    <b>Email</b>: {user ? (user.email  ) : (<></>)}
                                 </p>
                                  <div className="playlistPageDesc">
                                     <p style={{ fontSize: "15px" }}>Joined Musix in 2020</p>
                                  </div>
                                  <div className="playlistPageDesc">
-                                   <p style={{ fontSize: "15px" }}>Total Playlist Time: 4hr 35 min</p>
+                                   <p style={{ fontSize: "15px" }}>Total Public Playlist Time: 4hr 35 min</p>
                                 </div>
-                                <h2 style={{ fontStyle: "Roboto, sans-sarif", margin: "2% 0 2% 0%" }}>Public Playlists </h2>
+                                <h2 style={{ fontStyle: "Roboto, sans-sarif", margin: "4% 0 3% 0%" }}><b>Public Playlists</b> </h2>
 
                                 {playlists.length !== 0 ?
                                     <Carousel className="carousel" responsive={responsive} itemClass="cards">
                                         {playlists.map(playlist => (
-                                            <Card style={{ width: '13rem' }} key={playlist._id} >
+                                            <Card style={{ width: '14rem' }} key={playlist._id} >
                                                 <Card.Img variant="top" src={playlist.cover} />
                                                 <Card.Body>
                                                     <Card.Title><Link to={`/playlist/${playlist._id}`}>{playlist.name}</Link></Card.Title>

@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500;700&display=swap');
 
 .createPlaylist-body {
-    margin: 0 10% 3% 10%;
+    min-height: 90vh;
+    position:relative;
+    padding: 0 10% 1% 10%;
 }
 .createPlaylist-title {
     color: #696969;

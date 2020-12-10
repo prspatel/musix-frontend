@@ -16,7 +16,6 @@
 }
 
 .carousel{
-  
     margin-bottom:1%;
 }
 
@@ -26,15 +25,20 @@
     margin: 0;
 }
 
-.dash-body {
+.dash-content {
     position: relative;
     min-height: 100vh;
     margin: 0 10% 3% 10%;
 }
 
+/*.dash-body {
+    background-color: #ffe4e1;
+}
+    */
+
 hr.solid-divider {
     margin-top: 3%;
-    border-color:lightgray;
+    border-color:grey;
     width: 100%;
 }
 

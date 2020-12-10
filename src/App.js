@@ -71,12 +71,12 @@ export default function App() {
                         <Route path="/likedPlaylists/viewAll" component={userData.user ? viewAll : Login} /> 
                         <Route path="/allPlaylists/viewAll" component={userData.user ? viewAll : Login} /> 
                         <Route path="/likedCollex/viewAll" component={userData.user ? viewAll : Login} /> 
+                        <Route path="/myCollex/viewAll" component={userData.user ? viewAll : Login} />
                         <Route path="/allCollex/viewAll" component={userData.user ? viewAll : Login} />
                         <Route path="/callback" component={spotifyAuth} /> 
-
                         <Route path="/editPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
                         <Route path="/forkPlaylist/:playlistID" component={userData.user ? EditPlaylist : Login} />
-                        <Route path="/createPlaylist" component={CreatePlaylist} />
+                        <Route path="/createPlaylist" component={userData.user ? CreatePlaylist : Login} />
 
                     </Switch>
                 </UserContext.Provider> 

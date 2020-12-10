@@ -206,7 +206,7 @@ export default function Playlist() {
                                     />
                                 </div>
                                 <div className="playlistPageContent" >
-                                    <p className="largeText uppercase bold">Playlist</p>
+                                    <p className="largeText uppercase bold"><a style={{color: "black"}}href={"/user/" + playlist.creatorId}><b>{playlist.username}'s</b></a> creation</p> 
                                     <h1>{playlist.name}</h1>
 
                                     <p className="tagline">
@@ -376,7 +376,7 @@ function MouseOverPopover(props) {
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
-          <span className="playlistPageDesc" style ={{ fontStyle: "italic" }}>{props.likes} {props.likes == 1 ? "like" : "likes"}</span>
+          <span className="playlistPageDesc" style ={{ color: "black" }}><b>{props.likes} {props.likes == 1 ? "like" : "likes"}</b></span>
         </Typography>
         {props.likes > 0 ? 
         <Popover

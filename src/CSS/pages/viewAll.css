@@ -21,6 +21,7 @@ hr.viewAll-solid {
 	width: 100%;
 }
 .display-cards {
+	text-align:center;
 	display: inline-flex;
 	width: 100%;
 	flex-wrap: wrap;
