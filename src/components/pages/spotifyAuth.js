@@ -7,17 +7,19 @@ import { SpotifyAuth } from 'react-spotify-auth'
 import 'react-spotify-auth/dist/index.css'
 import logo from '../../images/logo2.png';
 
-const spotifyAuth = () => {
-    const token = Cookies.get('spotifyAuthToken')
+const spotifyAuth = (props) => {
+    const token = Cookies.get('spotifyAuthToken');
+    const prevPath = localStorage.getItem('prevPath');
+    const content = "2; URL= http://localhost:3000" + prevPath
     return (
         <div className='app'>
             {token ? (
                 <SpotifyApiContext.Provider value={token}>
                     <head>
-                        <meta http-equiv="refresh" content="2; URL=http://localhost:3000/usrdash" />
+                        <meta http-equiv="refresh" content={content} />
                     </head>
                     <body>
-                        <p>If you are not redirected in 2 seconds, <a href="http://localhost:3000/usrdash">click here</a>.</p>
+                        <p>If you are not redirected in 2 seconds, <a href={"http://localhost:3000/" + prevPath}>click here</a>.</p>
                     </body>
                 </SpotifyApiContext.Provider>
             ) : (

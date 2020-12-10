@@ -81,7 +81,7 @@ export default function EditCollexModal(props) {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Add a Playlist
+                       Edit Collex
                 </Modal.Title>
 
                 </Modal.Header>

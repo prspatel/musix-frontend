@@ -7,6 +7,7 @@ import ErrorNotice from "../misc/error";
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import { useHistory } from "react-router-dom";
 
@@ -33,6 +34,7 @@ import Cookies from 'js-cookie'
 
 import SpotifyWebPlayer from 'react-spotify-web-playback';
 import { ErrorBoundary } from 'react-error-boundary'
+import spotifyAuth from "./spotifyAuth";
 
 
 export default function Playlist() {
@@ -52,6 +54,7 @@ export default function Playlist() {
     const [premium, setPremium] = useState(false);
     const token = Cookies.get('spotifyAuthToken');
     const [userLike, setUserLike] = useState();
+
 
 
     useEffect(() => {
@@ -96,13 +99,12 @@ export default function Playlist() {
         fetchData();
     }, []);
 
-    /* function getAuth() {
-         const xhr = new XMLHttpRequest()
-         xhr.open('GET', "https://accounts.spotify.com/authorize?client_id=6beaf72bdb304360abce3b366958de2d&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-private%20user-read-email&state=34fFs29kd09");
-         console.log(xhr.response);
-         xhr.send()
-     }*/
+    
+    const callback = () => {
 
+        localStorage.setItem("prevPath", window.location.pathname);
+        history.push("/callback")
+    };
 
     const likePlaylist = async (e) => {
         e.preventDefault();
@@ -319,7 +321,8 @@ export default function Playlist() {
                                     </ErrorBoundary>
 
                                 </> : (<><div className="playerdiv"><h5 style={{ paddingTop: "2%", color: "lightgreen", textAlign: "center" }}>You need to sign in with Spotify Premium to load the player <a style={{ color: "blue", cursor: "pointer" }} onClick={() => signinPremium()}>Sign in with Premium</a></h5></div></>))
-                            : (<><div className="playerdiv"><h5 style={{ paddingTop: "2%", color: "lightgreen", textAlign: "center", bottom: "0px" }}>Please click to<a href="/callback"> login </a> with Spotify Premium to load the player.</h5></div></>)}
+                        : (<><div className="playerdiv"><h5 style={{ paddingTop: "2%", color: "lightgreen", textAlign: "center", bottom: "0px" }}>Please click to
+                            <a style={{ color: "blue", cursor: "pointer" }} onClick={callback}> login </a> with Spotify Premium to load the player.</h5></div></>)}
                 </>
 
                 : <></>
@@ -329,6 +332,7 @@ export default function Playlist() {
     );
 
 }
+
 
 const useStyles = makeStyles((theme) => ({
     popover: {
