@@ -15,6 +15,8 @@ import Axios from "axios";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 export default function EditPlaylist() {
 
@@ -137,23 +139,69 @@ export default function EditPlaylist() {
     function displayAddedTracks(){
         let tracks = <h2 style={{textAlign:"center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop:"12px" }}> No tracks added to this playlist </h2>;
         if (addedTracks) {
-            tracks = getAddedTracks();
+            tracks = <Droppable droppableId="dp1">
+                {(provided) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                        {getAddedTracks()}
+                        {provided.placeholder}
+                    </div>
+                )}
+
+            </Droppable> 
         }
         return tracks;
+    }
+    const onDragEnd = result => {
+        const { destination, source, reason } = result;
+        // Not a thing to do...
+        if (!destination || reason === 'CANCEL') {
+            return;
+        }
+
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+
+        const playlists = Object.assign([], addedTracks);
+        const droppedPlaylist = addedTracks[source.index];
+
+
+        playlists.splice(source.index, 1);
+        playlists.splice(destination.index, 0, droppedPlaylist);
+        addTracks(
+            playlists
+        );
     }
 
     function getAddedTracks() {
         const renderTracks = addedTracks.map((track, id) => {
             return (
-                < ListGroup.Item key={id} variant="success">
-                    <div className="list-item">
-                        <h5>{track.name}</h5> by {track.artists.join(", ")}
+                <Draggable
+                    key={id}
+                    draggableId={id + ' '}
+                    index={id}>
 
-                        <div className="list-icons" >
-                            <a onClick={() => removeTrack(track)} style={{ cursor: "pointer" }} title="Remove track from playlist"> <AiOutlineCloseCircle size="30" /></a>
+                    {(provided) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                     >
+                    < ListGroup.Item key={id} variant="success">
+                        <div className="list-item">
+                            <h5>{track.name}</h5> by {track.artists.join(", ")}
+
+                            <div className="list-icons" >
+                                <a onClick={() => removeTrack(track)} style={{ cursor: "pointer" }} title="Remove track from playlist"> <AiOutlineCloseCircle size="30" /></a>
+                            </div>
                         </div>
-                    </div>
-                </ListGroup.Item >
+                    </ListGroup.Item >
+                        </div>
+                    )}
+                </Draggable>
             )
         });
         return renderTracks
@@ -250,14 +298,16 @@ export default function EditPlaylist() {
                      </div>
                     <div className="added-songs">
                         <h2 style={{ fontFamily: "Turret Road, cursive" }}>
-                            Added Songs
+                                Added Songs
                         </h2>
+                            <p style={{ fontStyle: "italic" }}>You can rearrange the order of songs by drag and drop.</p>
                         <div className="added-songList">
-                            {addedTracks.length!=0 ? <>
-                                <ListGroup>
-                                    {displayAddedTracks()}
-                                </ListGroup>
-
+                                {addedTracks.length != 0 ? <>
+                                <DragDropContext onDragEnd={onDragEnd}>
+                                    <ListGroup>
+                                        {displayAddedTracks()}
+                                    </ListGroup>
+                                 </DragDropContext>
                             </> : <h2 style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> No tracks added to this playlist </h2> }
                         </div>                   
                     </div>

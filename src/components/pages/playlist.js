@@ -360,10 +360,10 @@ function MouseOverPopover(props) {
     if (userLikes){
         let likesInList = Object.keys(userLikes)
         if (likesInList.length <= 4){
-            popup = likesInList.map(users =>(<Typography>{userLikes[users]}</Typography>))
+            popup = likesInList.map((users, index) => (<Typography key={ index }>{userLikes[users]}</Typography>))
         }
         else{
-            popup = likesInList.slice(0,4).map(users =>(<Typography>{userLikes[users]}</Typography>))
+            popup = likesInList.slice(0, 4).map((users, index) => (<Typography key={index}>{userLikes[users]}</Typography>))
             less = true;
         }
     }
@@ -422,7 +422,7 @@ function LikesModal(props) {
               Users Who Like This Playlist
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>{userIds ? userIds.map(users => <p><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : null}</Modal.Body>
+            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : null}</Modal.Body>
         </Modal>
     );
   }
