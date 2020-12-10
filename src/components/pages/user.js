@@ -22,7 +22,7 @@ export default function User() {
     const [sameUser, setSameUser] = useState(true);
     const [user, setUser] = useState();
     const [playlists, setPlaylist] = useState([]);
-
+    const [mostvisited, setMostVisited] = useState();
     const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -56,8 +56,8 @@ export default function User() {
             const resPlaylist = await Axios.get(
                 `http://localhost:5000/playlist/public/${userId}`
             );
-            setPlaylist(resPlaylist.data);
-
+            setPlaylist(resPlaylist.data.playlists);
+            setMostVisited(resPlaylist.data.mostvisited);
         };
 
         fetchData();
@@ -86,6 +86,9 @@ export default function User() {
                                 </p>
                                 <p className="tagline">
                                     <b>Email</b>: {user ? (user.email  ) : (<></>)}
+                                </p>
+                                <p className ="tagline">
+                                <b>Popular public playlist</b>: {mostvisited ? (<><a style={{ color: "red" }} href={"/playlist/" + mostvisited._id}>{mostvisited.name} </a>({mostvisited.visit} visits)</>) : <>User hasn't created any playlists</>}
                                 </p>
                                  <div className="playlistPageDesc">
                                     <p style={{ fontSize: "15px" }}>Joined Musix in 2020</p>
