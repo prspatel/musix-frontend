@@ -15,16 +15,24 @@ import UserContext from "../misc/userContext";
 import { Button, Comment, Form } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import EditCollexModal from "./editCollex";
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { Modal } from "react-bootstrap";
 
 
 export default function CollexPage() {
     const [modalShow, setModalShow] = useState(false);
     const [editModal, seteditModal] = useState(false);
-
     const [data, setData] = useState();
     const [playlists, setPlaylists] = useState([]);
     const [likedbyUser, setlikedbyUser] = useState(false);
     const [likes, setLikes] = useState();
+
+    const [likesBy, setLikesBy] = useState();
+    const [userLike, setUserLike] = useState();
+    const [likesModalShow, setLikesModalShow] = useState(false);
+
     const { userData } = useContext(UserContext);
     const [error, setError] = useState();
     const [comments, setComments] = useState([]);
@@ -38,9 +46,9 @@ export default function CollexPage() {
             const result = await axios.get(
                 `http://localhost:5000/collex/${collexId}`               
             );
-
             setLikes(result.data.collex.likes);
             setData(result.data.collex);
+            setLikesBy(result.data.collex.likedBy);
             console.log(result.data.collex);
             setPlaylists(result.data.playlists);
             setComments(result.data.comments);
@@ -48,6 +56,15 @@ export default function CollexPage() {
             const likeresult = await axios.get(
                 `http://localhost:5000/collex/likedbyUser/${collexId}/${userId}`
             );
+            var x;
+            let usersWhoLiked = {}
+            for (x of result.data.collex.likedBy){
+                const result = await axios.get(
+                    `http://localhost:5000/users/${x}`
+                );
+                usersWhoLiked[x] = result.data.name;
+            }
+            setUserLike(usersWhoLiked);
             console.log(likeresult.data);
             setlikedbyUser(likeresult.data);
         };
@@ -65,16 +82,22 @@ export default function CollexPage() {
             collexLikes = collexLikes + 1;
             setLikes(collexLikes);
 
-            /*var userLikes = likesBy;
+            var userLikes = likesBy;
             userLikes.push(creator_id);
             setLikesBy(userLikes);
-            */
-            const info = { creator_id, collexId, collexLikes }
+            
+            const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
                 "http://localhost:5000/collex/like",
                 info
             );
+            const result = await axios.get(
+                `http://localhost:5000/users/${creator_id}`
+            );
+            userLike[creator_id] = result.data.name;
+            setUserLike(userLike);
+
             setlikedbyUser(true);
             toast.success("You liked this collex", {
                 position: "bottom-center"
@@ -93,16 +116,19 @@ export default function CollexPage() {
             collexLikes = collexLikes - 1;
             setLikes(collexLikes);
 
-            /*var userLikes = likesBy;
+            var userLikes = likesBy;
             userLikes.splice(userLikes.indexOf(creator_id), 1);
-            setLikesBy(userLikes);*/
+            setLikesBy(userLikes);
 
-            const info = { creator_id, collexId, collexLikes }
+            const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
                 "http://localhost:5000/collex/dislike",
                 info
             );
+
+            delete userLike[creator_id]
+            setUserLike(userLike)
 
             setlikedbyUser(false);
             toast.error("You disliked this collex", {
@@ -175,11 +201,19 @@ export default function CollexPage() {
                             
                             {
                                 likedbyUser ?
-                                    <a onClick={dislikeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Unlike this collex">
-                                        <AiFillDislike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{ likes} likes</a>
+                                    <div style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }}>
+                                        <a onClick={dislikeCollex} title="Unlike this collex">
+                                            <AiFillDislike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />
+                                        </a>
+                                        <div onClick={likes > 0 ? () => setLikesModalShow(true) : null}><MouseOverPopover likes={likes} userLike={userLike}/> </div>
+                                    </div>
                                     :
-                                    <a onClick={likeCollex} style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }} title="Like the collex">
-                                        <AiFillLike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />{likes} likes</a>
+                                    <div style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }}>
+                                        <a onClick={likeCollex} title="Like the collex">
+                                            <AiFillLike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />
+                                        </a>
+                                        <div onClick={likes > 0 ? () => setLikesModalShow(true) : null}><MouseOverPopover likes={likes} userLike={userLike}/> </div>
+                                    </div>
                             }
                     </div>
                     {data && userData && userData.user && userData.user.id === data.creatorId ? <a onClick={() => seteditModal(true)} style={{ cursor: "pointer", color: "red" }}>Edit this collex</a> : <></>}
@@ -233,9 +267,112 @@ export default function CollexPage() {
                     onHide={() => editModalClose()}
                     collexid={parameters.collexId}
                 />
+                <LikesModal
+                    show={likesModalShow}
+                    onHide={() => setLikesModalShow(false)}
+                    userLike={userLike}
+                    userId={userData.user.id}
+                />
                 <ToastContainer />
                 </div>
             <Footer/>
         </>
     );
 }
+
+const useStyles = makeStyles((theme) => ({
+    popover: {
+      pointerEvents: 'none',
+    },
+    paper: {
+      padding: theme.spacing(1),
+    },
+  }));
+  
+function MouseOverPopover(props) {
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+  
+    const handlePopoverOpen = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handlePopoverClose = () => {
+      setAnchorEl(null);
+    };
+  
+    const open = Boolean(anchorEl);
+    
+    const userLikes = props.userLike;
+
+    var popup = "Loading...";
+    let less = false;
+    if (userLikes){
+        let likesInList = Object.keys(userLikes)
+        if (likesInList.length <= 4){
+            popup = likesInList.map((users, index) => (<Typography key={ index }>{userLikes[users]}</Typography>))
+        }
+        else{
+            popup = likesInList.slice(0, 4).map((users, index) => (<Typography key={index}>{userLikes[users]}</Typography>))
+            less = true;
+        }
+    }
+
+    return (
+      <div>
+        <Typography
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+        >
+          <span className="collexPageDesc" style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }}><b>{props.likes} {props.likes == 1 ? "like" : "likes"}</b></span>
+        </Typography>
+        {props.likes > 0 ? 
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+            {popup}
+            {less ? <Typography>...and {Object.keys(userLikes).length - 4} more.</Typography>: null }
+        </Popover> : null}
+      </div>
+    );
+}
+
+function LikesModal(props) {
+    let usersWhoLiked = props.userLike;
+    let userIds = usersWhoLiked ? Object.keys(usersWhoLiked) : null;
+
+    return (
+        <Modal
+          {...props}
+          size="sm"
+          aria-labelledby="example-modal-sizes-title-sm"
+          centered
+          scrollable = {true}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-sm">
+              Users Who Like This Collex
+            </Modal.Title>
+          </Modal.Header>
+            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : ""}</Modal.Body>
+        </Modal>
+    );
+  }

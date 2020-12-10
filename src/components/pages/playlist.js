@@ -214,7 +214,7 @@ export default function Playlist() {
                                     </p>
                                     <div className="playlistPageDesc">
                                         {/* <span style={{ fontStyle: "italic" }}> {likes} likes</span>  */}
-                                        <div style={{ cursor: "pointer" }} onClick={() => setLikesModalShow(true)}><MouseOverPopover likes={likes} userLike={userLike} /></div>
+                                        <div style={likes > 0 ? { cursor: "pointer" } : {cursor: "default"}} onClick={likes > 0 ? () => setLikesModalShow(true) : null}><MouseOverPopover likes={likes} userLike={userLike} /></div>
                                         <span style={{ fontStyle: "italic" }}>Duration: {playlist.duration ? playlist.duration : <></>}</span>
                                     </div>
                                     {error && (
@@ -422,7 +422,7 @@ function LikesModal(props) {
               Users Who Like This Playlist
             </Modal.Title>
           </Modal.Header>
-            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : null}</Modal.Body>
+            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : ""}</Modal.Body>
         </Modal>
     );
   }
