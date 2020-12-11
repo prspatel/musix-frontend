@@ -50,7 +50,7 @@ export default function CollexDash() {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                'http://localhost:5000/collex/all',
+                '/collex/all',
             );
             console.log(result.data.collexs);
             setData(result.data.collexs);
@@ -69,7 +69,7 @@ export default function CollexDash() {
         const res = await SearchFunction(
             `/collex/search/${val}`
         );  
-        if (res.collexs) {
+        if (res && res.collexs) {
             const collexs = res.collexs;
             setResults({ collexs, loading: false });
         }

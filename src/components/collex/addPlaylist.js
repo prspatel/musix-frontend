@@ -49,7 +49,7 @@ export default function MyVerticallyCenteredModal(props) {
         const userId = userData.user.id;
 
         const res = await SearchFunction(
-            `http://localhost:5000/playlist/search/${userId}/${val}`
+            `/playlist/search/${userId}/${val}`
         );
         let playlists = [];
         if (res) {
@@ -66,7 +66,7 @@ export default function MyVerticallyCenteredModal(props) {
             console.log(collexId)
 
             const  addRes= await Axios.post(
-                "http://localhost:5000/collex/addPlaylist",
+                "/collex/addPlaylist",
                 { playlist, collexId }
             );
             toast.success(" Playlist was added successfully to this Collex", { position: "bottom-center" });

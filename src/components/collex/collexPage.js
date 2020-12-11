@@ -44,7 +44,7 @@ export default function CollexPage() {
         const fetchData = async () => {
             const collexId = parameters.collexId;
             const result = await axios.get(
-                `http://localhost:5000/collex/${collexId}`               
+                `/collex/${collexId}`               
             );
             setLikes(result.data.collex.likes);
             setData(result.data.collex);
@@ -54,13 +54,13 @@ export default function CollexPage() {
             setComments(result.data.comments);
             const userId = userData.user.id;
             const likeresult = await axios.get(
-                `http://localhost:5000/collex/likedbyUser/${collexId}/${userId}`
+                `/collex/likedbyUser/${collexId}/${userId}`
             );
             var x;
             let usersWhoLiked = {}
             for (x of result.data.collex.likedBy){
                 const result = await axios.get(
-                    `http://localhost:5000/users/${x}`
+                    `/users/${x}`
                 );
                 usersWhoLiked[x] = result.data.name;
             }
@@ -89,11 +89,11 @@ export default function CollexPage() {
             const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
-                "http://localhost:5000/collex/like",
+                "/collex/like",
                 info
             );
             const result = await axios.get(
-                `http://localhost:5000/users/${creator_id}`
+                `/users/${creator_id}`
             );
             userLike[creator_id] = result.data.name;
             setUserLike(userLike);
@@ -123,7 +123,7 @@ export default function CollexPage() {
             const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
-                "http://localhost:5000/collex/dislike",
+                "/collex/dislike",
                 info
             );
 
@@ -373,7 +373,7 @@ function LikesModal(props) {
               Users Who Like This Collex
             </Modal.Title>
           </Modal.Header>
-            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : ""}</Modal.Body>
+            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : ""}</Modal.Body>
         </Modal>
     );
   }
