@@ -48,13 +48,13 @@ export default function User() {
            
             const userId = parameters.userId;
             const result = await Axios.get(
-                `/users/${userId}`
+                `/api/users/${userId}`
             );
             console.log(result.data);
             setUser(result.data);
 
             const resPlaylist = await Axios.get(
-                `/playlist/public/${userId}`
+                `/api/playlist/public/${userId}`
             );
             setPlaylist(resPlaylist.data.playlists);
             setMostVisited(resPlaylist.data.mostvisited);
