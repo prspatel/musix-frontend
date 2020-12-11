@@ -48,7 +48,7 @@ export default function Nav1() {
     let search = async val => {
         setSearchState({ isLoading: true });
         const res = await SearchFunction(
-            `/users/search/${val}`
+            `/api/users/search/${val}`
         );
         if (res) {
             const playlists = res.playlists;

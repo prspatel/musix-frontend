@@ -138,7 +138,7 @@ function ChangePasswordModal(props) {
             let userId = props.userid; 
             const passwordChange = { userId, currentPassword, newPassword, confirmPassword };
             const passwordRes = await Axios.post(
-                "/users/changePassword",
+                "/api/users/changePassword",
                 passwordChange
             );
             toast.success(passwordRes.data.msg, { position: "bottom-center" });

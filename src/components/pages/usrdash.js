@@ -48,16 +48,16 @@ export default function UsrDash() {
             const userId = userData.user.id ;
             console.log(userId);
             const result = await axios.get(
-                `/playlist/playlists/${userId}`,
+                `/api/playlist/playlists/${userId}`,
             ); 
             setUserPlaylists(result.data);
             console.log(result.data);
             const likedRes = await axios.get(
-                `/playlist/likedPlaylists/${userId}`,
+                `/api/playlist/likedPlaylists/${userId}`,
             );
             setLikedPlaylists(likedRes.data);
             const likedCollexRes = await axios.get(
-                `/collex/likedCollex/${userId}`,
+                `/api/collex/likedCollex/${userId}`,
             );
             setLikedCollex(likedCollexRes.data);
         };

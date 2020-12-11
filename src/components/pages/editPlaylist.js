@@ -44,7 +44,7 @@ export default function EditPlaylist() {
         const fetchData = async () => {
             const playlistId = parameters.playlistID;
             const result = await Axios.get(
-                `/playlist/${playlistId}`               
+                `/api/playlist/${playlistId}`               
             );
             console.log(result.data);
             setData(result.data);
@@ -66,7 +66,7 @@ export default function EditPlaylist() {
     let search = async val => {
         setResults({ loading: true });
         const res = await SearchFunction(
-            `/spotify/${val}`
+            `/api/spotify/${val}`
         );
         const tracks = res;
         setResults({ tracks, loading: false });
@@ -215,11 +215,11 @@ export default function EditPlaylist() {
             const playlist = isFork ? { playlistName, creator_id, isPublic, tracks: [...addedTracks], playlistDesc } : { playlistId, playlistName, isPublic, tracks: [...addedTracks], playlistDesc }
             const loginRes = isFork ? 
                 await Axios.post(
-                    "/playlist/fork",
+                    "/api/playlist/fork",
                     playlist
                 ) :
                 await Axios.post(
-                    "/playlist/edit",
+                    "/api/playlist/edit",
                     playlist
                 );
             console.log(addedTracks);

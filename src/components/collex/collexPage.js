@@ -89,11 +89,11 @@ export default function CollexPage() {
             const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
-                "http://localhost:5000/collex/like",
+                "/api/collex/like",
                 info
             );
             const result = await axios.get(
-                `http://localhost:5000/users/${creator_id}`
+                `/api/users/${creator_id}`
             );
             userLike[creator_id] = result.data.name;
             setUserLike(userLike);
@@ -123,7 +123,7 @@ export default function CollexPage() {
             const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
-                "http://localhost:5000/collex/dislike",
+                "/api/collex/dislike",
                 info
             );
 
@@ -167,7 +167,7 @@ export default function CollexPage() {
             console.log("userid: " + userid + " comment: " + commentText + " collexid: " + collexid);
             const comment = { userid, commentText, collexid }
             const commentRes = await axios.post(
-                "/collex/saveComment",
+                "/api/collex/saveComment",
                 comment
             );
             let savedcomment = commentRes.data;

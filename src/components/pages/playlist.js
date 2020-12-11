@@ -59,7 +59,7 @@ export default function Playlist() {
         const fetchData = async () => {
             const playlistId = parameters.playlistId;
             const result = await Axios.get(
-                `/playlist/${playlistId}`
+                `/api/playlist/${playlistId}`
             );
             setPlaylist(result.data);
             console.log(userData.user);
@@ -67,7 +67,7 @@ export default function Playlist() {
             setLikesBy(result.data.likedBy);
             const userId = userData.user.id;
             const likeresult = await Axios.get(
-                `/playlist/likedbyUser/${playlistId}/${userId}`
+                `/api/playlist/likedbyUser/${playlistId}/${userId}`
             );
             console.log(result.data);
             setlikedbyUser(likeresult.data);
@@ -75,7 +75,7 @@ export default function Playlist() {
             let usersWhoLiked = {}
             for (x of result.data.likedBy) {
                 const result = await Axios.get(
-                    `/users/${x}`
+                    `/api/users/${x}`
                 );
                 usersWhoLiked[x] = result.data.name;
             }
@@ -120,12 +120,12 @@ export default function Playlist() {
             const info = { creator_id, playlistId, playlistLikes, userLikes }
 
             const likeRes = await Axios.post(
-                "/playlist/like",
+                "/api/playlist/like",
                 info
             );
 
             const result = await Axios.get(
-                `/users/${creator_id}`
+                `/api/users/${creator_id}`
             );
             userLike[creator_id] = result.data.name;
             setUserLike(userLike);
@@ -176,7 +176,7 @@ export default function Playlist() {
             const info = { creator_id, playlistId, playlistLikes, userLikes }
 
             const likeRes = await Axios.post(
-                "/playlist/dislike",
+                "/api/playlist/dislike",
                 info
             );
 
@@ -439,7 +439,7 @@ function MyVerticallyCenteredModal(props) {
             let playlistId = props.playlistid;
            
             const deletRes = await Axios.post(
-                `/playlist/delete/${playlistId}`                
+                `/api/playlist/delete/${playlistId}`                
             );
             history.push("/usrDash");
 

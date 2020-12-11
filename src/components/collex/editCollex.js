@@ -18,7 +18,7 @@ export default function EditCollexModal(props) {
             const collexId = props.collexid;
             console.log(collexId);
             const playlistRes = await Axios.get(
-                `/collex/playlists/${collexId}`
+                `/api/collex/playlists/${collexId}`
             );
             setPlaylists(playlistRes.data.playlists);
         };
@@ -41,7 +41,7 @@ export default function EditCollexModal(props) {
                     const collexId = props.collexid;
                     const info = { playlist, collexId}
                     const removePlaylist = await Axios.post(
-                        `/collex/removePlaylist/`,
+                        `/api/collex/removePlaylist/`,
                         info
                     );
                     
