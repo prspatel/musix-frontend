@@ -10,7 +10,7 @@ import logo from '../../images/logo2.png';
 const spotifyAuth = (props) => {
     const token = Cookies.get('spotifyAuthToken');
     const prevPath = localStorage.getItem('prevPath');
-    const content = "2; URL= http://localhost:3000" + prevPath
+    const content = "2; URL=https://musix-front.herokuapp.com/" + prevPath
     return (
         <div className='app'>
             {token ? (
@@ -19,7 +19,7 @@ const spotifyAuth = (props) => {
                         <meta http-equiv="refresh" content={content} />
                     </head>
                     <body>
-                        <p>If you are not redirected in 2 seconds, <a href={"http://localhost:3000/" + prevPath}>click here</a>.</p>
+                        <p>If you are not redirected in 2 seconds, <a href={"https://musix-front.herokuapp.com/callback" + prevPath}>click here</a>.</p>
                     </body>
                 </SpotifyApiContext.Provider>
             ) : (
@@ -31,7 +31,7 @@ const spotifyAuth = (props) => {
                                 <hr className="solid" />
                                 <h3 style={{ marginBottom:"4%" }}>Login with Spotify below....</h3>
                                 <SpotifyAuth
-                                    redirectUri='http://localhost:3000/callback'
+                                    redirectUri='https://musix-front.herokuapp.com/callback'
                                     clientID='6beaf72bdb304360abce3b366958de2d'
                                     scopes={['user-read-private', 'user-read-email', 'streaming', 'user-read-playback-state', 'user-modify-playback-state']} // either style will work
                                 />

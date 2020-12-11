@@ -69,7 +69,7 @@ export default function CollexDash() {
         const res = await SearchFunction(
             `/api/collex/search/${val}`
         );  
-        if (res.collexs) {
+        if (res && res.collexs) {
             const collexs = res.collexs;
             setResults({ collexs, loading: false });
         }
