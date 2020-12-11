@@ -1,0 +1,8 @@
+{
+  "root": "build/",
+  "proxies": {
+    "/api/": {
+      "origin": "https://musix-416.herokuapp.com"
+    }
+  }
+}
