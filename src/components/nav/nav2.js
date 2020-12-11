@@ -32,7 +32,7 @@ export default function Nav1() {
             token: undefined,
             user: undefined,
         });
-        Cookies.remove('spotifyAuthToken');
+          Cookies.remove('spotifyAuthToken');
         localStorage.setItem("auth-token", "");
         history.push("/")
     };
@@ -48,7 +48,7 @@ export default function Nav1() {
     let search = async val => {
         setSearchState({ isLoading: true });
         const res = await SearchFunction(
-            `http://localhost:5000/users/search/${val}`
+            `/users/search/${val}`
         );
         if (res) {
             const playlists = res.playlists;

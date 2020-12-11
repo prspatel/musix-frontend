@@ -67,7 +67,7 @@ export default function CollexDash() {
     let search = async val => {
         setResults({ loading: true });
         const res = await SearchFunction(
-            `http://localhost:5000/collex/search/${val}`
+            `/collex/search/${val}`
         );  
         if (res.collexs) {
             const collexs = res.collexs;

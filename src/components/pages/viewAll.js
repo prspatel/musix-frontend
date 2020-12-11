@@ -23,7 +23,7 @@ export default function ViewAll() {
 
             if (isPlaylists) {
                 const result = await axios.get(
-                    `http://localhost:5000/playlist/playlists/${userId}`,
+                    `/playlist/playlists/${userId}`,
                 );
                 setData(result.data);
                 setPorC("playlist")
@@ -31,7 +31,7 @@ export default function ViewAll() {
             }
             else if (isLikedPlaylists) {
                 const result = await axios.get(
-                    `http://localhost:5000/playlist/likedPlaylists/${userId}`,
+                    `/playlist/likedPlaylists/${userId}`,
                 );
                 setData(result.data);
                 setPorC("playlist");
@@ -39,7 +39,7 @@ export default function ViewAll() {
             }
             else if (isLikedCollex) {
                 const result = await axios.get(
-                    `http://localhost:5000/collex/likedCollex/${userId}`,
+                    `/collex/likedCollex/${userId}`,
                 );
                 setPorC("collex")
                 setData(result.data);
@@ -47,14 +47,14 @@ export default function ViewAll() {
             }
             else if (ismyCollex) {
                 const result = await axios.get(
-                    `http://localhost:5000/collex/myCollex/${userId}`,
+                    `/collex/myCollex/${userId}`,
                 );
                 setPorC("collex")
                 setData(result.data);
             }
             else {
                 const result = await axios(
-                    'http://localhost:5000/collex/all',
+                    '/collex/all',
                 );
                 setData(result.data.collexs);
                 setPorC("collex");

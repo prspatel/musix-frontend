@@ -29,7 +29,7 @@ export default function MyVerticallyCenteredModal(props) {
         const fetchData = async () => {
             const userId = userData.user.id;
             const result = await Axios.get(
-                `http://localhost:5000/playlist/public/${userId}`,
+                `/playlist/public/${userId}`,
             );
             setUserPlaylists(result.data.playlists);
         };

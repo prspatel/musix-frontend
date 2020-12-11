@@ -24,7 +24,7 @@ export default function Register() {
             console.log(password);
             const loginUser = { fname, lname, email, dob,  password, passwordCheck};
             const loginRes = await Axios.post(
-                "http://localhost:5000/users/register",
+                "/users/register",
                 loginUser
             );
             setUserData({

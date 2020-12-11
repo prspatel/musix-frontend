@@ -167,7 +167,7 @@ export default function CollexPage() {
             console.log("userid: " + userid + " comment: " + commentText + " collexid: " + collexid);
             const comment = { userid, commentText, collexid }
             const commentRes = await axios.post(
-                "http://localhost:5000/collex/saveComment",
+                "/collex/saveComment",
                 comment
             );
             let savedcomment = commentRes.data;
@@ -209,7 +209,7 @@ export default function CollexPage() {
                                         <div onClick={likes > 0 ? () => setLikesModalShow(true) : null}><MouseOverPopover likes={likes} userLike={userLike}/> </div>
                                     </div>
                                     :
-                                    <div style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }}>
+                                <div style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px", display: "flex" }}>
                                         <a onClick={likeCollex} title="Like the collex">
                                             <AiFillLike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />
                                         </a>
