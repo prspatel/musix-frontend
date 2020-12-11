@@ -1,5 +1,5 @@
 {
-  "name": "mern-front",
+  "name": "musix-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -52,5 +52,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy":  "https://musix-416.herokuapp.com/"
+  "proxy":  "https://musix-416.herokuapp.com/",
+  "engines":{
+    "node": "14.x"
+  }
 }
