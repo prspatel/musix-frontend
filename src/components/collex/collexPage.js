@@ -200,11 +200,12 @@ export default function CollexPage() {
                             <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif", display: "inline", fontSize: "20px" }}>{data ? data.description : <></>}</p>
                             
                             {
-                                likedbyUser ?
-                                    <div style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px" }}>
+                            likedbyUser ?
+                                <div style={{ cursor: "pointer", display: "inline", float: "right", color: "#696969", fontFamily: "roboto, sans-serif", fontSize: "20px", display: "flex" }}>
                                         <a onClick={dislikeCollex} title="Unlike this collex">
                                             <AiFillDislike style={{ color: "#69b1ec", size: "2em" }} onMouseOver={({ target }) => target.style.color = "black"} onMouseOut={({ target }) => target.style.color = "#69b1ec"} />
                                         </a>
+
                                         <div onClick={likes > 0 ? () => setLikesModalShow(true) : null}><MouseOverPopover likes={likes} userLike={userLike}/> </div>
                                     </div>
                                     :
