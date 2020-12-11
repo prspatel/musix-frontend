@@ -10,7 +10,7 @@ import logo from '../../images/logo2.png';
 const spotifyAuth = (props) => {
     const token = Cookies.get('spotifyAuthToken');
     const prevPath = localStorage.getItem('prevPath');
-    const content = "2; URL=https://musix-front.herokuapp.com/" + prevPath
+    const content = "2; URL=https://musix-front.herokuapp.com" + prevPath
     return (
         <div className='app'>
             {token ? (
@@ -19,7 +19,7 @@ const spotifyAuth = (props) => {
                         <meta http-equiv="refresh" content={content} />
                     </head>
                     <body>
-                        <p>If you are not redirected in 2 seconds, <a href={"https://musix-front.herokuapp.com/callback" + prevPath}>click here</a>.</p>
+                        <p>If you are not redirected in 2 seconds, <a href={"https://musix-front.herokuapp.com" + prevPath}>click here</a>.</p>
                     </body>
                 </SpotifyApiContext.Provider>
             ) : (
