@@ -102,7 +102,6 @@ export default function CollexDash() {
             <>
                 <div className="collexDash-Back">
                 <Nav />
-                
                     <h1 className="collex-header"> Collex Gallery </h1>
                     <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
                     <hr className="solid" />
@@ -148,6 +147,7 @@ export default function CollexDash() {
                     </div>
                     <Footer />
                 </div>
+
             </>
            
      );
