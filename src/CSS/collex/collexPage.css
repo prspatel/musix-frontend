@@ -7,8 +7,9 @@
     display:inline;
 }
 .collex-page{
-    height:110vh;
-    background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
+    min-height:90vh;
+    position: relative;
+    background-image: linear-gradient(#e7e9f1, #fadcf4 40%);
 }
 
 .header {

@@ -31,10 +31,10 @@
     margin: 0 10% 3% 10%;
 }
 
-/*.dash-body {
-    background-color: #ffe4e1;
+.dash-body {
+    background-image: linear-gradient(#e7e9f1, #ebe297 50%);
 }
-    */
+
 
 hr.solid-divider {
     margin-top: 3%;
