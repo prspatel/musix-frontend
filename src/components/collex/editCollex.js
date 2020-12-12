@@ -1,15 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Modal } from "react-bootstrap";
 import 'react-image-picker/dist/index.css'
 import "../../CSS/collex/addPlaylist.css"
 import Axios from "axios";
-import { useHistory } from "react-router-dom";
 import ErrorNotice from "../misc/error";
 import { ToastContainer, toast } from 'react-toastify';
-import { SearchFunction } from "../misc/search";
-import UserContext from "../misc/userContext";
 import { ListGroup } from "react-bootstrap";
-import { remove } from "js-cookie";
+
 
 
 export default function EditCollexModal(props) {
@@ -21,7 +18,7 @@ export default function EditCollexModal(props) {
             const collexId = props.collexid;
             console.log(collexId);
             const playlistRes = await Axios.get(
-                `http://localhost:5000/collex/playlists/${collexId}`
+                `/collex/playlists/${collexId}`
             );
             setPlaylists(playlistRes.data.playlists);
         };
@@ -44,7 +41,7 @@ export default function EditCollexModal(props) {
                     const collexId = props.collexid;
                     const info = { playlist, collexId}
                     const removePlaylist = await Axios.post(
-                        `http://localhost:5000/collex/removePlaylist/`,
+                        `/collex/removePlaylist/`,
                         info
                     );
                     

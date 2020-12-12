@@ -32,7 +32,7 @@ export default function MyVerticallyCenteredModal(props) {
             const collex = { collexName, collexDesc, collexPic, userId };
             console.log(collex);
             const loginRes = await Axios.post(
-                "http://localhost:5000/collex/create",
+                "/collex/create",
                 collex
             );
             const id = loginRes.data.id;

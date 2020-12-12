@@ -19,7 +19,7 @@ const spotifyAuth = (props) => {
                         <meta http-equiv="refresh" content={content} />
                     </head>
                     <body>
-                        <p>If you are not redirected in 2 seconds, <a href={"http://localhost:3000/" + prevPath}>click here</a>.</p>
+                        <p>If you are not redirected in 2 seconds, <a href={ prevPath}>click here</a>.</p>
                     </body>
                 </SpotifyApiContext.Provider>
             ) : (

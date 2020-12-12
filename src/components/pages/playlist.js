@@ -7,7 +7,6 @@ import ErrorNotice from "../misc/error";
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 
 import { useHistory } from "react-router-dom";
 
@@ -34,7 +33,6 @@ import Cookies from 'js-cookie'
 
 import SpotifyWebPlayer from 'react-spotify-web-playback';
 import { ErrorBoundary } from 'react-error-boundary'
-import spotifyAuth from "./spotifyAuth";
 
 
 export default function Playlist() {
@@ -61,7 +59,7 @@ export default function Playlist() {
         const fetchData = async () => {
             const playlistId = parameters.playlistId;
             const result = await Axios.get(
-                `http://localhost:5000/playlist/${playlistId}`
+                `/playlist/${playlistId}`
             );
             setPlaylist(result.data);
             console.log(userData.user);
@@ -69,7 +67,7 @@ export default function Playlist() {
             setLikesBy(result.data.likedBy);
             const userId = userData.user.id;
             const likeresult = await Axios.get(
-                `http://localhost:5000/playlist/likedbyUser/${playlistId}/${userId}`
+                `/playlist/likedbyUser/${playlistId}/${userId}`
             );
             console.log(result.data);
             setlikedbyUser(likeresult.data);
@@ -77,7 +75,7 @@ export default function Playlist() {
             let usersWhoLiked = {}
             for (x of result.data.likedBy) {
                 const result = await Axios.get(
-                    `http://localhost:5000/users/${x}`
+                    `/users/${x}`
                 );
                 usersWhoLiked[x] = result.data.name;
             }
@@ -122,12 +120,12 @@ export default function Playlist() {
             const info = { creator_id, playlistId, playlistLikes, userLikes }
 
             const likeRes = await Axios.post(
-                "http://localhost:5000/playlist/like",
+                "/playlist/like",
                 info
             );
 
             const result = await Axios.get(
-                `http://localhost:5000/users/${creator_id}`
+                `/users/${creator_id}`
             );
             userLike[creator_id] = result.data.name;
             setUserLike(userLike);
@@ -178,7 +176,7 @@ export default function Playlist() {
             const info = { creator_id, playlistId, playlistLikes, userLikes }
 
             const likeRes = await Axios.post(
-                "http://localhost:5000/playlist/dislike",
+                "/playlist/dislike",
                 info
             );
 
@@ -426,7 +424,7 @@ function LikesModal(props) {
               Users Who Like This Playlist
             </Modal.Title>
           </Modal.Header>
-            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`http://localhost:3000/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : ""}</Modal.Body>
+            <Modal.Body>{userIds ? userIds.map((users, index) => <p key={index}><a href={`/user/${users}`}>{usersWhoLiked[users]}{users == props.userId ? " (you!)" : ""}</a></p>) : ""}</Modal.Body>
         </Modal>
     );
   }
@@ -441,7 +439,7 @@ function MyVerticallyCenteredModal(props) {
             let playlistId = props.playlistid;
            
             const deletRes = await Axios.post(
-                `http://localhost:5000/playlist/delete/${playlistId}`                
+                `/playlist/delete/${playlistId}`                
             );
             history.push("/usrDash");
 

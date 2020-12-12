@@ -48,13 +48,13 @@ export default function User() {
            
             const userId = parameters.userId;
             const result = await Axios.get(
-                `http://localhost:5000/users/${userId}`
+                `/users/${userId}`
             );
             console.log(result.data);
             setUser(result.data);
 
             const resPlaylist = await Axios.get(
-                `http://localhost:5000/playlist/public/${userId}`
+                `/playlist/public/${userId}`
             );
             setPlaylist(resPlaylist.data.playlists);
             setMostVisited(resPlaylist.data.mostvisited);
@@ -138,7 +138,7 @@ function ChangePasswordModal(props) {
             let userId = props.userid; 
             const passwordChange = { userId, currentPassword, newPassword, confirmPassword };
             const passwordRes = await Axios.post(
-                "http://localhost:5000/users/changePassword",
+                "/users/changePassword",
                 passwordChange
             );
             toast.success(passwordRes.data.msg, { position: "bottom-center" });

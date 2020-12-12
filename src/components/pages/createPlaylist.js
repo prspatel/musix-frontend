@@ -44,7 +44,7 @@ export default function CreatePlaylist() {
     let search = async val => {
         setResults({ loading: true });
         const res = await SearchFunction(
-            `http://localhost:5000/spotify/${val}`
+            `/spotify/${val}`
         );
         const tracks = res;
         setResults({ tracks, loading: false });
@@ -140,7 +140,7 @@ export default function CreatePlaylist() {
 
             const playlist = { playlistName, creator_id, isPublic, tracks: [...addedTracks], playlistDesc }
             const loginRes = await Axios.post(
-                "http://localhost:5000/playlist/create",
+                "/playlist/create",
                 playlist
             );
             const id = loginRes.data.id;

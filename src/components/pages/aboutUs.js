@@ -3,7 +3,8 @@ import React, { useContext } from "react";
 import Nav from '../nav/nav1';
 import Nav2 from "../nav/nav2";
 import Footer from "../nav/footer";
-import female from '../../images/user avatar female.png';
+import jess from '../../images/jess.jpg';
+import preet from '../../images/preet.jpg';
 import male from '../../images/user avatar male.jpg';
 import UserContext from "../misc/userContext";
 import "../../CSS/pages/aboutUs.css"
@@ -30,10 +31,10 @@ export default function AboutUs() {
                 
                     <div className="row">
                         <div className="column">
-                            <img src={ male } alt="Snow" style={{ width:"300px", height:"300px"}}/>
+                            <img src={ preet } alt="Snow" style={{ width:"300px", height:"300px"}}/>
                          </div>
                         <div className="column">
-                            <img src={female} alt="Forest" style={{ width: "300px", height: "300px" }} />
+                            <img src={jess} alt="Forest" style={{ width: "300px", height: "300px" }} />
                          </div>
                          <div className="column">
                             <img src={male} alt="Mountains" style={{ width: "300px", height: "300px" }}/>
