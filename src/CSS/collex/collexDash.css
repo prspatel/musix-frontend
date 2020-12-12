@@ -3,7 +3,7 @@
 .collexDash-Back {
     /*background-image: url("../../images/collexback.png");
     background-size: 100% 100%;*/
-    min-height: 90vh;
+    min-height: 100vh;
     position:relative;
     padding: 0;
     background-image: linear-gradient(#fbfcff, #c0bfc0 40%);
