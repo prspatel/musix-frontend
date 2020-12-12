@@ -13,8 +13,7 @@ import MyVerticallyCenteredModal from "../collex/createCollex";
 import "../../CSS/pages/usrdash.css"
 import { Card } from "react-bootstrap";
 import { ToastContainer } from 'react-toastify';
-import viewAll from "../pages/viewAll";
-import jsonData from '../../jsonFiles/userdash.json';
+
 
 export default function UsrDash() {
     const [modalShow, setModalShow] = useState(false);

@@ -323,7 +323,7 @@ export default function Playlist() {
                             <a style={{ color: "blue", cursor: "pointer" }} onClick={callback}> login </a> with Spotify Premium to load the player.</h5></div></>)}
                 </>
 
-                : <></>
+                : <><h1 style={{ textAlign:"center" }}> This playlist doesn't exist or might be loading</h1></>
             }
             <Footer />
         </>
