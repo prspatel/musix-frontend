@@ -2,12 +2,12 @@
 
 .aboutus-body {
     background-color: mediumaquamarine;
-    min-height: 90vh;
-    position: relative
 }
 
 .aboutus-content {
     margin: 0 10% 0 10%;
+    min-height: 90vh;
+    position: relative
 }
 .aboutUs-header {
     text-align: center;

@@ -14,8 +14,8 @@ export default function AboutUs() {
 
     return(
         <>
-            {userData && userData.user ? <Nav2 /> : <Nav />}
             <div className="aboutus-body">
+            {userData && userData.user ? <Nav2 /> : <Nav />}
                 <div className= "aboutus-content">
                     <h1 className="aboutUs-header"> About Us </h1>
                     <hr className="solid" />
@@ -43,8 +43,9 @@ export default function AboutUs() {
                          </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer/>
+
         </>
     );
 
