@@ -147,7 +147,7 @@ export default function CollexPage() {
         const renderComments = comments.map((item, id) => {
             return (
                 <>
-                    <Comment key={item._id} style={{ margin: "1% 0 0.5% 0", backgroundColor: "lightblue" }}>
+                    <Comment key={item._id} style={{ margin: "1% 0 0.5% 0"}}>
                         <Comment.Content>
                             <Comment.Author as='a' href={"/user/" +  item.comment.creatorId }>{item.username}</Comment.Author>
                             <Comment.Metadata>
@@ -189,6 +189,7 @@ export default function CollexPage() {
     
     return (
         <>
+            <div className= "collex-page">
             <Nav />
                 <div>
                     <div className="header">
@@ -280,6 +281,7 @@ export default function CollexPage() {
                 <ToastContainer />
                 </div>
             <Footer/>
+            </div>
         </>
     );
 }

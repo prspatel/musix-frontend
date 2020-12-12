@@ -88,6 +88,7 @@ export default function ViewAll() {
 
     return (
         <>
+            <div className="viewall-background">
             <Nav />
             <div className ="viewall-body">
                 <div className="viewall-header">
@@ -101,6 +102,7 @@ export default function ViewAll() {
                 </div>
             </div>
             <Footer />
+            </div>
         </>
     );
 }

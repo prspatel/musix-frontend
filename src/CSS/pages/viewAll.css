@@ -5,6 +5,9 @@
 	min-height: 90vh;
 	margin: 0 10% 0 10%;
 }
+.viewall-background{
+    background-image: linear-gradient(#e7e9f1, #e9b99e 40%);
+}
 .viewall-header {
 	margin: 3% 0 0 0 ;
 }

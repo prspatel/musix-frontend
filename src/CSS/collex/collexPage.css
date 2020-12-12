@@ -6,9 +6,14 @@
     font-size: 56px;
     display:inline;
 }
+.collex-page{
+    min-height:90vh;
+    position: relative;
+    background-image: linear-gradient(#e7e9f1, #fadcf4 40%);
+}
 
 .header {
-    margin: 3% 10% 0 10%;
+    padding: 3% 10% 0 10%;
 }
 .playlist-cards {
     padding: 0 10% 0 10%;
