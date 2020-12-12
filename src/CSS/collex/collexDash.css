@@ -6,7 +6,7 @@
     background-image: linear-gradient(#fbfcff, #c0bfc0 40%);
 }
 
-collexDash-content {
+.collexDash-content {
     min-height: 90vh;
     position: relative;
 }
