@@ -44,11 +44,8 @@ export default function CollexPage() {
         const fetchData = async () => {
             const collexId = parameters.collexId;
             const result = await axios.get(
-<<<<<<< HEAD
                 `/api/collex/${collexId}`               
-=======
-                `/collex/${collexId}`               
->>>>>>> 499ded228ee63902d1f8692e98c21d2a9d1b318d
+
             );
             setLikes(result.data.collex.likes);
             setData(result.data.collex);
@@ -58,21 +55,15 @@ export default function CollexPage() {
             setComments(result.data.comments);
             const userId = userData.user.id;
             const likeresult = await axios.get(
-<<<<<<< HEAD
                 `/api/collex/likedbyUser/${collexId}/${userId}`
-=======
-                `/collex/likedbyUser/${collexId}/${userId}`
->>>>>>> 499ded228ee63902d1f8692e98c21d2a9d1b318d
+
             );
             var x;
             let usersWhoLiked = {}
             for (x of result.data.collex.likedBy){
                 const result = await axios.get(
-<<<<<<< HEAD
                     `/api/users/${x}`
-=======
-                    `/users/${x}`
->>>>>>> 499ded228ee63902d1f8692e98c21d2a9d1b318d
+
                 );
                 usersWhoLiked[x] = result.data.name;
             }
@@ -101,19 +92,11 @@ export default function CollexPage() {
             const info = { creator_id, collexId, collexLikes, userLikes } 
 
             const likeRes = await axios.post(
-<<<<<<< HEAD
                 "/api/collex/like",
                 info
             );
             const result = await axios.get(
                 `/api/users/${creator_id}`
-=======
-                "/collex/like",
-                info
-            );
-            const result = await axios.get(
-                `/users/${creator_id}`
->>>>>>> 499ded228ee63902d1f8692e98c21d2a9d1b318d
             );
             userLike[creator_id] = result.data.name;
             setUserLike(userLike);
@@ -143,11 +126,7 @@ export default function CollexPage() {
             const info = { creator_id, collexId, collexLikes, userLikes }
 
             const likeRes = await axios.post(
-<<<<<<< HEAD
                 "/api/collex/dislike",
-=======
-                "/collex/dislike",
->>>>>>> 499ded228ee63902d1f8692e98c21d2a9d1b318d
                 info
             );
 
