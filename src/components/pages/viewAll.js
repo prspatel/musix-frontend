@@ -70,7 +70,7 @@ export default function ViewAll() {
         if (data.length!=0) {
             cards = data.map((item, id) => {
                 return (
-                    <Card style={{ width: '14rem', margin: "2% 1.5% 2% 1.5%", borderRadius: "24px" }} key={item._id} >
+                    <Card style={{ width: '14rem', margin: "2%", borderRadius: "24px" }} key={item._id} >
                         <Card.Img variant="top" src={item.cover} height="200" width="150" style={{ borderRadius: "24px"}} />
                         <Card.Body>
                             <Card.Title><Link to={`/${playlistOrCollex}/${item._id}`}>{item.name}</Link></Card.Title>
