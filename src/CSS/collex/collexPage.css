@@ -6,9 +6,13 @@
     font-size: 56px;
     display:inline;
 }
+.collex-page{
+    height:110vh;
+    background-image: linear-gradient(#c1c8e4, #84ceeb 40%);
+}
 
 .header {
-    margin: 3% 10% 0 10%;
+    padding: 3% 10% 0 10%;
 }
 .playlist-cards {
     padding: 0 10% 0 10%;

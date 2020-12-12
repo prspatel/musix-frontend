@@ -187,6 +187,7 @@ export default function CollexPage() {
     return (
         <>
             <Nav />
+            <div className= "collex-page">
                 <div>
                     <div className="header">
                         <div >
@@ -275,6 +276,7 @@ export default function CollexPage() {
                 />
                 <ToastContainer />
                 </div>
+            </div>
             <Footer/>
         </>
     );
