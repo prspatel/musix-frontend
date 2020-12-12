@@ -52,8 +52,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy":  "https://musix-416.herokuapp.com/",
-  "engines":{
+  "proxy":  "http://localhost:5000/",
+
+  "engines": {
     "node": "14.x"
   }
 }

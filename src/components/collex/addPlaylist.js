@@ -50,6 +50,7 @@ export default function MyVerticallyCenteredModal(props) {
 
         const res = await SearchFunction(
             `/api/playlist/search/${userId}/${val}`
+
         );
         let playlists = [];
         if (res) {
