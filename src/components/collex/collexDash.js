@@ -101,49 +101,51 @@ export default function CollexDash() {
         return (
             <>
                 <div className="collexDash-Back">
-                <Nav />
-                    <h1 className="collex-header"> Collex Gallery </h1>
-                    <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
-                    <hr className="solid" />
+                    <Nav />
+                    <div className="collexDash-content">
+                        <h1 className="collex-header"> Collex Gallery </h1>
+                        <p style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>Collex is a collection of playlists grouped together to represent a certain topic or genre. </p>
+                        <hr className="solid" />
                     
-                    <div className="search-bar">
-                        {/* this goes inside input value={this.state.value}
-                            onChange={e => this.onChangeHandler(e)}*/}
-                        <input
-                            type="text"
-                            placeholder="Type here to search the collex gallery"
-                            onChange={e => searchHandler(e)}
-                            value={setResults.value}
-                        />
-                    </div>
-                    <div className="carousel-container">
-                        {
-                            searchResults.collexs ? 
-                                <Carousel className="carousel" responsive={responsive}>
-                                    {displayCollexs()}
-                                 </Carousel>
+                        <div className="search-bar">
+                            {/* this goes inside input value={this.state.value}
+                                onChange={e => this.onChangeHandler(e)}*/}
+                            <input
+                                type="text"
+                                placeholder="Type here to search the collex gallery"
+                                onChange={e => searchHandler(e)}
+                                value={setResults.value}
+                            />
+                        </div>
+                        <div className="carousel-container">
+                            {
+                                searchResults.collexs ? 
+                                    <Carousel className="carousel" responsive={responsive}>
+                                        {displayCollexs()}
+                                     </Carousel>
                                     
-                                : data ?
-                                    <>
-                                        <Carousel className="collexDash-carousel" responsive={responsive} >
-                                            {data.map(item => (
-                                                <Card style={{ width: '14rem' }} key={item._id} >
-                                                    <Card.Img variant="top" src={item.cover} height="200" width="150" />
-                                                    <Card.Body>
-                                                        <Card.Title>{item.name}</Card.Title>
-                                                        <Card.Text>
-                                                            {item.likes} Likes
-                                                        </Card.Text>
-                                                        <Link to={`/collex/${item._id}`}>View this collex</Link>
-                                                    </Card.Body>
-                                                </Card>
-                                                ))}
-                                        </Carousel>
-                                        <a href="/allCollex/viewAll" style={{ float: "right" }}> View All Collex >>></a>
-                                    </>
-                            : <h1>No collex in the database</h1>
-                        }
+                                    : data ?
+                                        <>
+                                            <Carousel className="collexDash-carousel" responsive={responsive} >
+                                                {data.map(item => (
+                                                    <Card style={{ width: '14rem' }} key={item._id} >
+                                                        <Card.Img variant="top" src={item.cover} height="200" width="150" />
+                                                        <Card.Body>
+                                                            <Card.Title>{item.name}</Card.Title>
+                                                            <Card.Text>
+                                                                {item.likes} Likes
+                                                            </Card.Text>
+                                                            <Link to={`/collex/${item._id}`}>View this collex</Link>
+                                                        </Card.Body>
+                                                    </Card>
+                                                    ))}
+                                            </Carousel>
+                                            <a href="/allCollex/viewAll" style={{ float: "right" }}> View All Collex >>></a>
+                                        </>
+                                : <h1>No collex in the database</h1>
+                            }
 
+                        </div>
                     </div>
                     <Footer />
                 </div>
