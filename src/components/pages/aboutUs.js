@@ -5,7 +5,7 @@ import Nav2 from "../nav/nav2";
 import Footer from "../nav/footer";
 import jess from '../../images/jess.jpg';
 import preet from '../../images/preet.jpg';
-import trish from '../../images/trish.jpeg';
+import trish from '../../images/trish.jpg';
 import UserContext from "../misc/userContext";
 import "../../CSS/pages/aboutUs.css"
 
