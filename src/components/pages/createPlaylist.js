@@ -228,10 +228,10 @@ export default function CreatePlaylist() {
                 <hr className="solid-cp" />
                 <div className="collection-div">
                     <h2 style={{ fontFamily: "Turret Road, cursive" }}>
-                        Add the Playlist to a collection?
+                        Add the Playlist to a Collex?
                     </h2>
-                    <h5> Save the playlist and visit the collection page by <a href="/collexDash"> clicking here! </a></h5>
-                    <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>*only public playlists can be added to the collection</p>
+                    <h5> Save the playlist and visit the Collex Dashboard</h5>
+                    <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>*only public playlists can be added to the collexx</p>
                 </div>
             </div>
             <Footer/>

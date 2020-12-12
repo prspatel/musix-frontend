@@ -24,7 +24,7 @@ export default function Contact() {
         try {
             const reviewObject = { email, name, review }
             const reviewRes = await Axios.post(
-                "/users/review",
+                "/api/users/review",
                 reviewObject
             );
             toast.success(reviewRes.data.msg, { position: "bottom-center" });

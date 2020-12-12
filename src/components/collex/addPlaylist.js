@@ -106,7 +106,7 @@ export default function MyVerticallyCenteredModal(props) {
         }
         if (searchResults.playlists) {
             collexs = searchResults.playlists.map(item => (
-                < ListGroup.Item key={item._id} variant="success">
+                < ListGroup.Item key={item._id} variant="success" action onClick={() => addPlaylistToCollex(item)}>
                     <div className="list-item">
                         <h5>{item.name}</h5>
                         <div className="list-icons" >
