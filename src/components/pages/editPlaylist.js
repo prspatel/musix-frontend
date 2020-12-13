@@ -300,7 +300,7 @@ export default function EditPlaylist() {
                         <h2 style={{ fontFamily: "Turret Road, cursive" }}>
                                 Added Songs
                         </h2>
-                            <p style={{ fontStyle: "italic" }}>You can rearrange the order of songs by drag and drop.</p>
+                            <p style={{ fontStyle: "italic" }}>You can <b>rearrange</b> the order of songs by <b>drag and drop.</b></p>
                         <div className="added-songList">
                                 {addedTracks.length != 0 ? <>
                                 <DragDropContext onDragEnd={onDragEnd}>
@@ -319,7 +319,7 @@ export default function EditPlaylist() {
                         Add the Playlist to a collection?
                     </h2>
                     <h5> Save the playlist and visit the Collex Dashboard</h5>
-                    <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>*only public playlists can be added to the collection</p>
+                    <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>*only public playlists can be added to the Collex</p>
                 </div>
             </div>
             : <h1> No playlist </h1>

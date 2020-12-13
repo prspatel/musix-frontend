@@ -231,7 +231,7 @@ export default function CreatePlaylist() {
                         Add the Playlist to a Collex?
                     </h2>
                     <h5> Save the playlist and visit the Collex Dashboard</h5>
-                    <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>*only public playlists can be added to the collexx</p>
+                    <p style={{ textAlign: "left", fontStyle: "italic", fontFamily: "roboto, sans-serif" }}>*only public playlists can be added to the Collex</p>
                 </div>
             </div>
             <Footer/>
