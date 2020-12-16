@@ -48,7 +48,7 @@ export default function ViewAll() {
             }
             else if (isLikedCollex) {
                 const result = await axios.get(
-                    `/api/api/collex/likedCollex/${userId}`,
+                    `/api/collex/likedCollex/${userId}`,
                 );
                 setPorC("collex")
                 setData(result.data);
