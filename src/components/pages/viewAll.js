@@ -32,7 +32,7 @@ export default function ViewAll() {
 
             if (isPlaylists) {
                 const result = await axios.get(
-                    /playlist/playlists / ${ userId },
+                    `/playlist/playlists/${userId}`,
                 );
                 setData(result.data);
                 setPorC("playlist")
@@ -40,7 +40,7 @@ export default function ViewAll() {
             }
             else if (isLikedPlaylists) {
                 const result = await axios.get(
-                    /playlist/likedPlaylists / ${ userId },
+                    `/playlist/likedPlaylists/${userId}`,
                 );
                 setData(result.data);
                 setPorC("playlist");
@@ -48,7 +48,7 @@ export default function ViewAll() {
             }
             else if (isLikedCollex) {
                 const result = await axios.get(
-                    /collex/likedCollex / ${ userId },
+                    `/collex/likedCollex/${userId}`,
                 );
                 setPorC("collex")
                 setData(result.data);
@@ -56,7 +56,7 @@ export default function ViewAll() {
             }
             else if (ismyCollex) {
                 const result = await axios.get(
-                    /collex/myCollex / ${ userId },
+                    `/collex/myCollex/${userId}`,
                 );
                 setPorC("collex")
                 setData(result.data);
@@ -155,4 +155,4 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
             </ul>
         </nav>
     );
-}
+};
