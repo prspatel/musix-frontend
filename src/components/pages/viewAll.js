@@ -17,6 +17,15 @@ export default function ViewAll() {
     const isLikedCollex = window.location.pathname.startsWith("/likedCollex");
     const isCollex = window.location.pathname.startsWith("/allCollex");
     const [playlistOrCollex, setPorC] = useState("");
+
+
+    //implementing pagination
+    //const [posts, setPosts] = useState([]); this is my data
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
+
     useEffect(() => {
         const fetchData = async () => {
             const userId = userData.user.id;
@@ -60,15 +69,29 @@ export default function ViewAll() {
                 setPorC("collex");
 
             }
+            setLoading(false);
+
         };
 
         fetchData();
     }, []);
+
+
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     function displayData() {
-        let cards = <h2 style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> You do not have any {playlistOrCollex} </h2>;
-        console.log(data);
-        if (data.length!=0) {
-            cards = data.map((item, id) => {
+        if (loading) {
+            return <h2>Loading...</h2>;
+        }
+        let cards = <h2 style={{ textAlign: "center", fontStyle: "italic", fontFamily: "roboto, sans-serif", marginTop: "12px" }}> You do not have any data</h2>;
+        if (currentPosts.length!=0) {
+            cards = currentPosts.map((item, id) => {
                 return (
                     <Card style={{ width: '14rem', margin: "2%", borderRadius: "24px" }} key={item._id} >
                         <Card.Img variant="top" src={item.cover} height="200" width="150" style={{ borderRadius: "24px"}} />
@@ -99,8 +122,35 @@ export default function ViewAll() {
                 <div className="display-cards">
                     {displayData()}
                 </div>
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={data.length}
+                    paginate={paginate}
+                />  
             </div>
             <Footer />
         </>
     );
 }
+
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    return (
+        <nav>
+            <ul className='pagination'>
+                {pageNumbers.map(number => (
+                    <li key={number} className='page-item'>
+                        <a onClick={() => paginate(number)} className='page-link'>
+                            {number}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
+};
