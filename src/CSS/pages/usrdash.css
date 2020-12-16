@@ -34,8 +34,11 @@
 .dash-body {
     background-image: linear-gradient(#e7e9f1, #ffffff 50%);
 }
-
-
+    
+.ui.search > .results {
+    overflow-y: auto;
+    max-height: 550px;
+}
 hr.solid-divider {
     margin-top: 3%;
     border-color:grey;
