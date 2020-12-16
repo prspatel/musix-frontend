@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500;700&display=swap');
 
+
+.aboutus-background{
+    background-image: linear-gradient(#e7e9f1, #98cff3 40%);
+}
 .contactUs-header {
     text-align: center;
     color: #696969;

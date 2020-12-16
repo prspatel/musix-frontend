@@ -38,6 +38,7 @@ export default function Contact() {
     }
     return(
         <>
+            <div className="aboutus-background">
             {userData && userData.user ? <Nav2 /> : <Nav />}
             <div className="aboutus-body">
                 <div className="aboutus-content">
@@ -80,6 +81,7 @@ export default function Contact() {
                     </div>
                     <ToastContainer/>
                 </div>
+            </div>
             </div>
             <Footer/>
         </>

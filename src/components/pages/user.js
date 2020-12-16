@@ -93,9 +93,6 @@ export default function User() {
                                  <div className="playlistPageDesc">
                                     <p style={{ fontSize: "15px" }}>Joined Musix in 2020</p>
                                  </div>
-                                 <div className="playlistPageDesc">
-                                   <p style={{ fontSize: "15px" }}>Total Public Playlist Time: 4hr 35 min</p>
-                                </div>
                                 <h2 style={{ fontStyle: "Roboto, sans-sarif", margin: "4% 0 3% 0%" }}><b>Public Playlists</b> </h2>
 
                                 {playlists.length !== 0 ?

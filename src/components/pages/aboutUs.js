@@ -14,6 +14,7 @@ export default function AboutUs() {
 
     return(
         <>
+            <div className="aboutus-background">
             {userData && userData.user ? <Nav2 /> : <Nav />}
             <div className="aboutus-body">
                 <div className= "aboutus-content">
@@ -41,6 +42,7 @@ export default function AboutUs() {
                          </div>
                     </div>
                 </div>
+            </div>
             </div>
             <Footer/>
         </>
